@@ -1,0 +1,894 @@
+{
+  "admin_panel": {
+    "en": "Admin Panel",
+    "lt": "Administratoriaus Langas"
+  },
+  "user_settings": {
+    "en": "User Settings",
+    "lt": "Vartotojo nustatymai"
+  },
+  "logout": {
+    "en": "Logout",
+    "lt": "Atsijungti"
+  },
+  "login": {
+    "en": "Log In",
+    "lt": "Prisijungti"
+  },
+  "forgot_password": {
+    "en": "Forgot Password?",
+    "lt": "Pamiršote Slaptažodį?"
+  },
+  "reset_password": {
+    "en": "Reset Password",
+    "lt": "Atkurti Slaptažodį"
+  },
+  "new_password": {
+    "en": "New Password",
+    "lt": "Naujas Slaptažodis"
+  },
+  "confirm_password": {
+    "en": "Confirm Password",
+    "lt": "Pakartoti Slaptažodį"
+  },
+  "password": {
+    "en": "Password",
+    "lt": "Slaptažodis"
+  },
+  "send_reset_link": {
+    "en": "Send",
+    "lt": "Siųsti"
+  },
+  "invite_user": {
+    "en": "Invite User",
+    "lt": "Pakviesti Vartotoją"
+  },
+  "mail": {
+    "en": "Mail",
+    "lt": "Parašykite"
+  },
+  "or_call": {
+    "en": "or Call",
+    "lt": "arba Paskambinkite"
+  },
+  "registration_title": {
+    "en": "User Registration",
+    "lt": "Vartotojo Registracija"
+  },
+  "register": {
+    "en": "Register",
+    "lt": "Registruotis"
+  },
+  "title": {
+    "en": "Service Management System",
+    "lt": "Techninės Priežiūros Sistema"
+  },
+  "hello": {
+    "en": "Hello",
+    "lt": "Sveiki"
+  },
+  "welcome": {
+    "en": "Welcome to ISMS (InterAtlas Service Management System)",
+    "lt": "Sveiki atvykę į ISMS (InterAtlas Techninės Priežiūros Sistemą)"
+  },
+  "nav_parts": {
+    "en": "Parts",
+    "lt": "Detalės"
+  },
+  "nav_machines": {
+    "en": "Machines",
+    "lt": "Mašinos"
+  },
+  "nav_prices": {
+    "en": "Prices",
+    "lt": "Kainos"
+  },
+  "nav_service": {
+    "en": "Services",
+    "lt": "Aptarnavimai"
+  },
+  "nav_reports": {
+    "en": "Reports",
+    "lt": "Ataskaitos"
+  },
+  "nav_clients": {
+    "en": "Clients",
+    "lt": "Klientai"
+  },
+  "nav_tasks": {
+    "en": "Tasks",
+    "lt": "Užduotys"
+  },
+  "nav_schedule": {
+    "en": "Schedule",
+    "lt": "Grafikas"
+  },
+  "select_actions": {
+    "en": "Please select following action",
+    "lt": "Pasirinkite norimą veiksmą"
+  },
+  "new_part": {
+    "en": "Add New Part",
+    "lt": "Pridėti Naują Detalę"
+  },
+  "update_part": {
+    "en": "Update Part Quantity",
+    "lt": "Atnaujinti Detalių Kiekius"
+  },
+  "add_replaced_part": {
+    "en": "Add Replaced Parts Record",
+    "lt": "Pridėti Pakeistas Detales"
+  },
+  "new_machine": {
+    "en": "Add New Machine",
+    "lt": "Pridėti Naują Mašiną"
+  },
+  "edit_machine": {
+    "en": "Edit Machine",
+    "lt": "Redaguoti Mašiną"
+  },
+  "machine_info": {
+    "en": "Machine Information",
+    "lt": "Mašinos Informacija"
+  },
+  "machines_list": {
+    "en": "Machines List",
+    "lt": "Mašinų Sąrašas"
+  },
+  "downloads": {
+    "en": "Downloads",
+    "lt": "Atsisiuntimai"
+  },
+  "new_service": {
+    "en": "Add New Service",
+    "lt": "Pridėti Naują Aptarnavimą"
+  },
+  "replaced_parts": {
+    "en": "Replaced Parts",
+    "lt": "Pakeistos Detalės"
+  },
+  "quaterly_services": {
+    "en": "Quaterly Services",
+    "lt": "Ketvirtiniai Aptarnavimai"
+  },
+  "new_client": {
+    "en": "Add New Client",
+    "lt": "Pridėti Naują Klientą"
+  },
+  "edit_client": {
+    "en": "Edit Client Information",
+    "lt": "Atnaujinti Kliento Informaciją"
+  },
+  "clients_list": {
+    "en": "Clients List",
+    "lt": "Klientų Sąrašas"
+  },
+  "no_clients": {
+    "en": "No Clients found",
+    "lt": "Nerasta klientų"
+  },
+  "new_task": {
+    "en": "Add New Task",
+    "lt": "Pridėti Naują Užduotį"
+  },
+  "view_tasks": {
+    "en": "View Tasks",
+    "lt": "Peržiūrėti Užduotis"
+  },
+  "no_tasks": {
+    "en": "No Tasks Found",
+    "lt": "Nerasta Užduočių"
+  },
+  "name": {
+    "en": "Name",
+    "lt": "Pavadinimas"
+  },
+  "price": {
+    "en": "Price",
+    "lt": "Kaina"
+  },
+  "part_number": {
+    "en": "Part Number",
+    "lt": "Detalės Numeris"
+  },
+  "date": {
+    "en": "Date",
+    "lt": "Data"
+  },
+  "quantity": {
+    "en": "Quantity",
+    "lt": "Kiekis"
+  },
+  "serial_number": {
+    "en": "Serial Number",
+    "lt": "Serijinis Numeris"
+  },
+  "location": {
+    "en": "Location",
+    "lt": "Vieta"
+  },
+  "submit": {
+    "en": "Submit",
+    "lt": "Patvirtinti"
+  },
+  "search_part": {
+    "en": "Search For Part",
+    "lt": "Ieškoti Detalės"
+  },
+  "search": {
+    "en": "Search",
+    "lt": "Ieškoti"
+  },
+  "update_quantities": {
+    "en": "Update Quantities for Part",
+    "lt": "Atnaujinti Detalės Kiekius"
+  },
+  "save": {
+    "en": "Save",
+    "lt": "Išsaugoti"
+  },
+  "type": {
+    "en": "Type",
+    "lt": "Tipas"
+  },
+  "installation_date": {
+    "en": "Installation Date",
+    "lt": "Paleidimo Data"
+  },
+  "client": {
+    "en": "Client",
+    "lt": "Klientas"
+  },
+  "machine_search": {
+    "en": "Search For Machine",
+    "lt": "Ieškoti Mašinos"
+  },
+  "editing": {
+    "en": "Editing",
+    "lt": "Redaguojama"
+  },
+  "is_active": {
+    "en": "Is Active",
+    "lt": "Aktyvi"
+  },
+  "yes": {
+    "en": "Yes",
+    "lt": "Taip"
+  },
+  "no": {
+    "en": "No",
+    "lt": "Ne"
+  },
+  "city": {
+    "en": "City",
+    "lt": "Miestas"
+  },
+  "end_warranty": {
+    "en": "End Of Warranty",
+    "lt": "Garantijos Pabaiga"
+  },
+  "services_history": {
+    "en": "Services History",
+    "lt": "Aptarnavimų Istorija"
+  },
+  "bn_count": {
+    "en": "BN Count",
+    "lt": "BN Skaitiklis"
+  },
+  "engineer": {
+    "en": "Engineer",
+    "lt": "Inžinierius"
+  },
+  "note": {
+    "en": "Note",
+    "lt": "Pastaba"
+  },
+  "purpose": {
+    "en": "Purpose",
+    "lt": "Tikslas"
+  },
+  "no_services": {
+    "en": "No Services Yet",
+    "lt": "Nėra Aptarnavimų"
+  },
+  "warranty": {
+    "en": "Warranty",
+    "lt": "Garantija"
+  },
+  "part_name": {
+    "en": "Part Name",
+    "lt": "Detalės Pavadinimas"
+  },
+  "no_parts": {
+    "en": "No replaced parts yet",
+    "lt": "Nėra Pakeistų Detalių"
+  },
+  "available_downloads": {
+    "en": "Available Downloads",
+    "lt": "Galimi Atsisiuntimai"
+  },
+  "quantities": {
+    "en": "Quantities",
+    "lt": "Kiekiai"
+  },
+  "machine_type": {
+    "en": "Machine Type",
+    "lt": "Mašinos Tipas"
+  },
+  "file_name": {
+    "en": "File Name",
+    "lt": "Failo Pavadinimas"
+  },
+  "download": {
+    "en": "Download",
+    "lt": "Atsisiųsti"
+  },
+  "show_price_list": {
+    "en": "Show Price List",
+    "lt": "Rodyti Kainininką"
+  },
+  "select_machine_type": {
+    "en": "Select Machine Type",
+    "lt": "Pasirinkite Mašinos Tipą"
+  },
+  "price_list": {
+    "en": "Price List",
+    "lt": "Kainininkas"
+  },
+  "no_parts_found": {
+    "en": "No Parts Found",
+    "lt": "Nerasta Detalių"
+  },
+  "from": {
+    "en": "From",
+    "lt": "Nuo"
+  },
+  "to": {
+    "en": "To",
+    "lt": "Iki"
+  },
+  "service_of": {
+    "en": "Services of",
+    "lt": "Aptarnavimai"
+  },
+  "quarter": {
+    "en": "Quarter",
+    "lt": "Ketvirčio"
+  },
+  "company": {
+    "en": "Company",
+    "lt": "Įmonė"
+  },
+  "address": {
+    "en": "Address",
+    "lt": "Adresas"
+  },
+  "contact_person": {
+    "en": "Contact Person",
+    "lt": "Kontaktinis Asmuo"
+  },
+  "phone_number": {
+    "en": "Phone Number",
+    "lt": "Telefono Numeris"
+  },
+  "email": {
+    "en": "Email",
+    "lt": "El. Pašto Adresas"
+  },
+  "editing_client": {
+    "en": "Editing Client",
+    "lt": "Redaguojamas Klientas"
+  },
+  "update": {
+    "en": "Update",
+    "lt": "Atnaujinti"
+  },
+  "edit_client_select": {
+    "en": "Select Client to Edit",
+    "lt": "Pasirinkite Klientą Redagavimui"
+  },
+  "edit": {
+    "en": "Edit",
+    "lt": "Redaguoti"
+  },
+  "task": {
+    "en": "Task",
+    "lt": "Užduotis"
+  },
+  "task_list": {
+    "en": "Task List",
+    "lt": "Užduočių Sąrašas"
+  },
+  "task_message": {
+    "en": "Please Check the Tasks, some of them are not completed yet!",
+    "lt": "Patikrinkite Užduotis, yra neatliktų!"
+  },
+  "created_at": {
+    "en": "Created At",
+    "lt": "Sukurta"
+  },
+  "created_by": {
+    "en": "Created By",
+    "lt": "Sukūrė"
+  },
+  "completed_at": {
+    "en": "Completed At",
+    "lt": "Atlikta"
+  },
+  "actions": {
+    "en": "Actions",
+    "lt": "Veiksmai"
+  },
+  "completed": {
+    "en": "Completed",
+    "lt": "Atlikta"
+  },
+  "visit_details": {
+    "en": "Visit Details",
+    "lt": "Vizito Informacija"
+  },
+  "delete": {
+    "en": "Delete",
+    "lt": "Ištrinti"
+  },
+  "back_to_calendar": {
+    "en": "Back To Calendar",
+    "lt": "Grįžti į Kalendorių"
+  },
+  "visit_delete_message": {
+    "en": "Are you sure you want to delete this visit?",
+    "lt": "Ar tikrai norite ištrinti šį vizitą?"
+  },
+  "new_visit": {
+    "en": "New Visit",
+    "lt": "Naujas Vizitas"
+  },
+  "edit_visit": {
+    "en": "Edit Visit",
+    "lt": "Redaguoti Vizitą"
+  },
+  "visit_date": {
+    "en": "Visit Date",
+    "lt": "Vizito Data"
+  },
+  "visit_purpose": {
+    "en": "Purpose",
+    "lt": "Tikslas"
+  },
+  "machines_to_check": {
+    "en": "Machines to Check",
+    "lt": "Patikrinti Mašinas"
+  },
+  "user_name": {
+    "en": "Name",
+    "lt": "Vardas"
+  },
+  "user_surname": {
+    "en": "Surname",
+    "lt": "Pavardė"
+  },
+  "link": {
+    "en": "Link",
+    "lt": "Nuoroda"
+  },
+  "placeholder_name": {
+    "en": "Name",
+    "lt": "Vardas"
+  },
+  "placeholder_surname": {
+    "en": "Surname",
+    "lt": "Pavardė"
+  },
+  "placeholder_phone_number": {
+    "en": "Phone Number",
+    "lt": "Telefono Numeris"
+  },
+  "placeholder_email": {
+    "en": "Email",
+    "lt": "El. Pašto adresas"
+  },
+  "placeholder_password": {
+    "en": "Password",
+    "lt": "Slaptažodis"
+  },
+  "placeholder_confirm_password": {
+    "en": "Repeat Password",
+    "lt": "Pakartoti Slaptažodį"
+  },
+  "placeholder_part_number": {
+    "en": "Part Number",
+    "lt": "Detalės Numeris"
+  },
+  "placeholder_name_en": {
+    "en": "Name En",
+    "lt": "Pavadinimas En"
+  },
+  "placeholder_name_lt": {
+    "en": "Name Lt",
+    "lt": "Pavadinimas Lt"
+  },
+  "placeholder_price": {
+    "en": "Price",
+    "lt": "Kaina"
+  },
+  "placeholder_quantity": {
+    "en": "Quantity",
+    "lt": "Kiekis"
+  },
+  "placeholder_serial_number": {
+    "en": "Machine Serial Number",
+    "lt": "Mašinos Serijinis Numeris"
+  },
+  "placeholder_warranty": {
+    "en": "Warranty (Years)",
+    "lt": "Garantija (Metais)"
+  },
+  "placeholder_bn_count": {
+    "en": "Bn Count",
+    "lt": "Bn Skaitiklis"
+  },
+  "placeholder_note": {
+    "en": "Note",
+    "lt": "Pastaba"
+  },
+  "placeholder_purpose": {
+    "en": "Purpose",
+    "lt": "Tikslas"
+  },
+  "placeholder_company": {
+    "en": "Company",
+    "lt": "Įmonė"
+  },
+  "placeholder_address": {
+    "en": "Address",
+    "lt": "Adresas"
+  },
+  "placeholder_city": {
+    "en": "City",
+    "lt": "Miestas"
+  },
+  "placeholder_contact_person": {
+    "en": "Contact Person",
+    "lt": "Kontaktinis Asmuo"
+  },
+  "placeholder_task": {
+    "en": "Task",
+    "lt": "Užduotis"
+  },
+  "compatible_machine_types": {
+    "en": "Compatible Machine Types",
+    "lt": "Suderinami Mašinų Tipai"
+  },
+  "password_to_submit": {
+    "en": "Enter your Current Password to Submit changes",
+    "lt": "Įveskite dabartinį Slaptažodį, kad patvirtinti pakeitimus"
+  },
+  "flash_email_exists": {
+    "en": "Email already exists!",
+    "lt": "Toks El. paštas jau užregistruotas!"
+  },
+  "flash_password_not_match": {
+    "en": "Password does not match!",
+    "lt": "Slaptažodžiai nesutampa!"
+  },
+  "flash_wrong_password": {
+    "en": "Wrong Password!",
+    "lt": "Neteisingas Slaptažodis!"
+  },
+  "flash_registration_successful": {
+    "en": "Registration Successful, You can Log In now.",
+    "lt": "Registracija Sėkminga, Galite Prisijungti."
+  },
+  "flash_missing_token": {
+    "en": "Missing verification token!",
+    "lt": "Nerastas patvirtinimo raktas!"
+  },
+  "flash_verification_link_sent": {
+    "en": "Verification link was sent to your email!",
+    "lt": "Patvirtinimo nuoroda buvo išsiųsta el. paštu!"
+  },
+  "flash_invalid_link": {
+    "en": "Invalid or already used link!",
+    "lt": "Neteisinga arba nerasta nuoroda!"
+  },
+  "flash_link_expired": {
+    "en": "Verification link has expired.",
+    "lt": "Nuorodos galiojimo laikas pasibaigęs!"
+  },
+  "flash_user_not_found": {
+    "en": "User not found for this token!",
+    "lt": "Pagal patvirtinimo raktą vartotojas nerastas!"
+  },
+  "flash_verification_success": {
+    "en": "Your email has been successfully verified. You can now log in.",
+    "lt": "Jūsų el. pašto adresas sėkmingai patvirtintas. Galite prisijungti."
+  },
+  "flash_user_not_verified": {
+    "en": "User Not Verified!",
+    "lt": "Vartotojas Nėra Patvirtintas!"
+  },
+  "flash_user_not_active": {
+    "en": "User Not Active!",
+    "lt": "Vartotojas Neaktyvus!"
+  },
+  "flash_login_failed": {
+    "en": "Invalid Email or Password!",
+    "lt": "Neteisingas El. Paštas arba Slaptažodis!"
+  },
+  "flash_reset_link": {
+    "en": "Reset link has been sent!",
+    "lt": "Atkūrimo nuoroda išsiųsta!"
+  },
+  "flash_invite_sent": {
+    "en": "Invite sent!",
+    "lt": "Pakvietimas išsiųstas!"
+  },
+  "flash_password_updated": {
+    "en": "Password has been updated. You can now log in.",
+    "lt": "Slaptažodis atnaujintas. Galite prisijungti."
+  },
+  "flash_machine_type": {
+    "en": "Please select at least one machine type.",
+    "lt": "Pasirinkite bent vieną mašinos tipą."
+  },
+  "flash_negative_price": {
+    "en": "Price cannot be negative!",
+    "lt": "Kaina negali būti neigiama!"
+  },
+  "flash_part_number": {
+    "en": "Part with that number already exists!",
+    "lt": "Detalė su tokiu numeriu jau yra pridėta!"
+  },
+  "flash_part_added": {
+    "en": "Part added successfully!",
+    "lt": "Detalė sėkmingai pridėta!"
+  },
+  "flash_updated_quantities": {
+    "en": "Quantities updated successfully!",
+    "lt": "Kiekiai sėkmingai atnaujinti!"
+  },
+  "flash_part_not_exist": {
+    "en": "Part does not exist, add part record first!",
+    "lt": "Tokios detalės nėra, pirmiausia pridėkite detalę!"
+  },
+  "flash_machine_not_exist": {
+    "en": "Machine with that serial number does not exist!",
+    "lt": "Mašinos su tokiu serijiniu numeriu nėra!"
+  },
+  "flash_invalid_date": {
+    "en": "Date cannot be earlier then machine Installation date!",
+    "lt": "Data negali būti senesnė nei mašinos paleidimo data!"
+  },
+  "flash_invalid_quantity": {
+    "en": "Not enough parts in inventory, check the quantity!",
+    "lt": "Nepakankamas detalės kiekis, patikrinkite kiekį!"
+  },
+  "flash_part_replacement_successful": {
+    "en": "Part replacement record added successfully!",
+    "lt": "Pakeistos detalės įrašas sėkmingai pridėtas!"
+  },
+  "flash_machine_update": {
+    "en": "Machine updated successfully!",
+    "lt": "Mašina sėkmingai atnaujinta!"
+  },
+  "flash_machine_exist": {
+    "en": "Machine with that serial number already exists!",
+    "lt": "Mašina su tokiu serijiniu numeriu jau pridėta!"
+  },
+  "flash_machine_added": {
+    "en": "Machine added successfully!",
+    "lt": "Mašina sėkmingai pridėta!"
+  },
+  "flash_service_date": {
+    "en": "Date cannot be earlier than last service!",
+    "lt": "Data negali būti ankstesnė nei paskutinio aptarnavimo data!"
+  },
+  "flash_banknote_count": {
+    "en": "Banknote Count cannot be lower than last service!",
+    "lt": "Suskaičiuotų banknotų kiekis negali būti mažesnis nei paskutinio aptarnavimo!"
+  },
+  "flash_service_added": {
+    "en": "Service record successfully added.",
+    "lt": "Aptarnavimo įrašas sėkmingai pridėtas."
+  },
+  "flash_no_replaced_parts": {
+    "en": "There are no replaced parts during this period of time!",
+    "lt": "Nėra pakeistų detalių per šį laikotarpį!"
+  },
+  "flash_machines_not_found": {
+    "en": "No machines found by this client!",
+    "lt": "Nerasta mašinų priklausančių šiam klientui!"
+  },
+  "flash_tel_exist": {
+    "en": "Phone number already exists!",
+    "lt": "Toks telefono numeris jau pridėtas!"
+  },
+  "flash_client_added": {
+    "en": "New Client successfully added!",
+    "lt": "Klientas sėkmingai pridėtas!"
+  },
+  "flash_client_updated": {
+    "en": "Client information updated successfully!",
+    "lt": "Kliento informacija sėkmingai atnaujinta!"
+  },
+  "flash_task_added": {
+    "en": "Task record successfully added.",
+    "lt": "Užduotis sėkmingai pridėta."
+  },
+  "flash_task_completed": {
+    "en": "Task completed!",
+    "lt": "Užduotis atlikta!"
+  },
+  "flash_visit_exist": {
+    "en": "A visit already exists on that day for this client. Please modify the existing visit.",
+    "lt": "Šiai dienai ir šiam klientui vizitas jau pridėtas. Pakoreguokite esamą vizitą."
+  },
+  "flash_visit_added": {
+    "en": "Visit added to calendar successfully.",
+    "lt": "Vizitas sėkmingai pridėtas į kalendorių."
+  },
+  "flash_visit_updated": {
+    "en": "Visit updated successfully!",
+    "lt": "Vizitas sėkmingai atnaujintas!"
+  },
+  "flash_visit_deleted": {
+    "en": "Visit deleted successfully.",
+    "lt": "Vizitas sėkmingai ištrintas."
+  },
+  "flash_settings_updated": {
+    "en": "User Settings Updated.",
+    "lt": "Vartotojo Duomenys Atnaujinti!"
+  },
+  "access_forbidden": {
+    "en": "Access Forbidden",
+    "lt": "Prieiga Neleidžiama"
+  },
+  "403_text": {
+    "en": "You don’t have permission to view this page.",
+    "lt": "Jūs neturite leidimo peržiūrėti šio puslapio."
+  },
+  "page_not_found": {
+    "en": "Oops! Page Not Found",
+    "lt": "Oops! Puslapis Nerastas"
+  },
+  "404_text": {
+    "en": "It seems like the page you're looking for doesn’t exist or may have been moved.",
+    "lt": "Puslapis kurį bandote pasiekti, neegzistuoja arba buvo perkeltas."
+  },
+  "calendar_today": {
+    "en": "Today",
+    "lt": "Šiandien"
+  },
+  "calendar_month": {
+    "en": "Month",
+    "lt": "Mėnuo"
+  },
+  "calendar_list": {
+    "en": "List",
+    "lt": "Sąrašas"
+  },
+  "index_main_text": {
+    "en": "This is your central dashboard for managing database records",
+    "lt": "Tai yra jūsų pagrindinis valdymo skydas, tvarkyti duomenų bazės įrašus"
+  },
+  "no_machines": {
+    "en": "No machines found",
+    "lt": "Nerasta mašinų"
+  },
+  "description_new_service": {
+    "en": "Add record about service works done on specific machine.",
+    "lt": "Pridėti įrašą apie atliktus mašinų aptarnavimo darbus."
+  },
+  "description_new_part": {
+    "en": "Add new spare part into the system.",
+    "lt": "Pridėti naują atsarginę detalę į sistemą."
+  },
+  "description_update_part": {
+    "en": "Adjust stock levels for existing parts in the inventory.",
+    "lt": "Modifikuoti esamų detalių kiekius."
+  },
+  "description_add_replaced_part": {
+    "en": "Add parts records that have been replaced during service works.",
+    "lt": "Pridėti detalių įrašą, kurios buvo pakeistos atliekant serviso darbus"
+  },
+  "description_new_machine": {
+    "en": "Add new machine into the system.",
+    "lt": "Pridėti į sistemą naują mašiną."
+  },
+  "description_edit_machine": {
+    "en": "Update machine details.",
+    "lt": "Modifikuoti mašinos duomenis."
+  },
+  "description_machine_info": {
+    "en": "View detailed information, history, and replaced parts of machines.",
+    "lt": "Peržiūrėti mašinų detalią informaciją, istoriją ir pakeistas detales."
+  },
+  "description_downloads": {
+    "en": "Access and download manuals, schemes, and other related files.",
+    "lt": "Atsisiųsti instrukcijas, schemas bei kitus failus."
+  },
+  "description_prices": {
+    "en": "View the pricing information for spare parts.",
+    "lt": "Peržiūrėti detalių kainų informaciją."
+  },
+  "description_replaced_parts_report": {
+    "en": "Generate reports of all parts replaced over a selected period.",
+    "lt": "Gauti pakeistų detalių ataskaitą per pasirinktą laiko tarpą."
+  },
+  "description_quaterly_services": {
+    "en": "Review Quaterly maintenance works on BPS C1 machines.",
+    "lt": "Peržiūrėti BPS C1 mašinų ketvirtinius aptarnavimus."
+  },
+  "description_new_client": {
+    "en": "Create a new client profile.",
+    "lt": "Sukurti naujo kliento profilį."
+  },
+  "description_edit_client": {
+    "en": "Update existing client profile.",
+    "lt": "Atnaujinti esamą kliento profilį."
+  },
+  "description_new_task": {
+    "en": "Create a new task.",
+    "lt": "Sukurti naują užduotį."
+  },
+  "description_view_tasks": {
+    "en": "Browse the list of all tasks.",
+    "lt": "Peržiūrėti visų užduočių sąrašą."
+  },
+  "description_schedule": {
+    "en": "Browse the calendar of planned visits.",
+    "lt": "Peržiūrėti planuojamų vizitų kalendorių."
+  },
+  "description_new_visit": {
+    "en": "Add new visit to calendar.",
+    "lt": "Pridėti naują vizitą į kalendorių."
+  },
+  "description_machines_list": {
+    "en": "View machines list.",
+    "lt": "Peržiūrėti mašinų sąrašą."
+  },
+  "email_reset_password_subject": {
+    "en": "Reset Password",
+    "lt": "Atstatyti Slaptažodį"
+  },
+  "email_reset_password_body": {
+    "en": "Click link to reset your password:",
+    "lt": "Paspauskite nuorodą kad atstatyti slaptažodį:"
+  },
+  "email_invitation_subject": {
+    "en": "Invitation to Register",
+    "lt": "Pakvietimas Prisiregistruoti"
+  },
+  "email_invitation_body": {
+    "en": "You have been invited to join the ISMS system by",
+    "lt": "Prisijungti prie ISMS sistemos jus pakvietė"
+  },
+  "email_task_subject": {
+    "en": "New Task Created",
+    "lt": "Sukurta Nauja Užduotis"
+  },
+  "email_task_body": {
+    "en": "A new task has been added by",
+    "lt": "Naują užduotį pridėjo"
+  },
+  "email_visit_subject": {
+    "en": "New Visit Created",
+    "lt": "Sukurtas Naujas Vizitas"
+  },
+  "email_visit_body": {
+    "en": "A new visit has been added by",
+    "lt": "Naują vizitą sukūrė"
+  },
+  "email_footer": {
+    "en": "Best Regards,",
+    "lt": "Pagarbiai,"
+  },
+  "email_verification_subject": {
+    "en": "Email Vericifation",
+    "lt": "El. Pašto Patvirtinimas"
+  },
+  "email_verification_body": {
+    "en": "Please verify your email",
+    "lt": "Patvirtinkite savo el. pašto adresą"
+  }
+}

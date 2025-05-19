@@ -1,0 +1,56 @@
+{% extends 'base_index.html' %} {% block content %} {% with messages =
+get_flashed_messages(with_categories=true) %} {% if messages %}
+<div class="flash-container">
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<h2>{{ tr['user_settings'] }}</h2>
+<form
+  method="POST"
+  action="{{ lang_url_for('user_settings') }}"
+  class="form-container"
+>
+
+    {{ form.hidden_tag() }}
+  <div class="form-row">
+    <label for="name">{{ tr['user_name'] }}:</label>
+    {{ current_user.name }}
+  </div>
+    <div class="form-row">
+    <label for="surname">{{ tr['user_surname'] }}:</label>
+    {{ current_user.surname }}
+  </div>
+  <div class="form-row">
+    <label for="phone_number">{{ tr['phone_number'] }}:</label>
+    {{ form.phone_number(class_="form-field") }}
+  </div>
+  <div class="form-row">
+    <label for="email">{{ tr['email'] }}:</label>
+    {{ form.email(class_="form-field") }}
+  </div>
+
+
+  <hr>
+
+  <div class="form-row">
+    <label for="new_password">{{ tr['new_password'] }}:</label>
+    {{ form.new_password(class_="form-field") }}
+  </div>
+  <div class="form-row">
+    <label for="confirm_password">{{ tr['confirm_password'] }}:</label>
+    {{ form.confirm_password(class_="form-field") }}
+  </div>
+
+  <hr>
+  <p><strong>{{ tr['password_to_submit'] }}</strong></p>
+    <div class="form-row">
+    <label for="confirm_password">{{ tr['password'] }}:<span style="color: red">*</span></label>
+    {{ form.current_password(class_="form-field") }}
+  </div>
+
+  {{ form.submit(class_="button", value=tr['submit'], class="form_button") }}
+</form>
+{% endblock %}

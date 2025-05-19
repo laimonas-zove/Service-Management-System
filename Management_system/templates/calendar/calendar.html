@@ -1,0 +1,121 @@
+{% extends 'base_index.html' %} {% block content %} {% with messages =
+get_flashed_messages(with_categories=true) %} {% if messages %}
+<div class="flash-container">
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %} {% if current_user.is_admin %}
+<div class="calendar-header">
+  <a href="{{ lang_url_for('new_visit') }}" class="btn btn-success"
+    >{{ tr['new_visit'] }}</a
+  >
+</div>
+{% endif %}
+
+<div id="calendar"></div>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.global.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      locale: '{{ lang }}',
+      initialView: 'dayGridMonth',
+      height: 'auto',
+      firstDay: 1,
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,listMonth'
+      },
+      buttonText: {
+        today: '{{ tr["calendar_today"] }}',
+        month: '{{ tr["calendar_month"] }}',
+        list: '{{ tr["calendar_list"] }}'
+      },
+      events: [
+        {% for visit in visits %}
+        {
+          title: '{{ visit.client.company }} - {{ visit.client.city }}',
+          start: '{{ visit.date.isoformat() }}',
+          url: '{{ lang_url_for("visit_detail", visit_id=visit.id) }}'
+        },
+        {% endfor %}
+      ]
+    });
+
+    calendar.render();
+  });
+</script>
+
+<style>
+  #calendar {
+    max-width: 80vw;
+    max-height: 50vw;
+    margin: 2vw auto;
+    padding: 1vw;
+    background-color: white;
+    border-radius: 0.5vw;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 1.5vw;
+  }
+
+  .fc .fc-daygrid-day-number {
+    font-size: 1vw;
+  }
+
+  .fc .fc-col-header-cell-cushion {
+    font-size: 1vw;
+    padding: 0.5vw;
+  }
+
+  .fc .fc-event {
+    font-size: 0.75vw;
+    padding: 0.2vw 0.5vw;
+  }
+
+  .fc .fc-button {
+    font-size: 1vw;
+    padding: 0.5vw 1vw;
+    border-radius: 0.5vw;
+  }
+
+  .fc .fc-daygrid-day {
+    height: 6vw; /* Controls the height of each day cell */
+  }
+
+  .calendar-header {
+    max-width: 80vw;
+    margin: 0 auto 1vw auto;
+    text-align: right;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    color: white;
+    padding: 0.5vw 2vw;
+    border-radius: 0.5vw;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1vw;
+  }
+
+  .btn-success:hover {
+    background-color: #218838;
+  }
+</style>
+
+{% endblock %}

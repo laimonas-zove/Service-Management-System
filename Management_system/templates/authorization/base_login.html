@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interatlas</title>
+    <link
+      href="{{ url_for('static', filename='css/login.css') }}"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+
+    <div class="login-container" style="position: relative;">
+      <div class="lang-switcher">
+        {% set args_en = request.view_args.copy() %}
+          {% set _ = args_en.update({'lang': 'en'}) %}
+          <a href="{{ url_for(request.endpoint, **args_en) }}">
+            <img src="{{ url_for('static', filename='images/uk.png') }}" alt="English" title="English">
+          </a>
+
+          {% set args_lt = request.view_args.copy() %}
+          {% set _ = args_lt.update({'lang': 'lt'}) %}
+          <a href="{{ url_for(request.endpoint, **args_lt) }}">
+            <img src="{{ url_for('static', filename='images/lt.png') }}" alt="Lietuvių" title="Lietuvių">
+          </a>
+      </div>
+      <main>{% block content %}{% endblock %}</main>
+      <footer>
+        <p>
+          {{ tr['mail'] }} <a href="mailto:info@interatlas.lt">info@interatlas.lt</a>
+          {{ tr['or_call'] }} <a href="tel:+37065167055">+370 651 67055</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

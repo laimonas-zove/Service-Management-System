@@ -1,0 +1,47 @@
+{% extends 'base_index.html' %} {% block content %} {% with messages =
+get_flashed_messages(with_categories=true) %} {% if messages %}
+<div class="flash-container">
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<h2>{{ tr['new_machine'] }}</h2>
+<form
+  method="POST"
+  action="{{ lang_url_for('new_machine') }}"
+  class="form-container"
+>
+  {{ form.hidden_tag() }}
+  <div class="form-row">
+    <label for="serial_number">{{ tr['serial_number'] }}:<span style="color: red">*</span></label>
+    {{ form.serial_number(class_="form-field") }}
+  </div>
+
+  <div class="form-row">
+    <label for="type">{{ tr['type'] }}:<span style="color: red">*</span></label>
+    {{ form.type(class_="form-field") }}
+  </div>
+
+  <div class="form-row">
+    <label for="start_of_operation">{{ tr['installation_date'] }}:<span style="color: red">*</span></label>
+    {{ form.start_of_operation(class_="form-field") }}
+  </div>
+
+  <div class="form-row">
+    <label for="warranty">{{ tr['warranty'] }}:<span style="color: red">*</span></label>
+    {{ form.warranty(class_="form-field") }}
+  </div>
+
+  <div class="form-row">
+    <label for="client">{{ tr['client'] }}:<span style="color: red">*</span></label>
+    {{ form.client(class_="form-field") }}
+  </div>
+
+  <div class="form-row full-width">
+    {{ form.submit(class_="button", value=tr['submit'], class="form_button") }}
+  </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends 'base_index.html' %}
+{% block content %}
+
+{% with messages =
+get_flashed_messages(with_categories=true) %} {% if messages %}
+<div class="flash-container">
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<div class="visit-detail-container">
+  <h2>{{ tr['visit_details'] }}</h2>
+
+  <div class="visit-info">
+    <p><strong>{{ tr['client'] }}:</strong> {{ visit.client.company }} - {{
+      visit.client.city
+      }}</p>
+    <p><strong>{{ tr['date'] }}:</strong> {{ visit.date.strftime('%Y-%m-%d') }}</p>
+    <p><strong>{{ tr['purpose'] }}:</strong><br>{{ visit.purpose or '-' }}</p>
+  </div>
+
+  {% if current_user.is_admin %}
+  <div class="button-group">
+    <a href="{{ lang_url_for('edit_visit', visit_id=visit.id) }}"
+       class="btn btn-warning">{{
+      tr['edit'] }}
+    </a>
+
+    <form action="{{ lang_url_for('delete_visit', visit_id=visit.id) }}" method="POST"
+          style="display:inline;">
+      <button type="submit" class="btn btn-danger"
+              onclick="return confirm('{{ tr['visit_delete_message'] }}');">
+        {{ tr['delete'] }}
+      </button>
+    </form>
+
+    <a href="{{ lang_url_for('calendar') }}" class="btn btn-secondary">{{ tr['back_to_calendar'] }}</a>
+  </div>
+  {% else %}
+    <div class="button-group">
+      <a href="{{ lang_url_for('calendar') }}" class="btn btn-secondary">{{ tr['back_to_calendar'] }}</a>
+    </div>
+  {% endif %}
+</div>
+
+{% if services %}
+<div class="table_container">
+  <h3>{{ tr['machines_to_check'] }}</h3>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>{{ tr['serial_number'] }}</th>
+        <th>{{ tr['machine_type'] }}</th>
+        <th>{{ tr['note'] }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for machine, service in services %}
+        <tr>
+          <td>{{ machine.serial_number }}</td>
+          <td>{{ machine.machine_type.name }}</td>
+          <td>
+            {% if service.note %}
+              <span class="tooltip-icon">
+                🗒️
+                <span class="tooltip-text">{{ service.note | e }}</span>
+              </span>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<style>
+.visit-detail-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.visit-detail-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.visit-info p {
+  font-size: 1rem;
+  margin: 10px 0;
+  color: #555;
+}
+
+.visit-info strong {
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.button-group .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  min-width: 120px;
+  cursor: pointer;
+}
+
+.btn-warning {
+  background-color: #f0ad4e;
+  color: white;
+  border: none;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #ec971f;
+}
+
+.btn-danger:hover {
+  background-color: #c9302c;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+</style>
+
+{% endblock %}

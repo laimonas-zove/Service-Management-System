@@ -1,0 +1,39 @@
+{% extends 'base_index.html' %} {% block content %} {% with messages =
+get_flashed_messages(with_categories=true) %} {% if messages %}
+<div class="flash-container">
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<div class="table_container">
+  <h3>{{ tr['available_downloads'] }}</h3>
+
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>{{ tr['machine_type'] }}</th>
+        <th>{{ tr['file_name'] }}</th>
+        <th>{{ tr['download'] }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file in files %}
+      <tr>
+        <td>{{ file.machine_type }}</td>
+        <td>{{ file.filename }}</td>
+        <td>
+          <a
+            href="{{ lang_url_for('download_file', filename=file.filename) }}"
+            style="text-decoration: none"
+          >
+            ⬇️
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

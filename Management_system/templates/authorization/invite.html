@@ -1,0 +1,20 @@
+{% extends 'base_index.html' %} {% block content %}
+{% with messages =
+get_flashed_messages(with_categories=true) %} {% if messages %}
+<div class="flash-container">
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<h2>{{ tr['invite_user'] }}</h2>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <div>
+      {{ form.email(class="form-field") }}
+    </div>
+    <br>
+    {{ form.submit(class_="button", value=tr['submit'], class="form_button") }}
+  </form>
+{% endblock %}

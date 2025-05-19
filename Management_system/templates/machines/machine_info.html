@@ -1,0 +1,138 @@
+{% extends "base_index.html" %} {% block content %} {% with messages =
+get_flashed_messages(with_categories=true) %} {% if messages %}
+<div class="flash-container">
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<h2>{{ tr['machine_search'] }}:</h2>
+<form method="POST" action="{{ lang_url_for('machine_search') }}">
+  <input type="hidden" name="lang" value="{{ lang }}" />
+  <input
+    list="machines"
+    name="serial_number"
+    required
+    placeholder="{{ tr['placeholder_serial_number'] }}"
+  />
+  <datalist id="machines">
+    {% for machine in machines %}
+    <option value="{{ machine.serial_number }}">
+      {{ machine.machine_type.name }}
+    </option>
+    {% endfor %}
+  </datalist>
+  <button type="submit" class="form_button">{{ tr['search'] }}</button>
+</form>
+
+{% if machine %}
+<div class="machine">
+  <div class="left-column">
+    <div class="machine_info">
+      <h3>{{ tr['machine_info'] }}</h3>
+      <div class="machine_pic">
+        {% if machine.machine_type.name == 'BPS C1' %}
+        <img
+          src="{{ url_for('static', filename='images/BPS_C1.png') }}"
+          alt="BPS C1"
+        />
+        {% elif machine.machine_type.name == 'BPS C5' %}
+        <img
+          src="{{ url_for('static', filename='images/BPS_C5.png') }}"
+          alt="BPS C5"
+        />
+        {% endif %}
+      </div>
+      <p>
+        <strong>{{ tr['serial_number'] }}:</strong> {{ machine.serial_number }}
+      </p>
+      <p><strong>{{ tr['type'] }}:</strong> {{ machine.machine_type.name }}</p>
+      <p>
+        <strong>{{ tr['installation_date'] }}:</strong> {{
+        machine.start_of_operation }}
+      </p>
+      <p>
+        <strong>{{ tr['end_warranty'] }}:</strong> {{ machine.end_of_warranty }}
+      </p>
+      <p><strong>{{ tr['client'] }}:</strong> {{ machine.client.company }}</p>
+      <p><strong>{{ tr['city'] }}:</strong> {{ machine.client.city }}</p>
+    </div>
+
+    <div class="table_container">
+      <h3>{{ tr['services_history'] }}</h3>
+      <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+          <tr>
+            <th>{{ tr['date'] }}</th>
+            <th>{{ tr['bn_count'] }}</th>
+            <th>{{ tr['engineer'] }}</th>
+            <th>{{ tr['note'] }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if services %} {% for service in services %}
+          <tr>
+            <td>{{ service.date }}</td>
+            <td>{{ service.bn_count }}</td>
+            <td>{{ service.user.name if service.user else "-" }}</td>
+            <td>
+              {% if service.note %}
+              <span class="tooltip-icon"
+                >🗒️
+                <span class="tooltip-text">{{ service.note | e }}</span>
+              </span>
+              {% else %} - {% endif %}
+            </td>
+          </tr>
+          {% endfor %} {% else %}
+          <tr>
+            <td colspan="4" style="text-align: center">
+              {{ tr['no_services'] }}
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="table_container">
+    <h3>{{ tr['replaced_parts'] }}</h3>
+    <table border="1" cellpadding="8" cellspacing="0">
+      <thead>
+        <tr>
+          <th>{{ tr['date'] }}</th>
+          <th>{{ tr['part_number'] }}</th>
+          <th>{{ tr['part_name'] }}</th>
+          <th>{{ tr['quantity'] }}</th>
+          <th>{{ tr['warranty'] }}</th>
+          <th>{{ tr['engineer'] }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if parts %} {% for part in parts %}
+        <tr>
+          <td>{{ part.date }}</td>
+          <td>{{ part.part.part_number }}</td>
+          <td>
+            {{ part.part.name_en if lang == 'en' else part.part.name_lt }}
+          </td>
+          <td>{{ part.quantity }}</td>
+          <td>
+            {% if part.warranty %}
+            <span style="color: green">&#10004;</span> {# ✓ checkmark #} {% else
+            %} <span style="color: red">&#10008;</span> {# ✘ cross mark #} {%
+            endif %}
+          </td>
+          <td>{{ part.user.name }}</td>
+        </tr>
+        {% endfor %} {% else %}
+        <tr>
+          <td colspan="6" style="text-align: center">{{ tr['no_parts'] }}</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %} {% endblock %}

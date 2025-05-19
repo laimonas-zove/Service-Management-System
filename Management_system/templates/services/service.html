@@ -1,0 +1,8 @@
+{% extends 'base_index.html' %} {% block content %}
+<h2>{{ tr['select_actions'] }}:</h2>
+<div class="dashboard-actions">
+  <a href="{{ lang_url_for('new_service') }}" class="action-button"
+    >{{ tr['new_service'] }}</a
+  >
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base_index.html" %} {% block content %} {% with messages =
+get_flashed_messages(with_categories=true) %} {% if messages %}
+<div class="flash-container">
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<div class="table_container">
+  <div class="btn-container">
+    <a href="{{ lang_url_for('new_client') }}" class="btn btn-success"
+      >{{ tr['new_client'] }}</a
+    >
+  </div>
+  <h3>{{ tr['clients_list'] }}</h3>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>{{ tr['company'] }}</th>
+        <th>{{ tr['city'] }}</th>
+        <th>{{ tr['contact_person'] }}</th>
+        <th>{{ tr['phone_number'] }}</th>
+        <th>{{ tr['email'] }}</th>
+        <th>{{ tr['edit'] }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if clients %} {% for client in clients %}
+      <tr>
+        <td>{{ client.company }}</td>
+        <td>{{ client.city }}</td>
+        <td>{{ client.contact_person }}</td>
+        <td>{{ client.phone_number }}</td>
+        <td>{{ client.email }}</td>
+        <td><a
+                href="{{ lang_url_for('edit_client', client_id=client.id) }}"
+                style="text-decoration: none">
+              📝
+            </a></td>
+      </tr>
+      {% endfor %} {% else %}
+      <tr>
+        <td colspan="6" style="text-align: center">{{ tr['no_clients'] }}</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .btn-success {
+    background-color: #28a745;
+    color: white;
+    padding: 0.5vw 2vw;
+    border-radius: 0.5vw;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1vw;
+  }
+
+  .btn-container {
+    text-align: right;
+  }
+
+  .btn-success:hover {
+    background-color: #218838;
+  }
+</style>
+{% endblock %}

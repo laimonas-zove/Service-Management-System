@@ -1,0 +1,63 @@
+{% extends 'base_index.html' %} {% block content %} {% with messages =
+get_flashed_messages(with_categories=true) %} {% if messages %}
+<div class="flash-container">
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<form method="POST" class="filter-form">
+  <div class="filter-container">
+    {{ form.hidden_tag() }}
+    <div class="filter-item">
+      <label for="client">{{ tr['client'] }}:</label>
+      {{ form.client(class_="filter-select") }}
+    </div>
+
+    <div class="filter-item">
+      <label for="date_from">{{ tr['from'] }}:</label>
+      {{ form.date_from (class_="filter-select") }}
+    </div>
+
+    <div class="filter-item">
+      <label for="date_to">{{ tr['to'] }}:</label>
+      {{ form.date_to (class_="filter-select") }}
+    </div>
+  </div>
+  {{ form.submit(class_="filter-button", value=tr['search']) }}
+</form>
+
+{% if results %}
+<div class="table_container">
+  <h3>{{ tr['replaced_parts'] }}</h3>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>{{ tr['serial_number'] }}</th>
+        <th>{{ tr['part_number'] }}</th>
+        <th>{{ tr['part_name'] }}</th>
+        <th>{{ tr['quantity'] }}</th>
+        <th>{{ tr['warranty'] }}</th>
+        <th>{{ tr['date'] }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for part in results %}
+      <tr>
+        <td>{{ part.machine.serial_number }}</td>
+        <td>{{ part.part.part_number }}</td>
+        <td>{{ part.part.name_en if lang == 'en' else part.part.name_lt }}</td>
+        <td>{{ part.quantity }}</td>
+        <td>
+          {% if part.warranty %} <span style="color: green">&#10004;</span> {# ✓
+          checkmark #} {% else %} <span style="color: red">&#10008;</span> {# ✘
+          cross mark #} {% endif %}
+        </td>
+        <td>{{ part.date.strftime('%Y-%m-%d') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %} {% endblock %}

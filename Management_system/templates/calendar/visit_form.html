@@ -1,0 +1,51 @@
+{% extends 'base_index.html' %}
+{% block content %}
+
+<div class="form-container">
+  <h2>{{ tr['edit_visit'] if edit_mode else tr['new_visit'] }}</h2>
+
+  {% if client %}
+  <h3>{{ client.company }} - {{ client.city }}</h3>
+  {% endif %}
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    {% if 'client' in form._fields %}
+        <div class="form-group">
+            <label>{{ tr['client'] }}:</label><span style="color: red">*</span><br>
+            {{ form.client(class="form-control") }}
+        </div>
+        {% endif %}
+
+    <div class="form-group">
+      <label>{{ tr['visit_date'] }}:</label><span style="color: red">*</span><br>
+      {{ form.date(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+      <label>{{ tr['visit_purpose'] }}:</label><br>
+      {{ form.purpose(class="form-control", rows=6) }}
+    </div>
+
+
+    <div class="form-group">
+      {{ form.submit(class_="form_button", value=tr['update'] if edit_mode else tr['save']) }}
+    </div>
+  </form>
+</div>
+
+<style>
+  .form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+  .form-group {
+    margin-bottom: 1em;
+  }
+</style>
+
+{% endblock %}

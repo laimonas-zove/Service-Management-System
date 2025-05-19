@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <p>{{ tr['email_visit_body'] }} <strong>{{ user.name }}</strong>.</p>
+  <ul>
+    <li><strong>{{ tr['visit_date'] }}</strong>: {{ form.date.data }}</li>
+    <li><strong>{{ tr['client'] }}</strong>: {{ client.company }} - {{ client.city }}</li>
+    <li><strong>{{ tr['visit_purpose'] }}</strong>: {{ form.purpose.data }}</li>
+  </ul>
+  <p>{{ tr['email_footer'] }}<br><strong>Interatlas</strong></p>
+</body>
+</html>

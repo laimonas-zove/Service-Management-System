@@ -1,0 +1,30 @@
+{% extends 'authorization/base_login.html' %} {% block content %}
+<header>
+  <a href="{{ lang_url_for('index') }}"
+          ><img
+            src="{{ url_for('static', filename='images/logo_no_backgroud.png') }}"
+            alt="Company Logo"
+            class="logo"
+        /></a>
+  <h1>{{ tr['registration_title'] }}</h1>
+</header>
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages
+%}
+<div class="flash-container">
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
+<form method="POST" action="{{ lang_url_for('register') }}">
+  {{ form.hidden_tag() }}
+  <input type="hidden" name="token" value="{{ request.args.get('token') }}">
+  {{ form.name(class_="form-field") }}
+  {{ form.surname(class_="form-field") }}
+  {{ form.phone_number(class_="form-field") }}
+  {{ form.email(class_="form-field") }}
+  {{ form.password(class_="form-field") }}
+  {{ form.confirm_password(class_="form-field") }}
+  {{ form.submit(class_="button", value=tr['register']) }}
+</form>
+{% endblock %}
