@@ -40,4 +40,30 @@ def lang_url_for(endpoint, **values):
 def inject_utilities():
     return dict(lang_url_for=lang_url_for)
 
+@app.before_request
+def set_language():
+    lang = None
+
+    path_parts = request.path.strip('/').split('/')
+    if path_parts and path_parts[0] in ['en', 'lt']:
+        lang = path_parts[0]
+
+    if not lang:
+        lang = session.get('lang')
+
+    # Default language
+    g.lang = lang or 'lt'
+    session['lang'] = g.lang
+
 from .routes import *
+
+@app.errorhandler(404)
+def not_found(e):
+    path_parts = request.path.strip('/').split('/')
+    lang = path_parts[0] if path_parts and path_parts[0] in ['en', 'lt'] else None
+    lang = lang or session.get('lang', 'lt')
+    session['lang'] = lang
+    g.lang = lang
+
+    tr = get_translations(lang)
+    return render_template("errors/404.html", tr=tr, lang=lang), 404

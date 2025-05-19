@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,31 +10,31 @@
     />
   </head>
   <body>
-  <div class="login-container" style="position: relative;">
-    <main>
-      <header>
-        <a href="{{ lang_url_for('index') }}"
-          ><img
-            src="{{ url_for('static', filename='images/logo_no_backgroud.png') }}"
-            alt="Company Logo"
-            class="logo"
-        /></a>
-        <h1>{{ tr['access_forbidden'] }}</h1>
-        <p>{{ tr['403_text'] }}</p>
-      </header>
-      <img
-        src="{{ url_for('static', filename='images/403.png') }}"
-        alt="Error 403"
-        class="pic_error"
-      />
-    </main>
+    <div class="login-container" style="position: relative">
+      <main>
+        <header>
+          <a href="{{ lang_url_for('index') }}"
+            ><img
+              src="{{ url_for('static', filename='images/logo_no_backgroud.png') }}"
+              alt="Company Logo"
+              class="logo"
+          /></a>
+          <h1>{{ tr['access_forbidden'] }}</h1>
+          <p>{{ tr['403_text'] }}</p>
+        </header>
+        <img
+          src="{{ url_for('static', filename='images/403.png') }}"
+          alt="Error 403"
+          class="pic_error"
+        />
+      </main>
       <footer>
         <p>
-          {{ tr['mail'] }} <a href="mailto:info@interatlas.lt">info@interatlas.lt</a>
-          {{ tr['or_call'] }} <a href="tel:+37065167055">+370 651 67055</a>
+          {{ tr['mail'] }}
+          <a href="mailto:info@interatlas.lt">info@interatlas.lt</a> {{
+          tr['or_call'] }} <a href="tel:+37065167055">+370 651 67055</a>
         </p>
       </footer>
     </div>
   </body>
 </html>
-
