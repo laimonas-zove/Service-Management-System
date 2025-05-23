@@ -67,7 +67,7 @@ def user_settings(lang):
             current_user.is_verified = False
             logout_required = True
 
-            token = generate_link("email_verification", current_user.id)
+            token = generate_link("email_verification", current_user.email)
             verification_url = lang_url_for("verification", token=token, _external=True)
 
             send_email(
@@ -129,7 +129,6 @@ def register(lang):
     form.name.render_kw = {"placeholder": g.tr["placeholder_name"]}
     form.surname.render_kw = {"placeholder": g.tr["placeholder_surname"]}
     form.phone_number.render_kw = {"placeholder": g.tr["placeholder_phone_number"]}
-    form.email.render_kw = {"placeholder": g.tr["placeholder_email"]}
     form.password.render_kw = {"placeholder": g.tr["placeholder_password"]}
     form.confirm_password.render_kw = {"placeholder": g.tr["placeholder_confirm_password"]}
 
@@ -137,21 +136,8 @@ def register(lang):
         name = form.name.data
         surname = form.surname.data
         phone = form.phone_number.data
-        email = form.email.data
         password = form.password.data
         confirm_password = form.confirm_password.data
-
-        user = User.query.filter_by(email=email).first()
-
-        if user:
-            log_user_action(
-                user.name,
-                "Register",
-                "User exist",
-                level="warning"
-            )
-            flash(g.tr['flash_email_exists'], 'error')
-            return render_template('authorization/register.html', form=form)
 
         if password != confirm_password:
             log_user_action(
@@ -168,14 +154,14 @@ def register(lang):
             name=name,
             surname=surname,
             phone_number=phone,
-            email=email,
+            email=link.email,
             password=hashed_password
         )
         db.session.add(new_user)
         link.used = True
         db.session.commit()
 
-        log_user_action(name,"Register",f"Email: {email}")
+        log_user_action(name,"Register",f"Email: {link.email}")
 
         flash(g.tr['flash_registration_successful'], 'success')
         return redirect(lang_url_for('login', form=form))
@@ -250,7 +236,7 @@ def forgot_password(lang):
         user = User.query.filter_by(email=email).first()
 
         if user:
-            token = generate_link("reset_password", user_id=user.id)
+            token = generate_link("reset_password", email)
             reset_url = lang_url_for("reset_password", token=token, _external=True)
 
             send_email(
@@ -262,6 +248,10 @@ def forgot_password(lang):
             log_user_action(user.name,"Forgot_Password")
 
             flash(g.tr['flash_reset_link'], 'success')
+            return redirect(lang_url_for("forgot_password"))
+        
+        else:
+            flash(g.tr['flash_user_not_found'], 'error')
             return redirect(lang_url_for("forgot_password"))
 
     return render_template("authorization/forgot_password.html", form=form)
@@ -286,7 +276,7 @@ def reset_password(lang):
         flash(g.tr['flash_link_expired'], 'error')
         return redirect(lang_url_for('login'))
 
-    user = User.query.get(link.user_id)
+    user = User.query.filter_by(email=link.email).first()
 
     if not user:
         flash(g.tr['flash_user_not_found'], 'error')
@@ -335,7 +325,7 @@ def verification(lang, token):
         flash(g.tr['flash_link_expired'], 'error')
         return redirect(lang_url_for('login'))
 
-    user = User.query.get(link.user_id)
+    user = User.query.filter_by(email=link.email).first()
     if not user:
         flash(g.tr['flash_user_not_found'], 'error')
         return redirect(lang_url_for('login'))
@@ -380,7 +370,7 @@ def invite(lang):
             flash(g.tr['flash_email_exists'], 'error')
             return redirect(lang_url_for("invite"))
 
-        token = generate_link("registration")
+        token = generate_link("registration", email)
         invite_url = lang_url_for("register", token=token, _external=True)
 
         send_email(
@@ -723,6 +713,108 @@ def replaced_part(lang):
 def machines(lang):
     return render_template('/machines/machines.html')
 
+@app.route('/<lang>/machines/add_new/', methods=["GET", "POST"])
+@localization
+@login_required
+def new_machine(lang):
+    if not current_user.is_admin:
+        abort(403)
+
+    form = MachineForm()
+
+    form.serial_number.render_kw = {"placeholder": g.tr["placeholder_serial_number"]}
+    form.warranty.render_kw = {"placeholder": g.tr["placeholder_warranty"]}
+
+    if form.validate_on_submit():
+        serial_number = form.serial_number.data
+        type = form.type.data
+        start_of_operation = form.start_of_operation.data
+        warranty = form.warranty.data
+        client_id = form.client.data
+
+        end_of_warranty = start_of_operation + relativedelta(years=warranty)
+
+        machine = Machine.query.filter_by(serial_number=serial_number).first()
+        if machine:
+            flash(g.tr['flash_machine_exist'], 'error')
+            return render_template('/machines/add_new.html', form=form)
+
+        new_machine = Machine(
+            serial_number=serial_number,
+            machine_type_id=type,
+            start_of_operation=start_of_operation,
+            end_of_warranty=end_of_warranty,
+            client_id=client_id
+        )
+
+        db.session.add(new_machine)
+        db.session.commit()
+
+        log_user_action(
+            current_user.name,
+            "New_Machine",
+            f"Machine s/n: {new_machine.serial_number}"
+        )
+
+        flash(g.tr['flash_machine_added'], 'success')
+        return redirect(lang_url_for('new_machine', form=form))
+
+    return render_template('/machines/add_new.html', form=form)
+
+@app.route('/<lang>/machines/select', methods=['GET', 'POST'])
+@login_required
+@localization
+def select_machine(lang):
+    if not current_user.is_admin:
+        abort(403)
+
+    machines = Machine.query.order_by(Machine.serial_number).all()
+
+    if request.method == 'POST':
+        machine_id = request.form.get('machine_id')
+        return redirect(lang_url_for('update_machine_client', machine_id=machine_id))
+
+    return render_template('machines/select.html', machines=machines)
+
+@app.route('/<lang>/machines/machine_info', methods=['GET', 'POST'])
+@localization
+@login_required
+def machine_search(lang):
+    machines = Machine.query.all()
+
+    if request.method == 'POST':
+        serial_number = request.form.get('serial_number')
+        machine = Machine.query.filter_by(serial_number=serial_number).first()
+
+        if not machine:
+            flash(g.tr['flash_machine_not_exist'], 'error')
+            return render_template('machines/machine_info.html', machines=machines)
+
+        return redirect(lang_url_for('machine_info', serial_number=machine.serial_number))
+
+    return render_template('machines/machine_info.html', machines=machines)
+
+@app.route('/<lang>/machines/machine_info/<string:serial_number>', methods=['GET'])
+@localization
+@login_required
+def machine_info(serial_number, lang):
+    machine = Machine.query.filter_by(serial_number=serial_number).first()
+    services = Service.query.filter_by(machine_id=machine.id).order_by(
+        Service.date.desc()
+    ).all()
+    parts = PartsReplaced.query.filter_by(machine_id=machine.id).order_by(
+        PartsReplaced.date.desc()
+    ).all()
+    machines = Machine.query.all()
+
+    return render_template(
+        'machines/machine_info.html',
+        machines=machines,
+        machine=machine,
+        services=services,
+        parts=parts
+    )
+
 @app.route('/<lang>/machines/edit_machine', methods=['GET', 'POST'])
 @login_required
 @localization
@@ -829,54 +921,6 @@ def machine_list(lang):
 def download_file(filename, lang):
     download_folder = os.path.join(app.root_path, 'static', 'downloads')
     return send_from_directory(download_folder, filename, as_attachment=True)
-
-@app.route('/<lang>/machines/add_new/', methods=["GET", "POST"])
-@localization
-@login_required
-def new_machine(lang):
-    if not current_user.is_admin:
-        abort(403)
-
-    form = MachineForm()
-
-    form.serial_number.render_kw = {"placeholder": g.tr["placeholder_serial_number"]}
-    form.warranty.render_kw = {"placeholder": g.tr["placeholder_warranty"]}
-
-    if form.validate_on_submit():
-        serial_number = form.serial_number.data
-        type = form.type.data
-        start_of_operation = form.start_of_operation.data
-        warranty = form.warranty.data
-        client_id = form.client.data
-
-        end_of_warranty = start_of_operation + relativedelta(years=warranty)
-
-        machine = Machine.query.filter_by(serial_number=serial_number).first()
-        if machine:
-            flash(g.tr['flash_machine_exist'], 'error')
-            return render_template('/machines/add_new.html', form=form)
-
-        new_machine = Machine(
-            serial_number=serial_number,
-            machine_type_id=type,
-            start_of_operation=start_of_operation,
-            end_of_warranty=end_of_warranty,
-            client_id=client_id
-        )
-
-        db.session.add(new_machine)
-        db.session.commit()
-
-        log_user_action(
-            current_user.name,
-            "New_Machine",
-            f"Machine s/n: {new_machine.serial_number}"
-        )
-
-        flash(g.tr['flash_machine_added'], 'success')
-        return redirect(lang_url_for('new_machine', form=form))
-
-    return render_template('/machines/add_new.html', form=form)
 
 @app.route('/<lang>/prices', methods=['GET', 'POST'])
 @login_required
@@ -1195,61 +1239,6 @@ def edit_client(client_id, lang):
         return redirect(lang_url_for('clients'))
 
     return render_template('clients/edit.html', form=form, client=client)
-
-
-@app.route('/<lang>/machines/select', methods=['GET', 'POST'])
-@login_required
-@localization
-def select_machine(lang):
-    if not current_user.is_admin:
-        abort(403)
-
-    machines = Machine.query.order_by(Machine.serial_number).all()
-
-    if request.method == 'POST':
-        machine_id = request.form.get('machine_id')
-        return redirect(lang_url_for('update_machine_client', machine_id=machine_id))
-
-    return render_template('machines/select.html', machines=machines)
-
-@app.route('/<lang>/machines/machine_info', methods=['GET', 'POST'])
-@localization
-@login_required
-def machine_search(lang):
-    machines = Machine.query.all()
-
-    if request.method == 'POST':
-        serial_number = request.form.get('serial_number')
-        machine = Machine.query.filter_by(serial_number=serial_number).first()
-
-        if not machine:
-            flash(g.tr['flash_machine_not_exist'], 'error')
-            return render_template('machines/machine_info.html', machines=machines)
-
-        return redirect(lang_url_for('machine_info', serial_number=machine.serial_number))
-
-    return render_template('machines/machine_info.html', machines=machines)
-
-@app.route('/<lang>/machines/machine_info/<string:serial_number>', methods=['GET'])
-@localization
-@login_required
-def machine_info(serial_number, lang):
-    machine = Machine.query.filter_by(serial_number=serial_number).first()
-    services = Service.query.filter_by(machine_id=machine.id).order_by(
-        Service.date.desc()
-    ).all()
-    parts = PartsReplaced.query.filter_by(machine_id=machine.id).order_by(
-        PartsReplaced.date.desc()
-    ).all()
-    machines = Machine.query.all()
-
-    return render_template(
-        'machines/machine_info.html',
-        machines=machines,
-        machine=machine,
-        services=services,
-        parts=parts
-    )
 
 
 @app.route('/<lang>/tasks')

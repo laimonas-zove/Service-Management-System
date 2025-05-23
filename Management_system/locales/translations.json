@@ -604,8 +604,8 @@
     "lt": "Nuorodos galiojimo laikas pasibaigęs!"
   },
   "flash_user_not_found": {
-    "en": "User not found for this token!",
-    "lt": "Pagal patvirtinimo raktą vartotojas nerastas!"
+    "en": "User not found!",
+    "lt": "Vartotojas nerastas!"
   },
   "flash_verification_success": {
     "en": "Your email has been successfully verified. You can now log in.",

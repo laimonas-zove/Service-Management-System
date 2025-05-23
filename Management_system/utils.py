@@ -49,14 +49,14 @@ def send_email(subject, recipients, html):
         log_mail_sender(recipients, subject, f"Failed to send: {e}")
 
 
-def generate_link(purpose, user_id=None):
+def generate_link(purpose, email):
     token = str(uuid.uuid4())
     created_at = datetime.now()
     link = OneTimeLink(
         token=token,
         purpose=purpose,
-        created_at = created_at,
-        user_id=user_id,
+        created_at=created_at,
+        email=email,
         expires_at=datetime.utcnow() + timedelta(hours=6)
     )
     db.session.add(link)

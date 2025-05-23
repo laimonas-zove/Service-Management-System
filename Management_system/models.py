@@ -22,7 +22,6 @@ class Client(db.Model):
     machines = db.relationship("Machine", back_populates="client")
     visits = db.relationship("Visit", back_populates="client")
 
-
 class Machine(db.Model):
     __tablename__ = "machines"
 
@@ -40,7 +39,6 @@ class Machine(db.Model):
     parts_replaced = db.relationship("PartsReplaced", back_populates="machine")
     debts = db.relationship("Debt", back_populates="machine")
 
-
 class Service(db.Model):
     __tablename__ = "services"
 
@@ -54,7 +52,6 @@ class Service(db.Model):
 
     machine = db.relationship("Machine", back_populates="services")
     user = db.relationship("User", back_populates="services")
-
 
 class User(UserMixin, db.Model):
     __tablename__ = "users"
@@ -72,8 +69,6 @@ class User(UserMixin, db.Model):
     services = db.relationship("Service", back_populates="user", passive_deletes=True)
     parts_replaced = db.relationship("PartsReplaced", back_populates="user", passive_deletes=True)
     created_tasks = db.relationship("Task", back_populates="created_by_user", foreign_keys="Task.user_id", passive_deletes=True)
-    one_time_links = db.relationship("OneTimeLink", back_populates="user", cascade="all, delete-orphan")
-
 
 class PartsReplaced(db.Model):
     __tablename__ = "parts_replaced"
@@ -187,9 +182,7 @@ class OneTimeLink(db.Model):
     used = db.Column(db.Boolean, default=False, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     expires_at = db.Column(db.DateTime, nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
-
-    user = db.relationship("User", back_populates="one_time_links")
+    email = db.Column(db.Integer, nullable=False)
 
 @login_manager.user_loader
 def load_user(user_id):
