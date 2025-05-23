@@ -67,6 +67,13 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
     </div>
     <div class="service-history-container">
       <h3>{{ tr['services_history'] }}</h3>
+      <div class="btn-container">
+        <a
+          href="{{ lang_url_for('new_service') }}?serial_number={{ machine.serial_number }}"
+          class="btn btn-success"
+          >{{ tr['add'] }}</a
+        >
+      </div>
       <div class="table-container-history">
         <table border="1" cellpadding="8" cellspacing="0">
           <thead>
@@ -107,6 +114,13 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 
   <div class="replaced-parts-container">
     <h3>{{ tr['replaced_parts'] }}</h3>
+    <div class="btn-container">
+      <a
+        href="{{ lang_url_for('add_replaced_part') }}?serial_number={{ machine.serial_number }}"
+        class="btn btn-success"
+        >{{ tr['add'] }}</a
+      >
+    </div>
     <div class="table-container-parts">
       <table border="1" cellpadding="8" cellspacing="0">
         <thead>

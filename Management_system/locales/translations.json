@@ -231,6 +231,10 @@
     "en": "Save",
     "lt": "Išsaugoti"
   },
+  "add": {
+    "en": "Add",
+    "lt": "Pridėti"
+  },
   "type": {
     "en": "Type",
     "lt": "Tipas"

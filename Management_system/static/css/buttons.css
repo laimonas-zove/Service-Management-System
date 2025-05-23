@@ -106,7 +106,9 @@
 }
 
 .btn-container {
+  position: relative;
   text-align: right;
+  z-index: 2;
 }
 
 .btn-success:hover {

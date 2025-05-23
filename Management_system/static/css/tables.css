@@ -59,7 +59,7 @@ tbody tr:last-child td:last-child {
 .table-container-history {
   display: flex;
   flex-direction: row;
-  margin-top: 10px;
+  margin-top: 6px;
   border-radius: 10px;
   overflow: auto;
   max-height: 250px;

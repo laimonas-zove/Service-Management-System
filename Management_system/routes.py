@@ -611,6 +611,10 @@ def update_part_form(part_number, lang):
 def add_replaced_part(lang):
     form = ReplacedPartForm()
 
+    serial_from_url = request.args.get('serial_number')
+    if serial_from_url:
+        form.serial_number.data = serial_from_url
+
     form.part_number.render_kw = {"placeholder": g.tr["placeholder_part_number"]}
     form.quantity.render_kw = {"placeholder": g.tr["placeholder_quantity"]}
     form.serial_number.render_kw = {"placeholder": g.tr["placeholder_serial_number"]}
@@ -913,6 +917,10 @@ def service(lang):
 @login_required
 def new_service(lang):
     form = ServiceForm()
+
+    serial_from_url = request.args.get('serial_number')
+    if serial_from_url:
+        form.serial_number.data = serial_from_url
 
     form.serial_number.render_kw = {"placeholder": g.tr["placeholder_serial_number"]}
     form.bn_count.render_kw = {"placeholder": g.tr["placeholder_bn_count"]}
