@@ -10,27 +10,32 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 <form method="POST" class="filter-form">
   <div class="filter-container">
     {{ form.hidden_tag() }}
-    <div class="filter-item">
+    <div class="form-row">
       <label for="client">{{ tr['client'] }}:</label>
       {{ form.client(class_="filter-select") }}
     </div>
 
-    <div class="filter-item">
-      <label for="date_from">{{ tr['from'] }}:</label>
+    <div class="form-row">
+      <label for="date_from"
+        >{{ tr['from'] }}:<span style="color: red">*</span></label
+      >
       {{ form.date_from (class_="filter-select") }}
     </div>
 
-    <div class="filter-item">
-      <label for="date_to">{{ tr['to'] }}:</label>
+    <div class="form-row">
+      <label for="date_to"
+        >{{ tr['to'] }}:<span style="color: red">*</span></label
+      >
       {{ form.date_to (class_="filter-select") }}
     </div>
   </div>
-  {{ form.submit(class_="filter-button", value=tr['search']) }}
+  {{ form.submit(class_="form-button", value=tr['search']) }}
 </form>
 
 {% if results %}
-<div class="table_container">
-  <h3>{{ tr['replaced_parts'] }}</h3>
+<hr />
+<h3>{{ tr['replaced_parts'] }}</h3>
+<div class="table-container">
   <table border="1" cellpadding="8" cellspacing="0">
     <thead>
       <tr>

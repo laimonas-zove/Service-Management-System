@@ -1,13 +1,11 @@
-{% extends 'base_index.html' %} {% block content %}
-{% with messages =
+{% extends 'base_index.html' %} {% block content %} {% with messages =
 get_flashed_messages(with_categories=true) %} {% if messages %}
 <div class="flash-container">
   {% for category, message in messages %}
   <div class="flash {{ category }}">{{ message }}</div>
   {% endfor %}
 </div>
-{% endif %} {% endwith %}
-{% if tasks %}
+{% endif %} {% endwith %} {% if tasks %}
 <a href="{{ lang_url_for('tasks') }}" class="task_notification_link">
   <div class="task_notification">
     <h3>{{ tr['task_message'] }}</h3>
@@ -20,14 +18,14 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 <h2 style="text-align: center">{{ tr['welcome'] }}</h2>
 {% endif %}
 
-<div class="dashboard-section">
+<div class="dashboard">
   <h2 style="text-align: center">{{ tr['index_main_text'] }}</h2>
 
   <h3>{{ tr['nav_service'] }}</h3>
   <ul>
     <li>
       <strong>{{ tr['new_service'] }}</strong><br />
-      <span class="desc">{{ tr['description_new_service'] }}</span>
+      <span class="description">{{ tr['description_new_service'] }}</span>
     </li>
   </ul>
 
@@ -36,16 +34,16 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
     {% if current_user.is_admin %}
     <li>
       <strong>{{ tr['new_part'] }}</strong><br />
-      <span class="desc">{{ tr['description_new_part'] }}</span>
+      <span class="dedescriptionsc">{{ tr['description_new_part'] }}</span>
     </li>
     <li>
       <strong>{{ tr['update_part'] }}</strong><br />
-      <span class="desc">{{ tr['description_update_part'] }}</span>
+      <span class="description">{{ tr['description_update_part'] }}</span>
     </li>
     {% endif %}
     <li>
       <strong>{{ tr['add_replaced_part'] }}</strong><br />
-      <span class="desc">{{ tr['description_add_replaced_part'] }}</span>
+      <span class="description">{{ tr['description_add_replaced_part'] }}</span>
     </li>
   </ul>
 
@@ -54,41 +52,43 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
     {% if current_user.is_admin %}
     <li>
       <strong>{{ tr['new_machine'] }}</strong><br />
-      <span class="desc">{{ tr['description_new_machine'] }}</span>
+      <span class="description">{{ tr['description_new_machine'] }}</span>
     </li>
     <li>
       <strong>{{ tr['edit_machine'] }}</strong><br />
-      <span class="desc">{{ tr['description_edit_machine'] }}</span>
+      <span class="description">{{ tr['description_edit_machine'] }}</span>
     </li>
     {% endif %}
     <li>
       <strong>{{ tr['machine_info'] }}</strong><br />
-      <span class="desc">{{ tr['description_machine_info'] }}</span>
+      <span class="description">{{ tr['description_machine_info'] }}</span>
     </li>
     <li>
       <strong>{{ tr['machines_list'] }}</strong><br />
-      <span class="desc">{{ tr['description_machines_list'] }}</span>
+      <span class="description">{{ tr['description_machines_list'] }}</span>
     </li>
     <li>
       <strong>{{ tr['downloads'] }}</strong><br />
-      <span class="desc">{{ tr['description_downloads'] }}</span>
+      <span class="description">{{ tr['description_downloads'] }}</span>
     </li>
   </ul>
 
   <h3>{{ tr['nav_prices'] }}</h3>
   <ul>
-    <span class="desc">{{ tr['description_prices'] }}</span>
+    <span class="description">{{ tr['description_prices'] }}</span>
   </ul>
 
   <h3>{{ tr['nav_reports'] }}</h3>
   <ul>
     <li>
       <strong>{{ tr['replaced_parts'] }}</strong><br />
-      <span class="desc">{{ tr['description_replaced_parts_report'] }}</span>
+      <span class="description"
+        >{{ tr['description_replaced_parts_report'] }}</span
+      >
     </li>
     <li>
       <strong>BPS C1 {{ tr['quaterly_services'] }}</strong><br />
-      <span class="desc">{{ tr['description_quaterly_services'] }}</span>
+      <span class="description">{{ tr['description_quaterly_services'] }}</span>
     </li>
   </ul>
   {% if current_user.is_admin %}
@@ -96,11 +96,11 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
   <ul>
     <li>
       <strong>{{ tr['new_client'] }}</strong><br />
-      <span class="desc">{{ tr['description_new_client'] }}</span>
+      <span class="description">{{ tr['description_new_client'] }}</span>
     </li>
     <li>
       <strong>{{ tr['edit_client'] }}</strong><br />
-      <span class="desc">{{ tr['description_edit_client'] }}</span>
+      <span class="description">{{ tr['description_edit_client'] }}</span>
     </li>
   </ul>
   {% endif %}
@@ -108,21 +108,21 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
   <ul>
     <li>
       <strong>{{ tr['new_task'] }}</strong><br />
-      <span class="desc">{{ tr['description_new_task'] }}</span>
+      <span class="description">{{ tr['description_new_task'] }}</span>
     </li>
     <li>
       <strong>{{ tr['view_tasks'] }}</strong><br />
-      <span class="desc">{{ tr['description_view_tasks'] }}</span>
+      <span class="description">{{ tr['description_view_tasks'] }}</span>
     </li>
   </ul>
 
   <h3>{{ tr['nav_schedule'] }}</h3>
   <ul>
-    <span class="desc">{{ tr['description_schedule'] }}</span>
+    <span class="description">{{ tr['description_schedule'] }}</span>
     {% if current_user.is_admin %}
     <li>
       <strong>{{ tr['new_visit'] }}</strong><br />
-      <span class="desc">{{ tr['description_new_visit'] }}</span>
+      <span class="description">{{ tr['description_new_visit'] }}</span>
     </li>
     {% endif %}
   </ul>

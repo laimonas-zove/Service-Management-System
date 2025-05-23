@@ -7,13 +7,13 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 </div>
 {% endif %} {% endwith %}
 
-<div class="table_container">
-  <div class="btn-container">
-    <a href="{{ lang_url_for('new_task') }}" class="btn btn-success"
-      >{{ tr['new_task'] }}</a
-    >
-  </div>
-  <h3>{{ tr['task_list'] }}</h3>
+<div class="btn-container">
+  <a href="{{ lang_url_for('new_task') }}" class="btn btn-success"
+    >{{ tr['new_task'] }}</a
+  >
+</div>
+<h3>{{ tr['task_list'] }}</h3>
+<div class="table-container">
   <table border="1" cellpadding="6" cellspacing="0">
     <thead>
       <tr>
@@ -29,7 +29,9 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
       <tr>
         <td>{{ task.task }}</td>
         <td>{{ task.created_at.strftime("%Y-%m-%d %H:%M:%S") }}</td>
-        <td>{{ task.created_by_user.name if task.created_by_user else "-" }}</td>
+        <td>
+          {{ task.created_by_user.name if task.created_by_user else "-" }}
+        </td>
         <td>
           {% if task.completed_at %} {{ task.completed_at.strftime("%Y-%m-%d
           %H:%M:%S") }} {% else %} - {% endif %}
@@ -43,9 +45,12 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
             >✅</a
           >
           {% else %}
-          <span style="color: green; font-weight: bold">{{ tr['completed'] }}</span><br />
+          <span style="color: green; font-weight: bold"
+            >{{ tr['completed'] }}</span
+          ><br />
           <span style="font-size: 0.9em; color: gray"
-            >{{ task.completed_by_user.name if task.completed_by_user else "-" }}</span
+            >{{ task.completed_by_user.name if task.completed_by_user else "-"
+            }}</span
           >
           {% endif %}
         </td>
@@ -58,25 +63,4 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
     </tbody>
   </table>
 </div>
-
-<style>
-  .btn-success {
-    background-color: #28a745;
-    color: white;
-    padding: 0.5vw 2vw;
-    border-radius: 0.5vw;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1vw;
-  }
-
-  .btn-container {
-    text-align: right;
-  }
-
-  .btn-success:hover {
-    background-color: #218838;
-  }
-</style>
-
 {% endblock %}

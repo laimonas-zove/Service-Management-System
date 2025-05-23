@@ -1,7 +1,4 @@
-{% extends 'base_index.html' %}
-{% block content %}
-
-{% with messages =
+{% extends 'base_index.html' %} {% block content %} {% with messages =
 get_flashed_messages(with_categories=true) %} {% if messages %}
 <div class="flash-container">
   {% for category, message in messages %}
@@ -10,55 +7,74 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 </div>
 {% endif %} {% endwith %}
 
-<h2>{{ tr['machine_search'] }}:</h2>
-<form method="POST" action="{{ lang_url_for('edit_machine_select') }}">
-  <input type="hidden" name="lang" value="{{ lang }}">
-  <input list="machines_list" name="serial_number" id="serial_number" required
-         placeholder="{{ tr['placeholder_serial_number'] }}">
+<h2>{{ tr['machine_search'] }}</h2>
+<form
+  method="POST"
+  class="form-container"
+  action="{{ lang_url_for('edit_machine_select') }}"
+>
+  <div class="form-row">
+    <label>{{ tr['serial_number'] }}:<span style="color: red">*</span></label>
+    <input type="hidden" name="lang" value="{{ lang }}" />
+    <input
+      list="machines_list"
+      name="serial_number"
+      id="serial_number"
+      required
+      placeholder="{{ tr['placeholder_serial_number'] }}"
+    />
 
-  <datalist id="machines_list">
-    {% for machine in machines %}
+    <datalist id="machines_list">
+      {% for machine in machines %}
       <option value="{{ machine.serial_number }}">
-      {{ machine.machine_type.name }}
-    </option>
-    {% endfor %}
-  </datalist>
-
-  <button type="submit" class="form_button">{{ tr['search'] }}</button>
+        {{ machine.machine_type.name }}
+      </option>
+      {% endfor %}
+    </datalist>
+  </div>
+  <button type="submit" class="form-button">{{ tr['search'] }}</button>
 </form>
 
 {% if selected_machine %}
-<hr>
-<h3>{{ tr['editing'] }}: {{ selected_machine.serial_number }} - {{
-  selected_machine.machine_type.name }}</h3>
+<hr />
+<div class="update-table">
+  <h3>
+    {{ tr['editing'] }}: {{ selected_machine.serial_number }} - {{ selected_machine.machine_type.name }}
+  </h3>
 
-<form method="POST"
-      action="{{ lang_url_for('edit_machine', serial_number=selected_machine.serial_number) }}">
-  <label for="client_id">{{ tr['client'] }}:</label>
-  <select name="client_id" required>
-    {% for client in clients %}
-      <option value="{{ client.id }}" {% if client.id == selected_machine.client_id %}selected{% endif %}>
+  <form
+    method="POST"
+    class="form-container"
+    action="{{ lang_url_for('edit_machine', serial_number=selected_machine.serial_number) }}"
+  >
+  <div class="form-row">
+    <label for="client_id">{{ tr['client'] }}:</label>
+    <select name="client_id" required>
+      {% for client in clients %}
+      <option
+        value="{{ client.id }}"{% if client.id=="selected_machine.client_id" %}selected{% endif %}
+      >
         {{ client.company }} - {{ client.city }}
       </option>
-    {% endfor %}
-  </select>
+      {% endfor %}
+    </select>
+  </div>
 
-  <br><br>
+  <div class="form-row">
+    <label for="is_active">{{ tr['is_active'] }}:</label>
+    <select name="is_active" required>
+      <option value="true" {% if selected_machine.is_active %}selected{% endif %}>
+        {{ tr['yes'] }}
+      </option>
+      <option
+        value="false"{% if not selected_machine.is_active %}selected{% endif %}
+      >
+        {{ tr['no'] }}
+      </option>
+    </select>
+  </div>
 
-  <label for="is_active">{{ tr['is_active'] }}:</label>
-  <select name="is_active" required>
-    <option value="true" {% if selected_machine.is_active %}selected{% endif %}>
-      {{ tr['yes'] }}
-    </option>
-    <option value="false" {% if not selected_machine.is_active %}selected{% endif %}>
-      {{ tr['no'] }}
-    </option>
-  </select>
-
-  <br><br>
-
-  <button type="submit" class="form_button">{{ tr['save'] }}</button>
-</form>
-{% endif %}
-
-{% endblock %}
+    <button type="submit" class="form-button">{{ tr['save'] }}</button>
+  </form>
+</div>
+{% endif %} {% endblock %}

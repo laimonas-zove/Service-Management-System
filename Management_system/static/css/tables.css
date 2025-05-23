@@ -1,0 +1,148 @@
+.table-container {
+  border-radius: 10px;
+  overflow: auto;
+}
+
+table { 
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0px;
+  font-size: 14px;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: visible;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+th, td {
+  padding: 14px;
+  text-align: center;
+  border: none;
+  border: 1px solid #e0e0e0;
+}
+
+th {
+  font-weight: 600;
+  color: #333;
+  background-color: #f8f8f8;
+}
+
+td {
+  background-color: #ffffff;
+  position: relative;
+  overflow: visible;
+}
+
+thead tr:first-child th:first-child {
+  border-top-left-radius: 10px;
+}
+
+thead tr:first-child th:last-child {
+  border-top-right-radius: 10px;
+}
+
+tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+.table-container-parts {
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.table-container-history {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: auto;
+  max-height: 250px;
+}
+
+.table-container-history table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hidden-input {
+    display: none;
+  }
+
+.update-table {
+    max-width: 700px;
+    margin: 10px auto
+}
+
+.update-table table {
+  max-width: 600px;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.update-table th, 
+.update-table td {
+  padding: 12px 20px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.update-table input[type="number"] {
+  width: 70px;
+  padding: 6px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  margin: auto;
+}
+
+.table-container h3,
+.update-table h3 {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.update-table h4 {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.tooltip-icon {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.tooltip-text {
+  position: absolute;
+  top: 50%;
+  right: 200%;
+  transform: translateY(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  min-width: 200px;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+}
+
+.tooltip-icon:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}

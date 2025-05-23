@@ -12,53 +12,53 @@
 {% endwith %}
 
 <h2>{{ tr['select_machine_type'] }}</h2>
-<form method="POST" action="{{ lang_url_for('prices') }}" class="filter-form">
-  <input type="hidden" name="lang" value="{{ lang }}">
-  <div class="filter-container">
-    <div class="filter-item">
-  <select name="machine_type" required>
-    {% for machine_type in machine_types %}
-      <option value="{{ machine_type.name }}"
-        {% if selected_type and selected_type.name == machine_type.name %}selected{% endif %}>
-        {{ machine_type.name }}
-      </option>
-    {% endfor %}
-  
+<form method="POST" action="{{ lang_url_for('prices') }}" class="form-container">
+  <div class="form-row">
+    <label>{{ tr['machine_type'] }}:<span style="color: red">*</span></label>
+    <input type="hidden" name="lang" value="{{ lang }}">
+    <select name="machine_type" required>
+      {% for machine_type in machine_types %}
+        <option value="{{ machine_type.name }}"
+          {% if selected_type and selected_type.name == machine_type.name %}selected{% endif %}>
+          {{ machine_type.name }}
+        </option>
+      {% endfor %}
   </select>
   </div>
-  <button type="submit" class="filter-button">{{ tr['show_price_list'] }}</button>
-</div>
+  <button type="submit" class="form-button">{{ tr['show_price_list'] }}</button>
 
 </form>
 {% if selected_type %}
-  <div class="table_container">
-    <h3>{{ selected_type.name }} {{ tr['price_list'] }}</h3>
-  <table border="1" cellpadding="6" cellspacing="0">
-    <thead>
-      <tr>
-        <th>{{ tr['part_number'] }}</th>
-        <th>{{ tr['name'] }} En</th>
-        <th>{{ tr['name'] }} Lt</th>
-        <th>{{ tr['price'] }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% if parts %}
-        {% for part in parts %}
-          <tr>
-            <td>{{ part.part_number }}</td>
-            <td>{{ part.name_en }}</td>
-            <td>{{ part.name_lt }}</td>
-            <td>{{ "%.2f"|format(part.price) }} €</td>
-          </tr>
-        {% endfor %}
-      {% else %}
+<hr>
+<h3>{{ selected_type.name }} {{ tr['price_list'] }}</h3>
+  <div class="table-container">
+    <table border="1" cellpadding="6" cellspacing="0">
+      <thead>
         <tr>
-          <td colspan="4" style="text-align: center">{{ tr['no_parts_found'] }}</td>
+          <th>{{ tr['part_number'] }}</th>
+          <th>{{ tr['name'] }} En</th>
+          <th>{{ tr['name'] }} Lt</th>
+          <th>{{ tr['price'] }}</th>
         </tr>
-      {% endif %}
-    </tbody>
-  </table></div>
+      </thead>
+      <tbody>
+        {% if parts %}
+          {% for part in parts %}
+            <tr>
+              <td>{{ part.part_number }}</td>
+              <td>{{ part.name_en }}</td>
+              <td>{{ part.name_lt }}</td>
+              <td>{{ "%.2f"|format(part.price) }} €</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="4" style="text-align: center">{{ tr['no_parts_found'] }}</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
 {% endif %}
 
 {% endblock %}

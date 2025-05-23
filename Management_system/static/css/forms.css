@@ -1,0 +1,125 @@
+.form-container {
+  margin: 10px auto;
+  max-width: 600px;
+  background-color: #f8f9fac7;
+  padding: 15px 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+    font-size: 14px;
+    font-style: italic;
+}
+
+.form-row-static {
+    text-align: center;
+    font-weight: bold;
+}
+
+.form-field {
+    margin-top: 5px;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+form h3 {
+    text-align: center;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin-top: 5px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  accent-color: #007bff;
+}
+
+form input,
+form select,
+form textarea {
+    display: flex;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    width: 100%;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+input[list="machines_list"] {
+  font-size: 14px;
+  padding: 10px;
+  width: 100%;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background-color: #f8f9fac7;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  max-width: 700px;
+  margin: 10px auto;
+  font-size: 14px;
+  justify-content: center;
+}
+
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.filter-item {
+  display: flex;
+  min-width: 150px;
+  align-items: center;
+  gap: 6px;
+  
+}
+
+.filter-item label {
+  font-weight: 500;
+  white-space: nowrap;
+  width: 50px;
+  text-align: center;
+}
+
+
+.filter-select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  min-width: 200px;
+  background-color: white;
+  transition: border-color 0.2s ease-in-out;
+  width: 100px;
+}

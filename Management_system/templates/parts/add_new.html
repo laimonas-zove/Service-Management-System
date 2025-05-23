@@ -7,32 +7,48 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 </div>
 {% endif %} {% endwith %}
 
-<h2>{{ tr['new_part'] }}:</h2>
-<form method="POST" action="{{ lang_url_for('new_part') }}" class="form-container">
+<h2>{{ tr['new_part'] }}</h2>
+<form
+  method="POST"
+  action="{{ lang_url_for('new_part') }}"
+  class="form-container"
+>
   {{ form.hidden_tag() }}
 
   <div class="form-row">
-    <label for="part_number">{{ tr['part_number'] }}:<span style="color: red">*</span></label>
+    <label for="part_number"
+      >{{ tr['part_number'] }}:<span style="color: red">*</span></label
+    >
     {{ form.part_number(class_="form-field") }}
   </div>
 
   <div class="form-row">
-    <label for="name_en">{{ tr['name'] }} En<span style="color: red">*</span></label>
+    <label for="name_en"
+      >{{ tr['name'] }} En<span style="color: red">*</span></label
+    >
     {{ form.name_en(class_="form-field") }}
   </div>
 
   <div class="form-row">
-    <label for="name_lt">{{ tr['name'] }} Lt:<span style="color: red">*</span></label>
+    <label for="name_lt"
+      >{{ tr['name'] }} Lt:<span style="color: red">*</span></label
+    >
     {{ form.name_lt(class_="form-field") }}
   </div>
 
   <div class="form-row">
-    <label for="price">{{ tr['price'] }}:<span style="color: red">*</span></label>
+    <label for="price"
+      >{{ tr['price'] }}:<span style="color: red">*</span></label
+    >
     {{ form.price(class_="form-field") }}
   </div>
 
   <div class="form-row full-width">
-    <label>{{ tr['compatible_machine_types'] }}:<span style="color: red">*</span></label>
+    <label
+      >{{ tr['compatible_machine_types'] }}:<span style="color: red"
+        >*</span
+      ></label
+    >
     <div class="checkbox-group">
       {% for value, label in form.machine_types.choices %}
       <label class="checkbox">
@@ -40,26 +56,24 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
           type="checkbox"
           name="{{ form.machine_types.name }}"
           value="{{ value }}"
-          {% if form.machine_types.data and value in form.machine_types.data %}
-          checked
-          {% endif %}
+          {% if form.machine_types.data and value in form.machine_types.data %} checked {% endif %}
         />
         {{ label }}
       </label>
       {% endfor %}
     </div>
   </div>
+  <hr>
+    <h3>{{ tr['quantities'] }}</h3>
+    {% for i in range(form.inventory_entries|length) %}
+    <div class="form-row">
+      <label>{{ locations[i] }}:</label>
+      {{ form.inventory_entries[i].quantity(class_="form-field") }} {{
+      form.inventory_entries[i].location_id() }}
+    </div>
 
-  <h3>{{ tr['quantities'] }}</h3>
-  {% for i in range(form.inventory_entries|length) %}
-  <div class="form-row">
-    <label>{{ locations[i] }}:</label>
-    {{ form.inventory_entries[i].quantity(class_="form-field") }}
-    {{ form.inventory_entries[i].location_id() }}
-  </div>
-
-  {% endfor %}
-  {{ form.submit(class_="button", value=tr['submit'], class="form_button") }}
+    {% endfor %} {{ form.submit(class_="form-button", value=tr['submit']) }}
+  </tr>
 </form>
 
 {% endblock %}

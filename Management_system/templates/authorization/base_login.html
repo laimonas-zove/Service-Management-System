@@ -8,28 +8,46 @@
       href="{{ url_for('static', filename='css/login.css') }}"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/buttons.css') }}"
+    />
   </head>
   <body>
-
-    <div class="login-container" style="position: relative;">
+    <div class="login-container">
       <div class="lang-switcher">
-        {% set args_en = request.view_args.copy() %}
-          {% set _ = args_en.update({'lang': 'en'}) %}
-          <a href="{{ url_for(request.endpoint, **args_en) }}">
-            <img src="{{ url_for('static', filename='images/uk.png') }}" alt="English" title="English">
-          </a>
+        {% set args_en = request.view_args.copy() %} {% set _ =
+        args_en.update({'lang': 'en'}) %}
+        <a
+          href="{{ url_for(request.endpoint, **args_en) }}"
+          class="{% if request.view_args.lang == 'en' %}active-lang{% else %}inactive-lang{% endif %}"
+        >
+          <img
+            src="{{ url_for('static', filename='images/uk.png') }}"
+            alt="English"
+            title="English"
+          />
+        </a>
 
-          {% set args_lt = request.view_args.copy() %}
-          {% set _ = args_lt.update({'lang': 'lt'}) %}
-          <a href="{{ url_for(request.endpoint, **args_lt) }}">
-            <img src="{{ url_for('static', filename='images/lt.png') }}" alt="Lietuvių" title="Lietuvių">
-          </a>
+        {% set args_lt = request.view_args.copy() %} {% set _ =
+        args_lt.update({'lang': 'lt'}) %}
+        <a
+          href="{{ url_for(request.endpoint, **args_lt) }}"
+          class="{% if request.view_args.lang == 'lt' %}active-lang{% else %}inactive-lang{% endif %}"
+        >
+          <img
+            src="{{ url_for('static', filename='images/lt.png') }}"
+            alt="Lietuvių"
+            title="Lietuvių"
+          />
+        </a>
       </div>
       <main>{% block content %}{% endblock %}</main>
       <footer>
         <p>
-          {{ tr['mail'] }} <a href="mailto:info@interatlas.lt">info@interatlas.lt</a>
-          {{ tr['or_call'] }} <a href="tel:+37065167055">+370 651 67055</a>
+          {{ tr['mail'] }}
+          <a href="mailto:info@interatlas.lt">info@interatlas.lt</a> {{
+          tr['or_call'] }} <a href="tel:+37065167055">+370 651 67055</a>
         </p>
       </footer>
     </div>

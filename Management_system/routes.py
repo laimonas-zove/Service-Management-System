@@ -1311,7 +1311,7 @@ def complete_task(task_id, lang):
     log_user_action(current_user.name, "Complete_Task", f"Task: {task.task}")
 
     flash(g.tr['flash_task_completed'], 'success')
-    return redirect(lang_url_for("view_tasks"))
+    return redirect(lang_url_for("tasks"))
 
 @app.route('/<lang>/calendar')
 @login_required

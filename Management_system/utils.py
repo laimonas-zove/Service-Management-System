@@ -94,5 +94,4 @@ def log_user_action(user, action, details="", level="info"):
         user_logger.info(message)
 
 def log_mail_sender(email, subject, status):
-
     mail_logger.info(f"TO: {email} | SUBJECT: {subject} | STATUS: {status}")

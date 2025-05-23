@@ -13,15 +13,9 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
   action="{{ lang_url_for('user_settings') }}"
   class="form-container"
 >
-
-    {{ form.hidden_tag() }}
-  <div class="form-row">
-    <label for="name">{{ tr['user_name'] }}:</label>
-    {{ current_user.name }}
-  </div>
-    <div class="form-row">
-    <label for="surname">{{ tr['user_surname'] }}:</label>
-    {{ current_user.surname }}
+  {{ form.hidden_tag() }}
+  <div class="form-row-static">
+    {{ current_user.name }} {{ current_user.surname }}
   </div>
   <div class="form-row">
     <label for="phone_number">{{ tr['phone_number'] }}:</label>
@@ -32,8 +26,7 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
     {{ form.email(class_="form-field") }}
   </div>
 
-
-  <hr>
+  <hr />
 
   <div class="form-row">
     <label for="new_password">{{ tr['new_password'] }}:</label>
@@ -44,13 +37,15 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
     {{ form.confirm_password(class_="form-field") }}
   </div>
 
-  <hr>
-  <p><strong>{{ tr['password_to_submit'] }}</strong></p>
-    <div class="form-row">
-    <label for="confirm_password">{{ tr['password'] }}:<span style="color: red">*</span></label>
+  <hr />
+  <h4>{{ tr['password_to_submit'] }}</h4>
+  <div class="form-row">
+    <label for="password"
+      >{{ tr['password'] }}:<span style="color: red">*</span></label
+    >
     {{ form.current_password(class_="form-field") }}
   </div>
 
-  {{ form.submit(class_="button", value=tr['submit'], class="form_button") }}
+  {{ form.submit(class_="form-button", value=tr['submit']) }}
 </form>
 {% endblock %}

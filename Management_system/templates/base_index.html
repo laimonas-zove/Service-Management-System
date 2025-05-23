@@ -4,32 +4,68 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>InterAtlas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/base.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/buttons.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/forms.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/tables.css') }}"
+    />
   </head>
   <body>
+    <button class="user-controls-toggle" onclick="toggleUserControls()">
+      ☰
+    </button>
     <div class="user-controls">
-        <div class="lang-switcher">
-          {% set args_en = request.view_args.copy() %}
-          {% set _ = args_en.update({'lang': 'en'}) %}
-          <a href="{{ url_for(request.endpoint, **args_en) }}">
-            <img src="{{ url_for('static', filename='images/uk.png') }}" alt="English" title="English">
-          </a>
+      <div class="lang-switcher">
+        {% set args_en = request.view_args.copy() %} {% set _ =
+        args_en.update({'lang': 'en'}) %}
+        <a
+          href="{{ url_for(request.endpoint, **args_en) }}"
+          class="{% if request.view_args.lang == 'en' %}active-lang{% else %}inactive-lang{% endif %}"
+        >
+          <img
+            src="{{ url_for('static', filename='images/uk.png') }}"
+            alt="English"
+            title="English"
+          />
+        </a>
 
-          {% set args_lt = request.view_args.copy() %}
-          {% set _ = args_lt.update({'lang': 'lt'}) %}
-          <a href="{{ url_for(request.endpoint, **args_lt) }}">
-            <img src="{{ url_for('static', filename='images/lt.png') }}" alt="Lietuvių" title="Lietuvių">
-          </a>
-        </div>
+        {% set args_lt = request.view_args.copy() %} {% set _ =
+        args_lt.update({'lang': 'lt'}) %}
+        <a
+          href="{{ url_for(request.endpoint, **args_lt) }}"
+          class="{% if request.view_args.lang == 'lt' %}active-lang{% else %}inactive-lang{% endif %}"
+        >
+          <img
+            src="{{ url_for('static', filename='images/lt.png') }}"
+            alt="Lietuvių"
+            title="Lietuvių"
+          />
+        </a>
+      </div>
       {% if current_user.is_admin %}
       <button onclick="window.location.href='{{ lang_url_for('invite') }}';">
         {{ tr['invite_user'] }}
       </button>
-      <button onclick="window.location.href='{{ lang_url_for('admin.index') }}';">
+      <button
+        onclick="window.location.href='{{ lang_url_for('admin.index') }}';"
+      >
         {{ tr['admin_panel'] }}
       </button>
       {% endif %}
-      <button onclick="window.location.href='{{ lang_url_for('user_settings') }}';">
+      <button
+        onclick="window.location.href='{{ lang_url_for('user_settings') }}';"
+      >
         {{ tr['user_settings'] }}
       </button>
       <button onclick="window.location.href='{{ lang_url_for('logout') }}';">
@@ -48,30 +84,72 @@
         <h1 class="title">{{ tr['title'] }}</h1>
       </header>
 
-      <nav>
+      <nav onclick="toggleNavMenu()">
+        <div class="nav-label">{{ tr['nav_menu'] or 'Menu' }}</div>
         <ul>
-          <li><a href="{{ lang_url_for('service') }}">{{ tr["nav_service"] }}</a></li>
-          <li><a href="{{ lang_url_for('parts') }}">{{ tr["nav_parts"] }}</a></li>
-          <li><a href="{{ lang_url_for('machines') }}">{{ tr["nav_machines"] }}</a></li>
-          <li><a href="{{ lang_url_for('prices') }}">{{ tr["nav_prices"] }}</a></li>
-          <li><a href="{{ lang_url_for('reports') }}">{{ tr["nav_reports"] }}</a></li>
+          <li>
+            <a href="{{ lang_url_for('service') }}">{{ tr["nav_service"] }}</a>
+          </li>
+          <li>
+            <a href="{{ lang_url_for('parts') }}">{{ tr["nav_parts"] }}</a>
+          </li>
+          <li>
+            <a href="{{ lang_url_for('machines') }}"
+              >{{ tr["nav_machines"] }}</a
+            >
+          </li>
+          <li>
+            <a href="{{ lang_url_for('prices') }}">{{ tr["nav_prices"] }}</a>
+          </li>
+          <li>
+            <a href="{{ lang_url_for('reports') }}">{{ tr["nav_reports"] }}</a>
+          </li>
           {% if current_user.is_admin %}
-          <li><a href="{{ lang_url_for('clients') }}">{{ tr["nav_clients"] }}</a></li>
+          <li>
+            <a href="{{ lang_url_for('clients') }}">{{ tr["nav_clients"] }}</a>
+          </li>
           {% endif %}
-          <li><a href="{{ lang_url_for('tasks') }}">{{ tr["nav_tasks"] }}</a></li>
-          <li><a href="{{ lang_url_for('calendar') }}">{{ tr["nav_schedule"] }}</a></li>
+          <li>
+            <a href="{{ lang_url_for('tasks') }}">{{ tr["nav_tasks"] }}</a>
+          </li>
+          <li>
+            <a href="{{ lang_url_for('calendar') }}"
+              >{{ tr["nav_schedule"] }}</a
+            >
+          </li>
         </ul>
+
+        <div class="mobile-nav">
+          <a href="{{ lang_url_for('service') }}">{{ tr["nav_service"] }}</a>
+          <a href="{{ lang_url_for('parts') }}">{{ tr["nav_parts"] }}</a>
+          <a href="{{ lang_url_for('machines') }}">{{ tr["nav_machines"] }}</a>
+          <a href="{{ lang_url_for('prices') }}">{{ tr["nav_prices"] }}</a>
+          <a href="{{ lang_url_for('reports') }}">{{ tr["nav_reports"] }}</a>
+          {% if current_user.is_admin %}
+          <a href="{{ lang_url_for('clients') }}">{{ tr["nav_clients"] }}</a>
+          {% endif %}
+          <a href="{{ lang_url_for('tasks') }}">{{ tr["nav_tasks"] }}</a>
+          <a href="{{ lang_url_for('calendar') }}">{{ tr["nav_schedule"] }}</a>
+        </div>
       </nav>
+
       <main>{% block content %}{% endblock %}</main>
-
-
 
       <footer>
         <p>
-          {{ tr['mail'] }} <a href="mailto:info@interatlas.lt">info@interatlas.lt</a>
-          {{ tr['or_call'] }} <a href="tel:+37065167055">+370 651 67055</a>
+          {{ tr['mail'] }}
+          <a href="mailto:info@interatlas.lt">info@interatlas.lt</a> {{
+          tr['or_call'] }} <a href="tel:+37065167055">+370 651 67055</a>
         </p>
       </footer>
     </div>
+    <script>
+      function toggleUserControls() {
+        document.querySelector(".user-controls").classList.toggle("active");
+      }
+      function toggleNavMenu() {
+        document.querySelector(".mobile-nav").classList.toggle("active");
+      }
+    </script>
   </body>
 </html>

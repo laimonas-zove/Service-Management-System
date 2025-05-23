@@ -1,51 +1,27 @@
-{% extends 'base_index.html' %}
-{% block content %}
-
-<div class="form-container">
-  <h2>{{ tr['edit_visit'] if edit_mode else tr['new_visit'] }}</h2>
-
+{% extends 'base_index.html' %} {% block content %}
+<h2>{{ tr['edit_visit'] if edit_mode else tr['new_visit'] }}</h2>
+<form method="POST" class="form-container">
   {% if client %}
-  <h3>{{ client.company }} - {{ client.city }}</h3>
+  <div class="form-row-static">{{ client.company }} - {{ client.city }}</div>
+  {% endif %} {{ form.hidden_tag() }} {% if 'client' in form._fields %}
+  <div class="form-row">
+    <label for="client">{{ tr['client'] }}:</label><br />
+    {{ form.client(class_="form-field") }}
+  </div>
   {% endif %}
 
-  <form method="POST">
-    {{ form.hidden_tag() }}
+  <div class="form-row">
+    <label for="visit_date">{{ tr['visit_date'] }}:</label
+    ><span style="color: red">*</span><br />
+    {{ form.date(class_="form-field") }}
+  </div>
 
-    {% if 'client' in form._fields %}
-        <div class="form-group">
-            <label>{{ tr['client'] }}:</label><span style="color: red">*</span><br>
-            {{ form.client(class="form-control") }}
-        </div>
-        {% endif %}
-
-    <div class="form-group">
-      <label>{{ tr['visit_date'] }}:</label><span style="color: red">*</span><br>
-      {{ form.date(class="form-control") }}
-    </div>
-
-    <div class="form-group">
-      <label>{{ tr['visit_purpose'] }}:</label><br>
-      {{ form.purpose(class="form-control", rows=6) }}
-    </div>
-
-
-    <div class="form-group">
-      {{ form.submit(class_="form_button", value=tr['update'] if edit_mode else tr['save']) }}
-    </div>
-  </form>
-</div>
-
-<style>
-  .form-container {
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-  }
-  .form-group {
-    margin-bottom: 1em;
-  }
-</style>
+  <div class="form-row">
+    <label>{{ tr['visit_purpose'] }}:</label><br />
+    {{ form.purpose(class_="form-field", rows=6) }}
+  </div>
+  {{ form.submit(class_="form-button", value=tr['update'] if edit_mode else
+  tr['save']) }}
+</form>
 
 {% endblock %}

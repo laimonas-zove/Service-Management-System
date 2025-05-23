@@ -1,7 +1,6 @@
-{% extends 'base_index.html' %}
-{% block content %}
-<div class="table_container">
-  <h3>{{ tr['machines_list'] }}</h3>
+{% extends 'base_index.html' %} {% block content %}
+<h3>{{ tr['machines_list'] }}</h3>
+<div class="table-container">
   <table border="1" cellpadding="8" cellspacing="0">
     <thead>
       <tr>
@@ -13,70 +12,82 @@
       </tr>
     </thead>
     <tbody>
-      {% if machines %}
-        {% for machine in machines %}
-        <tr class="clickable-row">
-          <td>
-            <a href="{{ lang_url_for('machine_info', serial_number=machine.serial_number) }}" class="row-link">
-              {{ machine.machine_type.name }}
-            </a>
-          </td>
-          <td>
-            <a href="{{ lang_url_for('machine_info', serial_number=machine.serial_number) }}" class="row-link">
-              {{ machine.serial_number }}
-            </a>
-          </td>
-          <td>
-            <a href="{{ lang_url_for('machine_info', serial_number=machine.serial_number) }}" class="row-link">
-              {{ machine.start_of_operation }}
-            </a>
-          </td>
-          <td>
-            <a href="{{ lang_url_for('machine_info', serial_number=machine.serial_number) }}" class="row-link">
-              {{ machine.client.company }}
-            </a>
-          </td>
-          <td>
-            <a href="{{ lang_url_for('machine_info', serial_number=machine.serial_number) }}" class="row-link">
-              {{ machine.client.city }}
-            </a>
-          </td>
-        </tr>
-        {% endfor %}
-      {% else %}
-        <tr>
-          <td colspan="5" style="text-align: center">{{ tr['no_machines'] }}</td>
-        </tr>
+      {% if machines %} {% for machine in machines %}
+      <tr class="clickable-row">
+        <td>
+          <a
+            href="{{ lang_url_for('machine_info', serial_number=machine.serial_number) }}"
+            class="row-link"
+          >
+            {{ machine.machine_type.name }}
+          </a>
+        </td>
+        <td>
+          <a
+            href="{{ lang_url_for('machine_info', serial_number=machine.serial_number) }}"
+            class="row-link"
+          >
+            {{ machine.serial_number }}
+          </a>
+        </td>
+        <td>
+          <a
+            href="{{ lang_url_for('machine_info', serial_number=machine.serial_number) }}"
+            class="row-link"
+          >
+            {{ machine.start_of_operation }}
+          </a>
+        </td>
+        <td>
+          <a
+            href="{{ lang_url_for('machine_info', serial_number=machine.serial_number) }}"
+            class="row-link"
+          >
+            {{ machine.client.company }}
+          </a>
+        </td>
+        <td>
+          <a
+            href="{{ lang_url_for('machine_info', serial_number=machine.serial_number) }}"
+            class="row-link"
+          >
+            {{ machine.client.city }}
+          </a>
+        </td>
+      </tr>
+      {% endfor %} {% else %}
+      <tr>
+        <td colspan="5" style="text-align: center">{{ tr['no_machines'] }}</td>
+      </tr>
       {% endif %}
     </tbody>
   </table>
 </div>
 
 <style>
-.clickable-row {
+  .clickable-row {
     cursor: pointer;
-}
+  }
 
-.clickable-row:hover .row-link {
+  .clickable-row:hover .row-link {
     background-color: #e8f4f8;
-}
+  }
 
-.clickable-row td {
+  .clickable-row td {
     padding: 0;
-}
+  }
 
-.row-link {
+  .row-link {
     color: inherit;
     text-decoration: none;
     display: block;
-    width: 100%;
     height: 100%;
     padding: 8px;
-}
+  }
 
-.clickable-row:last-child:hover .row-link {
+  .clickable-row:last-child:hover .row-link {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-}
+  }
 </style>
 {% endblock %}

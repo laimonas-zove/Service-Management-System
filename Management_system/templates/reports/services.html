@@ -7,26 +7,25 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 </div>
 {% endif %} {% endwith %}
 
-<form method="POST" class="filter-form">
-  <div class="filter-container">
+<form method="POST">
+  <div class="form-container">
     {{ form.hidden_tag() }}
-    <div class="filter-item">
+    <div class="form-row">
       <label for="client">{{ tr['client'] }}:</label>
-      {{ form.client(class_="filter-select") }} {{
-      form.submit(class_="filter-button", value=tr['search']) }}
+      {{ form.client(class_="form-select") }}
     </div>
+    {{ form.submit(class_="form-button", value=tr['search']) }}
   </div>
 </form>
 
 {% if results %}
-<div class="table_container">
-  <h3>
-    {% if lang == 'en' %}
-    {{ tr['service_of'] }} {{ current_quarter }} {{ tr['quarter'] }}
-    {% else %}
-    {{ current_quarter }} {{ tr['quarter'] }} {{ tr['service_of'] }}
-    {% endif %}
-  </h3>
+<hr />
+<h3>
+  {% if lang == 'en' %} {{ tr['service_of'] }} {{ current_quarter }} {{
+  tr['quarter'] }} {% else %} {{ current_quarter }} {{ tr['quarter'] }} {{
+  tr['service_of'] }} {% endif %}
+</h3>
+<div class="table-container">
   <table border="1" cellpadding="8" cellspacing="0">
     <thead>
       <tr>
@@ -41,16 +40,13 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
         <td>{{ machine.serial_number }}</td>
         <td>{{ machine.machine_type.name }}</td>
         <td>
-          {% if machine.services %}
-          {% set quarter_services = [] %}
-          {% for service in machine.services %}
-          {% if service.date.year == now.year and (service.date.month-1)//3+1 ==
-          current_quarter %}
-          {% set _ = quarter_services.append(service) %}
-          {% endif %} {% endfor %}
-          {% if quarter_services %}
-          {{ (quarter_services | sort(attribute='date'))[-1].date.strftime('%Y-%m-%d') }}
-          {% else %} - {% endif %} {% else %} - {% endif %}
+          {% if machine.services %} {% set quarter_services = [] %} {% for
+          service in machine.services %} {% if service.date.year == now.year and
+          (service.date.month-1)//3+1 == current_quarter %} {% set _ =
+          quarter_services.append(service) %} {% endif %} {% endfor %} {% if
+          quarter_services %} {{ (quarter_services |
+          sort(attribute='date'))[-1].date.strftime('%Y-%m-%d') }} {% else %} -
+          {% endif %} {% else %} - {% endif %}
         </td>
       </tr>
       {% endfor %}

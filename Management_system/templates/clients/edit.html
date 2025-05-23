@@ -2,14 +2,7 @@
 <h2>{{ tr['editing_client'] }}</h2>
 <form method="POST" class="form-container">
   {{ form.hidden_tag() }}
-  <div class="form-row">
-    <label for="company">{{ tr['company'] }}:</label>
-    <strong>{{ client.company }}</strong>
-  </div>
-  <div class="form-row">
-    <label for="city">{{ tr['city'] }}:</label>
-    <strong>{{ client.city }}</strong>
-  </div>
+  <div class="form-row-static">{{ client.company }} - {{ client.city }}</div>
   <div class="form-row">
     <label for="address">{{ tr['address'] }}:</label>
     {{ form.address(class_="form-field") }}
@@ -26,9 +19,6 @@
     <label for="email">{{ tr['email'] }}:</label>
     {{ form.email(class_="form-field") }}
   </div>
-
-  <div class="form-row full-width">
-    {{ form.submit(value=tr['update'], class="form_button") }}
-  </div>
+  {{ form.submit(class_="form-button", value=tr['update']) }}
 </form>
 {% endblock %}

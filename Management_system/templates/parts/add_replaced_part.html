@@ -15,40 +15,46 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 >
   {{ form.hidden_tag() }}
   <div class="form-row">
-    <label for="date">{{ tr['date'] }}:</label>
+    <label for="date">{{ tr['date'] }}:<span style="color: red">*</span></label>
     {{ form.date(class_="form-field") }}
   </div>
   <div class="form-row">
-    <label for="part_number">{{ tr['part_number'] }}:</label>
+    <label for="part_number"
+      >{{ tr['part_number'] }}:<span style="color: red">*</span></label
+    >
     {{ form.part_number(class_="form-field", list="parts") }}
     <datalist id="parts">
       {% for part in parts %}
-      <option value="{{ part.part_number }}">{{ part.name_en if lang == 'en' else part.name_lt }}</option>
+      <option value="{{ part.part_number }}">
+        {{ part.name_en if lang == 'en' else part.name_lt }}
+      </option>
       {% endfor %}
     </datalist>
   </div>
   <div class="form-row">
-    <label for="quantity">{{ tr['quantity'] }}:</label>
+    <label for="quantity"
+      >{{ tr['quantity'] }}:<span style="color: red">*</span></label
+    >
     {{ form.quantity(class_="form-field") }}
   </div>
   <div class="form-row">
-    <label for="serial_number">{{ tr['serial_number'] }}:</label>
+    <label for="serial_number"
+      >{{ tr['serial_number'] }}:<span style="color: red">*</span></label
+    >
     {{ form.serial_number(class_="form-field", list="machines") }}
     <datalist id="machines">
-    {% for machine in machines %}
-    <option value="{{ machine.serial_number }}">
-      {{ machine.machine_type.name }}
-    </option>
-    {% endfor %}
-  </datalist>
+      {% for machine in machines %}
+      <option value="{{ machine.serial_number }}">
+        {{ machine.machine_type.name }}
+      </option>
+      {% endfor %}
+    </datalist>
   </div>
   <div class="form-row">
-  <label for="location">{{ tr['location'] }}:</label>
-  {{ form.location(class_="form-field") }}
-</div>
-  <div class="form-row full-width">
-    {{ form.submit(class_="button", value=tr['submit'], class="form_button") }}
+    <label for="location">{{ tr['location'] }}:</label>
+    {{ form.location(class_="form-field") }}
   </div>
+  {{ form.submit(class_="form-button", value=tr['submit'])}}
 </form>
 
 {% endblock %}

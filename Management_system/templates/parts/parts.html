@@ -1,8 +1,10 @@
 {% extends 'base_index.html' %} {% block content %}
-<h2>{{ tr['select_actions'] }}:</h2>
+<h2>{{ tr['select_actions'] }}</h2>
 <div class="dashboard-actions">
   {% if current_user.is_admin %}
-  <a href="{{ lang_url_for('new_part') }}" class="action-button">{{ tr['new_part'] }}</a>
+  <a href="{{ lang_url_for('new_part') }}" class="action-button"
+    >{{ tr['new_part'] }}</a
+  >
   <a href="{{ lang_url_for('update_part') }}" class="action-button"
     >{{ tr['update_part'] }}</a
   >
@@ -10,6 +12,5 @@
   <a href="{{ lang_url_for('add_replaced_part') }}" class="action-button"
     >{{ tr['add_replaced_part'] }}</a
   >
-
 </div>
 {% endblock %}

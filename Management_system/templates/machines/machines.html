@@ -1,5 +1,5 @@
 {% extends 'base_index.html' %} {% block content %}
-<h2>{{ tr['select_actions'] }}:</h2>
+<h2>{{ tr['select_actions'] }}</h2>
 
 <div class="dashboard-actions">
   {% if current_user.is_admin %}
@@ -13,9 +13,11 @@
   <a href="{{ lang_url_for('machine_search') }}" class="action-button"
     >{{ tr['machine_info'] }}</a
   >
-  <a href="{{ lang_url_for('machine_list') }}" class="action-button">{{
-    tr['machines_list']
-    }}</a>
-  <a href="{{ lang_url_for('downloads') }}" class="action-button">{{ tr['downloads'] }}</a>
+  <a href="{{ lang_url_for('machine_list') }}" class="action-button"
+    >{{ tr['machines_list'] }}</a
+  >
+  <a href="{{ lang_url_for('downloads') }}" class="action-button"
+    >{{ tr['downloads'] }}</a
+  >
 </div>
 {% endblock %}

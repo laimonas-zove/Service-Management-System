@@ -1,5 +1,4 @@
-{% extends 'base_index.html' %} {% block content %}
-{% with messages =
+{% extends 'base_index.html' %} {% block content %} {% with messages =
 get_flashed_messages(with_categories=true) %} {% if messages %}
 <div class="flash-container">
   {% for category, message in messages %}
@@ -9,12 +8,14 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 {% endif %} {% endwith %}
 
 <h2>{{ tr['invite_user'] }}</h2>
-  <form method="POST">
-    {{ form.hidden_tag() }}
-    <div>
-      {{ form.email(class="form-field") }}
-    </div>
-    <br>
-    {{ form.submit(class_="button", value=tr['submit'], class="form_button") }}
-  </form>
+<form method="POST" class="form-container">
+  {{ form.hidden_tag() }}
+  <div class="form-row">
+    <label for="phone_number"
+      >{{ tr['email'] }}:<span style="color: red">*</span></label
+    >
+    {{ form.email(class_="form-field") }}
+  </div>
+  {{ form.submit(value=tr['submit'], class_="form-button") }}
+</form>
 {% endblock %}

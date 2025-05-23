@@ -71,6 +71,10 @@
     "en": "Welcome to ISMS (InterAtlas Service Management System)",
     "lt": "Sveiki atvykę į ISMS (InterAtlas Techninės Priežiūros Sistemą)"
   },
+  "nav_menu": {
+    "en": "Menu",
+    "lt": "Meniu"
+  },
   "nav_parts": {
     "en": "Parts",
     "lt": "Detalės"

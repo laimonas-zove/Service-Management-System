@@ -9,37 +9,43 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 
 <h2>{{ tr['search_part'] }}</h2>
 
-<form method="POST" action="{{ lang_url_for('update_part') }}">
-  <input
-    list="parts"
-    name="part_number"
-    required
-    placeholder="{{ tr['placeholder_part_number'] }}"
-  />
-  <datalist id="parts">
-    {% for part in parts %}
-    <option value="{{ part.part_number }}">
-      {{ part.name_en if lang == 'en' else part.name_lt }}
-    </option>
-    {% endfor %}
-  </datalist>
-  <button type="submit" class="form_button">{{ tr['search'] }}</button>
+<form
+  method="POST"
+  class="form-container"
+  action="{{ lang_url_for('update_part') }}"
+>
+  <div class="form-row">
+    <label>{{ tr['part_number'] }}:<span style="color: red">*</span></label>
+    <input
+      list="parts"
+      name="part_number"
+      required
+      placeholder="{{ tr['placeholder_part_number'] }}"
+    />
+    <datalist id="parts">
+      {% for part in parts %}
+      <option value="{{ part.part_number }}">
+        {{ part.name_en if lang == 'en' else part.name_lt }}
+      </option>
+      {% endfor %}
+    </datalist>
+  </div>
+  <button type="submit" class="form-button">{{ tr['search'] }}</button>
 </form>
 
 {% if part %}
-
-<div class="quantity-update-table">
+<hr />
+<div class="update-table">
   <h3>{{ tr['update_quantities'] }}:</h3>
-  <h4>{{ part.part_number }} - {{ part.name_en if lang == 'en' else part.name_lt }}</h4>
+  <h4>
+    {{ part.part_number }} - {{ part.name_en if lang == 'en' else part.name_lt
+    }}
+  </h4>
 
-  <form method="POST">
+  <form method="POST" class="form-container">
     <input type="hidden" name="part_id" value="{{ part.id }}" />
 
-    <table
-      border="1"
-      cellpadding="8"
-      cellspacing="0"
-    >
+    <table border="1" cellpadding="8" cellspacing="0">
       <thead>
         <tr>
           <th>{{ tr['location'] }}</th>
@@ -62,8 +68,7 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
         {% endfor %}
       </tbody>
     </table>
-
-    <button type="submit" class="form_button">{{ tr['save'] }}</button>
+    <button type="submit" class="form-button">{{ tr['save'] }}</button>
   </form>
 </div>
 {% endif %} {% endblock %}

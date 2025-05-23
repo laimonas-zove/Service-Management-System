@@ -8,15 +8,17 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 {% endif %} {% endwith %}
 
 <h2>{{ tr['new_task'] }}</h2>
-<form method="POST" action="{{ lang_url_for('new_task') }}" class="form-container">
+<form
+  method="POST"
+  action="{{ lang_url_for('new_task') }}"
+  class="form-container"
+>
   {{ form.hidden_tag() }}
   <div class="form-row">
-    <label for="task">{{ tr['task'] }}:</label>
+    <label for="task">{{ tr['task'] }}:<span style="color: red">*</span></label>
     {{ form.task(class_="form-field", rows=6) }}
   </div>
-  <div class="form-row full-width">
-    {{ form.submit(class_="button", value=tr['submit'], class="form_button") }}
-  </div>
+  {{ form.submit(class_="form-button", value=tr['submit']) }}
 </form>
 
 {% endblock %}
