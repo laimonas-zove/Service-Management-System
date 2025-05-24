@@ -728,8 +728,8 @@
     "lt": "Užduotis atlikta!"
   },
   "flash_visit_exist": {
-    "en": "A visit already exists on that day for this client. Please modify the existing visit.",
-    "lt": "Šiai dienai ir šiam klientui vizitas jau pridėtas. Pakoreguokite esamą vizitą."
+    "en": "A visit already exists on that day for this client.",
+    "lt": "Šiai dienai ir šiam klientui vizitas jau pridėtas."
   },
   "flash_visit_added": {
     "en": "Visit added to calendar successfully.",

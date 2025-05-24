@@ -9,16 +9,21 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 
 <div class="visit-detail-container">
   <h2>{{ tr['visit_details'] }}</h2>
-
   <div class="visit-info">
-    <p>
-      <strong>{{ tr['client'] }}:</strong> {{ visit.client.company }} - {{
-      visit.client.city }}
-    </p>
-    <p>
-      <strong>{{ tr['date'] }}:</strong> {{ visit.date.strftime('%Y-%m-%d') }}
-    </p>
-    <p><strong>{{ tr['purpose'] }}:</strong><br />{{ visit.purpose or '-' }}</p>
+    <table class="visit-table">
+      <tr>
+        <th>{{ tr['client'] }}:</th>
+        <td>{{ visit.client.company }} - {{ visit.client.city }}</td>
+      </tr>
+      <tr>
+        <th>{{ tr['date'] }}:</th>
+        <td>{{ visit.date.strftime('%Y-%m-%d') }}</td>
+      </tr>
+      <tr>
+        <th>{{ tr['purpose'] }}:</th>
+        <td>{{ visit.purpose or '-' }}</td>
+      </tr>
+    </table>
   </div>
 
   {% if current_user.is_admin %}
@@ -85,83 +90,4 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
     </tbody>
   </table>
 </div>
-{% endif %}
-
-<style>
-  .visit-detail-container {
-    max-width: 600px;
-    margin: 40px auto;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .visit-detail-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    color: #333;
-  }
-
-  .visit-info p {
-    font-size: 1rem;
-    margin: 10px 0;
-    color: #555;
-  }
-
-  .visit-info strong {
-    color: #333;
-  }
-
-  .button-group {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 20px;
-  }
-
-  .button-group .btn {
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 6px;
-    text-decoration: none;
-    text-align: center;
-    display: inline-block;
-    min-width: 120px;
-    cursor: pointer;
-  }
-
-  .btn-warning {
-    background-color: #f0ad4e;
-    color: white;
-    border: none;
-  }
-
-  .btn-danger {
-    background-color: #d9534f;
-    color: white;
-    border: none;
-  }
-
-  .btn-secondary {
-    background-color: #6c757d;
-    color: white;
-    border: none;
-  }
-
-  .btn-warning:hover {
-    background-color: #ec971f;
-  }
-
-  .btn-danger:hover {
-    background-color: #c9302c;
-  }
-
-  .btn-secondary:hover {
-    background-color: #5a6268;
-  }
-</style>
-
-{% endblock %}
+{% endif %} {% endblock %}

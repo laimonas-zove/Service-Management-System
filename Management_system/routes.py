@@ -1343,7 +1343,7 @@ def new_visit(lang):
 
         if existing_visit:
             flash(g.tr['flash_visit_exist'], 'error')
-            return redirect(lang_url_for('calendar'))
+            return render_template('calendar/visit_form.html', form=form)
 
         db.session.add(visit)
         db.session.commit()
