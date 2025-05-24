@@ -7,12 +7,14 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 </div>
 {% endif %} {% endwith %}
 
-<div class="btn-container">
-  <a href="{{ lang_url_for('new_task') }}" class="btn btn-success"
-    >{{ tr['new_task'] }}</a
-  >
+<div class="table-container-title">
+  <h3>{{ tr['task_list'] }}</h3>
+  <div class="btn-container">
+    <a href="{{ lang_url_for('new_client') }}" class="btn btn-success"
+      >{{ tr['add'] }}</a
+    >
+  </div>
 </div>
-<h3>{{ tr['task_list'] }}</h3>
 <div class="table-container">
   <table border="1" cellpadding="6" cellspacing="0">
     <thead>

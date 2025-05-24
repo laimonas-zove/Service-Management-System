@@ -177,51 +177,51 @@
   background-color: #0056b3;
 }
 
-  .button-group {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 20px;
-  }
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
 
-  .button-group .btn {
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 6px;
-    text-decoration: none;
-    text-align: center;
-    display: inline-block;
-    min-width: 120px;
-    cursor: pointer;
-  }
+.button-group .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  min-width: 120px;
+  cursor: pointer;
+}
 
-  .btn-warning {
-    background-color: #f0ad4e;
-    color: white;
-    border: none;
-  }
+.btn-warning {
+  background-color: #f0ad4e;
+  color: white;
+  border: none;
+}
 
-  .btn-danger {
-    background-color: #d9534f;
-    color: white;
-    border: none;
-  }
+.btn-danger {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+}
 
-  .btn-secondary {
-    background-color: #6c757d;
-    color: white;
-    border: none;
-  }
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+}
 
-  .btn-warning:hover {
-    background-color: #ec971f;
-  }
+.btn-warning:hover {
+  background-color: #ec971f;
+}
 
-  .btn-danger:hover {
-    background-color: #c9302c;
-  }
+.btn-danger:hover {
+  background-color: #c9302c;
+}
 
-  .btn-secondary:hover {
-    background-color: #5a6268;
-  }
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
