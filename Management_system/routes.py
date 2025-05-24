@@ -692,7 +692,7 @@ def add_replaced_part(lang):
         )
 
         flash(g.tr['flash_part_replacement_successful'], 'success')
-        return redirect(lang_url_for('add_replaced_part', form=form))
+        return redirect(lang_url_for('machine_info', serial_number = form.serial_number.data))
 
     return render_template(
         '/parts/add_replaced_part.html',
@@ -1012,7 +1012,7 @@ def new_service(lang):
             )
 
             flash(g.tr['flash_service_added'], 'success')
-            return redirect(lang_url_for('new_service', form=form))
+            return redirect(lang_url_for('machine_info', serial_number = form.serial_number.data))
 
         else:
             flash(g.tr['flash_machine_not_exist'], 'error')

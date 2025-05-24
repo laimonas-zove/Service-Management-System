@@ -205,8 +205,7 @@ class RedirectHomeView(BaseView):
 
 admin.add_view(RedirectHomeView(name='Index'))
 
-tables = [Machine, Client, Service, User, PartsReplaced, Part, Location,
-          Debt, MachineType, Task, Visit]
+tables = [Machine, Client, Service, User, PartsReplaced, Part, Location, MachineType, OneTimeLink]
 for table in tables:
     admin.add_view(AdminModelView(table, db.session))
 
