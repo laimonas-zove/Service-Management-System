@@ -3,6 +3,7 @@ from flask_admin import BaseView, expose
 from flask_login import UserMixin, current_user
 
 from . import db, login_manager, admin, lang_url_for
+from sqlalchemy.orm import configure_mappers
 from flask_admin.contrib.sqla import ModelView
 from datetime import datetime
 
@@ -22,6 +23,9 @@ class Client(db.Model):
     machines = db.relationship("Machine", back_populates="client")
     visits = db.relationship("Visit", back_populates="client")
 
+    def __str__(self):
+        return f"{self.company} - {self.city}"
+
 class Machine(db.Model):
     __tablename__ = "machines"
 
@@ -38,6 +42,9 @@ class Machine(db.Model):
     services = db.relationship("Service", back_populates="machine")
     parts_replaced = db.relationship("PartsReplaced", back_populates="machine")
     debts = db.relationship("Debt", back_populates="machine")
+
+    def __str__(self):
+        return self.serial_number
 
 class Service(db.Model):
     __tablename__ = "services"
@@ -70,6 +77,8 @@ class User(UserMixin, db.Model):
     parts_replaced = db.relationship("PartsReplaced", back_populates="user", passive_deletes=True)
     created_tasks = db.relationship("Task", back_populates="created_by_user", foreign_keys="Task.user_id", passive_deletes=True)
 
+    def __str__(self):
+        return self.name
 class PartsReplaced(db.Model):
     __tablename__ = "parts_replaced"
 
@@ -108,6 +117,8 @@ class Part(db.Model):
     debts = db.relationship("Debt", back_populates="part")
     machine_types = db.relationship("MachineType", secondary=part_machine_types, back_populates="parts")
 
+    def __str__(self):
+        return self.part_number
 
 class Inventory(db.Model):
     __tablename__ = "inventory"
@@ -120,6 +131,9 @@ class Inventory(db.Model):
     part = db.relationship("Part", back_populates="inventory")
     location = db.relationship("Location", back_populates="inventory")
     parts_replaced = db.relationship("PartsReplaced", back_populates="inventory")
+
+    def __str__(self):
+        return self.location.location_en
 
 
 class Location(db.Model):
@@ -151,6 +165,9 @@ class MachineType(db.Model):
 
     machines = db.relationship("Machine", back_populates="machine_type")
     parts = db.relationship("Part", secondary="part_machine_types", back_populates="machine_types")
+
+    def __str__(self):
+        return self.name
 
 class Task(db.Model):
     __tablename__ = "tasks"
@@ -202,10 +219,10 @@ class RedirectHomeView(BaseView):
     def is_accessible(self):
         return (current_user.is_authenticated and current_user.email == "admin@admin.lt"
                 or current_user.is_admin)
-
+    
+configure_mappers()
 admin.add_view(RedirectHomeView(name='Index'))
 
-tables = [Machine, Client, Service, User, PartsReplaced, Part, Location, MachineType, OneTimeLink]
+tables = [Machine, Client, Service, User, PartsReplaced, Part, Location, MachineType, OneTimeLink, Task]
 for table in tables:
     admin.add_view(AdminModelView(table, db.session))
-
