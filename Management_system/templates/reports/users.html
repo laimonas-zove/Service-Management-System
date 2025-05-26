@@ -1,0 +1,61 @@
+{% extends 'base_index.html' %} {% block content %}
+<h2>{{ tr['users_report'] }}</h2>
+<form method="get" class="filter-form">
+  <div class="filter-container">
+    <div class="form-row">
+      <label for="year">{{ tr['year'] }}:</label>
+      <select name="year" id="year">
+        {% for year in range(2021, 2040) %}
+        <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>
+          {{ year }}</option>
+          {% endfor %}
+      </select>
+    </div>
+    <div class="form-row">
+      <label for="month">{{ tr['month'] }}:</label>
+      <select name="month" id="month">
+        {% for month_num, month_name in month_options %}
+        <option value="{{ month_num }}" {% if month_num == selected_month %}selected{% endif %}>
+        {{ month_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <button class="form-button" type="submit">{{ tr['show'] }}</button>
+</form>
+
+<hr />
+
+<h3>{{ selected_year }} {{ tr['month_' ~ selected_month] }}</h3>
+
+<div class="user-data">
+  <div class="user-data-table">
+    <table>
+      <thead>
+        <tr>
+          <th>{{ tr['user_name'] }}</th>
+          <th>{{ tr['services_done'] }}</th>
+          <th>{{ tr['services_%'] }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in report %}
+        <tr>
+          <td>{{ row.user }}</td>
+          <td>{{ row.services_done }}</td>
+          <td>{{ row.services_percent }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="user-data-chart">
+    {% if chart_base64 %}
+    <img src="data:image/png;base64,{{ chart_base64 }}" />
+    {% else %}
+    <p>{{ tr['no_chart'] }}</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

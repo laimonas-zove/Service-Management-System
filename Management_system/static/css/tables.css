@@ -168,3 +168,32 @@ tbody tr:last-child td:last-child {
 .visit-table tbody tr:last-child td:last-child {
   border-bottom-right-radius: 0px;
 }
+
+.user-data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.user-data-table {
+  flex: 1 1 500px;
+  max-width: 1000px;
+  overflow: auto;
+  margin: 10px auto;
+}
+
+.user-data-chart {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  margin: 10px auto;
+  min-height: 150px;
+  text-align: center;
+}
+
+.user-data-chart img {
+  width: 100%;
+  border-radius: 10px;
+}

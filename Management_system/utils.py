@@ -2,6 +2,7 @@ import os
 import uuid
 import logging
 from datetime import datetime, timedelta
+from calendar import monthrange
 from functools import wraps
 from flask import request, g
 from flask_mail import Message
@@ -95,3 +96,14 @@ def log_user_action(user, action, details="", level="info"):
 
 def log_mail_sender(email, subject, status):
     mail_logger.info(f"TO: {email} | SUBJECT: {subject} | STATUS: {status}")
+
+def get_month_range(year=None, month=None):
+    now = datetime.now()
+    year = year or now.year
+    month = month or now.month
+
+    start = datetime(year, month, 1)
+    end_day = monthrange(year, month)[1]
+    end = datetime(year, month, end_day, 23, 59, 59)
+
+    return start, end

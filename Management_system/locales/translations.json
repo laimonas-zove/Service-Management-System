@@ -223,6 +223,82 @@
     "en": "Search",
     "lt": "Ieškoti"
   },
+  "show": {
+    "en": "Show",
+    "lt": "Rodyti"
+  },
+  "year": {
+    "en": "Year",
+    "lt": "Metai"
+  },
+  "month": {
+    "en": "Month",
+    "lt": "Mėnuo"
+  },
+  "month_1": {
+  "en": "January",
+  "lt": "Sausis"
+  },
+  "month_2": {
+    "en": "February",
+    "lt": "Vasaris"
+  },
+  "month_3": {
+    "en": "March",
+    "lt": "Kovas"
+  },
+  "month_4": {
+    "en": "April",
+    "lt": "Balandis"
+  },
+  "month_5": {
+    "en": "May",
+    "lt": "Gegužė"
+  },
+  "month_6": {
+    "en": "June",
+    "lt": "Birželis"
+  },
+  "month_7": {
+    "en": "July",
+    "lt": "Liepa"
+  },
+  "month_8": {
+    "en": "August",
+    "lt": "Rugpjūtis"
+  },
+  "month_9": {
+    "en": "September",
+    "lt": "Rugsėjis"
+  },
+  "month_10": {
+    "en": "October",
+    "lt": "Spalis"
+  },
+  "month_11": {
+    "en": "November",
+    "lt": "Lapkritis"
+  },
+  "month_12": {
+    "en": "December",
+    "lt": "Gruodis"
+  },
+  "services_%": {
+    "en": "% of All Services",
+    "lt": "Visų Aptarnavimų %"
+  },
+  "services_done": {
+    "en": "Services Done",
+    "lt": "Atlikti Aptarnavimai"
+  },
+  "users_report": {
+    "en": "Users Report",
+    "lt": "Vartotojų Ataskaita"
+  },
+  "no_chart": {
+    "en": "No services available for this month to display in a chart.",
+    "lt": "Nėra Aptarnavimų šį mėnesį kad rodyti diagramą"
+  },
   "update_quantities": {
     "en": "Update Quantities for Part",
     "lt": "Atnaujinti Detalės Kiekius"

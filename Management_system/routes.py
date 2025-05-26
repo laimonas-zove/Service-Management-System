@@ -1,4 +1,11 @@
 import os
+import calendar
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import io
+import base64
+
 from datetime import datetime
 
 from flask import (
@@ -21,7 +28,7 @@ from .models import (
     User, Machine, Client, Service, Part, PartsReplaced, Inventory,
     Location, MachineType, Task, Visit, OneTimeLink
 )
-from .utils import localization, send_email, generate_link, log_user_action
+from .utils import localization, send_email, generate_link, log_user_action, get_month_range
 
 
 @app.route('/<lang>/user_settings', methods=['GET', 'POST'])
@@ -1114,6 +1121,57 @@ def services_report(lang):
         current_quarter=current_quarter,
         results=results,
         now=datetime.now()
+    )
+
+@app.route('/<lang>/reports/users.html')
+@login_required
+@localization
+def users_report(lang):
+    now = datetime.now()
+    year = int(request.args.get("year", now.year))
+    month = int(request.args.get("month", now.month))
+    start_date, end_date = get_month_range(year, month)
+    month_options = [(i, g.tr[f"month_{i}"]) for i in range(1, 13)]
+    selected_month_name = g.tr[f"month_{month}"]
+
+
+    users = User.query.all()
+    total_services = Service.query.filter(Service.date.between(start_date, end_date)).count()
+
+    report = []
+    for user in users:
+        user_services = Service.query.filter_by(user_id=user.id)\
+            .filter(Service.date.between(start_date, end_date)).count()
+
+        report.append({
+            "user": user.name,
+            "services_done": user_services,
+            "services_percent": f"{(user_services / total_services * 100):.2f}%" if total_services else "0%"
+        })
+
+    services = [entry['services_done'] for entry in report if int(entry['services_done']) > 0]
+    labels = [entry['user'] for entry in report if int(entry['services_done']) > 0]
+
+    chart_base64 = None
+    if services:
+        fig, ax = plt.subplots()
+        ax.pie(services, labels=labels, autopct='%1.1f%%', startangle=90)
+        ax.axis('equal')
+
+        img_bytes = io.BytesIO()
+        plt.savefig(img_bytes, format='png', bbox_inches='tight')
+        img_bytes.seek(0)
+        chart_base64 = base64.b64encode(img_bytes.read()).decode('utf-8')
+        plt.close()
+
+    return render_template(
+        'reports/users.html',
+         report=report,
+         selected_month=month,
+         selected_year=year,
+         month_options=month_options,
+         selected_month_name=selected_month_name,
+         chart_base64=chart_base64
     )
 
 @app.route('/<lang>/clients')
