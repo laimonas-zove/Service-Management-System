@@ -10,7 +10,7 @@ from datetime import datetime
 
 from flask import (
     render_template, redirect, flash, request, abort,
-    send_from_directory, g, url_for, session
+    send_from_directory, g, url_for, session, Response
 )
 from flask_login import (
     login_user, logout_user, login_required, current_user
@@ -34,7 +34,19 @@ from .utils import localization, send_email, generate_link, log_user_action, get
 @app.route('/<lang>/user_settings', methods=['GET', 'POST'])
 @login_required
 @localization
-def user_settings(lang):
+def user_settings(lang: str) -> Response:
+    """
+    Display and process the user settings form.
+
+    Allows users to update their email, phone number, and password.
+    If email or password changes, logs user out and sends verification email.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered settings page or redirect.
+    """
     form = UserSettingsForm(obj=current_user)
     logout_required = False
     changes = []
@@ -110,7 +122,16 @@ def user_settings(lang):
 
 @app.route("/<lang>/register", methods=["GET", "POST"])
 @localization
-def register(lang):
+def register(lang: str) -> Response:
+    """
+    Handle user registration using a one-time token link.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered registration page or redirect.
+    """
     token = request.form.get("token") or request.args.get("token")
 
     if not token:
@@ -176,12 +197,21 @@ def register(lang):
     return render_template('authorization/register.html', form=form)
 
 @app.route('/')
-def redirect_to_default_lang():
+def redirect_to_default_lang() -> Response:
     return redirect(lang_url_for('login', lang='en'))
 
 @app.route('/<lang>/login', methods=['GET', 'POST'])
 @localization
-def login(lang):
+def login(lang: str) -> Response:
+    """
+    Authenticate a user and log them in.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered login page or redirect after login.
+    """
     form = LoginForm()
     form.email.render_kw = {"placeholder": g.tr["placeholder_email"]}
     form.password.render_kw = {"placeholder": g.tr["placeholder_password"]}
@@ -234,7 +264,18 @@ def login(lang):
 
 @app.route("/<lang>/forgot_password", methods=["GET", "POST"])
 @localization
-def forgot_password(lang):
+def forgot_password(lang: str) -> Response:
+    """
+    Display and handle the forgot password form.
+
+    Sends a reset link to the user's email if found.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered forgot password page or redirect.
+    """
     form = TokenSendForm()
     form.email.render_kw = {"placeholder": g.tr["placeholder_email"]}
 
@@ -265,7 +306,16 @@ def forgot_password(lang):
 
 @app.route("/<lang>/reset_password", methods=["GET", "POST"])
 @localization
-def reset_password(lang):
+def reset_password(lang: str) -> Response:
+    """
+    Allow users to reset their password using a one-time token.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered reset password form or redirect after reset.
+    """
     token = request.form.get("token") or request.args.get("token")
 
     if not token:
@@ -321,7 +371,17 @@ def reset_password(lang):
 
 @app.route('/<lang>/verify_email/<token>')
 @localization
-def verification(lang, token):
+def verification(lang: str, token: str) -> Response:
+    """
+    Verify the user's email address using a one-time token.
+
+    Args:
+        lang (str): The active language from the URL.
+        token (str): The email verification token.
+
+    Returns:
+        Response: Redirect to login with success or error flash.
+    """
     link = OneTimeLink.query.filter_by(token=token, purpose="email_verification", used=False).first()
     if not link:
         flash(g.tr['flash_invalid_link'], 'error')
@@ -348,7 +408,16 @@ def verification(lang, token):
 @app.route('/<lang>/logout')
 @login_required
 @localization
-def logout(lang):
+def logout(lang: str) -> Response:
+    """
+    Log out the current user and redirect to the login page.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Redirect to login.
+    """
     log_user_action(current_user.name, "Logout")
     logout_user()
     return redirect(lang_url_for('login'))
@@ -356,7 +425,16 @@ def logout(lang):
 @app.route("/<lang>/invite", methods=["GET", "POST"])
 @localization
 @login_required
-def invite(lang):
+def invite(lang: str) -> Response:
+    """
+    Allow admins to invite new users by generating a registration token.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered invite form or redirect after sending invite.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -400,20 +478,49 @@ def invite(lang):
 @app.route("/<lang>/index")
 @login_required
 @localization
-def index(lang):
+def index(lang: str) -> Response:
+    """
+    Render the homepage with a list of incomplete tasks.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered index page with tasks.
+    """
     tasks = Task.query.filter_by(is_completed=False).all()
     return render_template("index.html", tasks=tasks)
 
 @app.route('/<lang>/parts')
 @login_required
 @localization
-def parts(lang):
+def parts(lang: str) -> Response:
+    """
+    Render the main parts page.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered parts page.
+    """ 
     return render_template('/parts/parts.html')
 
 @app.route('/<lang>/parts/new_part', methods=['GET', 'POST'])
 @localization
 @login_required
-def new_part(lang):
+def new_part(lang: str) -> Response:
+    """
+    Handle creation of a new part, its inventory, and compatible machine types.
+
+    Only accessible to admins.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered new part form or redirect after creation.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -517,7 +624,16 @@ def new_part(lang):
 @app.route('/<lang>/parts/update_part', methods=["GET", "POST"])
 @localization
 @login_required
-def update_part(lang):
+def update_part(lang: str) -> Response:
+    """
+    Allow admins to select a part to update its quantities.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered select part form or redirect to update part form after submitting.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -532,7 +648,17 @@ def update_part(lang):
 @app.route('/<lang>/parts/update_part/<string:part_number>', methods=["GET", "POST"])
 @localization
 @login_required
-def update_part_form(part_number, lang):
+def update_part_form(part_number: str, lang: str) -> Response:
+    """
+    Update inventory quantities for a specific part.
+
+    Args:
+        part_number (str): The part's unique number.
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered update form or redirect after saving.
+    """
     parts = Part.query.order_by(Part.part_number).all()
     part = Part.query.filter_by(part_number=part_number).first()
     locations = []
@@ -605,7 +731,18 @@ def update_part_form(part_number, lang):
 @app.route('/<lang>/parts/add_replaced_part', methods=['GET', 'POST'])
 @localization
 @login_required
-def add_replaced_part(lang):
+def add_replaced_part(lang: str) -> Response:
+    """
+    Add a record of part replacement for a machine.
+
+    Validates date and inventory before saving.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered replacement form or redirect.
+    """
     form = ReplacedPartForm()
 
     serial_from_url = request.args.get('serial_number')
@@ -708,22 +845,36 @@ def add_replaced_part(lang):
         machines=machines
     )
 
-@app.route('/<lang>/parts')
-@login_required
-@localization
-def replaced_part(lang):
-    return render_template('/parts/parts.html')
-
 @app.route('/<lang>/machines')
 @login_required
 @localization
-def machines(lang):
+def machines(lang: str) -> Response:
+    """
+    Render the main machine management page.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered machines page.
+    """
     return render_template('/machines/machines.html')
 
 @app.route('/<lang>/machines/add_new/', methods=["GET", "POST"])
 @localization
 @login_required
-def new_machine(lang):
+def new_machine(lang: str) -> Response:
+    """
+    Handle the creation of a new machine.
+
+    Only accessible to admins. Calculates warranty end date.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered machine creation form or redirect.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -768,25 +919,19 @@ def new_machine(lang):
 
     return render_template('/machines/add_new.html', form=form)
 
-@app.route('/<lang>/machines/select', methods=['GET', 'POST'])
-@login_required
-@localization
-def select_machine(lang):
-    if not current_user.is_admin:
-        abort(403)
-
-    machines = Machine.query.order_by(Machine.serial_number).all()
-
-    if request.method == 'POST':
-        machine_id = request.form.get('machine_id')
-        return redirect(lang_url_for('update_machine_client', machine_id=machine_id))
-
-    return render_template('machines/select.html', machines=machines)
-
 @app.route('/<lang>/machines/machine_info', methods=['GET', 'POST'])
 @localization
 @login_required
-def machine_search(lang):
+def machine_search(lang: str) -> Response:
+    """
+    Search for a machine by serial number and redirect to its info page.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered search form or redirect.
+    """
     machines = Machine.query.all()
 
     if request.method == 'POST':
@@ -804,7 +949,17 @@ def machine_search(lang):
 @app.route('/<lang>/machines/machine_info/<string:serial_number>', methods=['GET'])
 @localization
 @login_required
-def machine_info(serial_number, lang):
+def machine_info(serial_number: str, lang: str) -> Response:
+    """
+    Display detailed information about a machine including services and parts.
+
+    Args:
+        serial_number (str): Machine serial number.
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered machine info page.
+    """
     machine = Machine.query.filter_by(serial_number=serial_number).first()
     services = Service.query.filter_by(machine_id=machine.id).order_by(
         Service.date.desc()
@@ -825,7 +980,18 @@ def machine_info(serial_number, lang):
 @app.route('/<lang>/machines/edit_machine', methods=['GET', 'POST'])
 @login_required
 @localization
-def edit_machine_select(lang):
+def edit_machine_select(lang: str) -> Response:
+    """
+    Render the machine edit selection form.
+
+    Only accessible to admins.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered form for selecting a machine to edit.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -847,7 +1013,17 @@ def edit_machine_select(lang):
 @app.route('/<lang>/machines/edit_machine/<string:serial_number>', methods=['GET', 'POST'])
 @localization
 @login_required
-def edit_machine(serial_number, lang):
+def edit_machine(serial_number: str, lang: str) -> Response:
+    """
+    Edit client assignment or active status of a machine.
+
+    Args:
+        serial_number (str): Machine serial number.
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered edit form or redirect after submission.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -904,7 +1080,16 @@ def edit_machine(serial_number, lang):
 @app.route('/<lang>/machines/downloads/', methods=["GET", "POST"])
 @login_required
 @localization
-def downloads(lang):
+def downloads(lang: str) -> Response:
+    """
+    Display a list of downloadable machine documents.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered downloads page with machine-type labels.
+    """
     download_folder = os.path.join(app.root_path, 'static', 'downloads')
     files = os.listdir(download_folder)
     file_info = []
@@ -918,21 +1103,49 @@ def downloads(lang):
 @app.route('/<lang>/machines/machines_list', methods=['GET'])
 @login_required
 @localization
-def machine_list(lang):
+def machine_list(lang: str) -> Response:
+    """
+    Render a full list of machines.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered machine list page.
+    """
     machines = Machine.query.all()
     return render_template('/machines/machines_list.html', machines=machines)
 
 @app.route('/<lang>/machines/downloads/<path:filename>')
 @login_required
 @localization
-def download_file(filename, lang):
+def download_file(filename: str, lang: str) -> Response:
+    """
+    Download a file from the static downloads folder.
+
+    Args:
+        filename (str): The name of the file to download.
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: A file download response.
+    """
     download_folder = os.path.join(app.root_path, 'static', 'downloads')
     return send_from_directory(download_folder, filename, as_attachment=True)
 
 @app.route('/<lang>/prices', methods=['GET', 'POST'])
 @login_required
 @localization
-def prices(lang):
+def prices(lang: str) -> Response:
+    """
+    Render the machine type selector for price viewing.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered price selection form.
+    """
     machine_types = MachineType.query.all()
 
     if request.method == 'POST':
@@ -947,7 +1160,17 @@ def prices(lang):
 @app.route('/<lang>/prices/<string:machine_type_name>', methods=['GET'])
 @login_required
 @localization
-def prices_by_type(machine_type_name, lang):
+def prices_by_type(machine_type_name: str, lang: str) -> Response:
+    """
+    Display part prices for a specific machine type.
+
+    Args:
+        machine_type_name (str): The name of the machine type.
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered price listing for the selected type.
+    """
     machine_type = MachineType.query.filter_by(name=machine_type_name).first()
     parts = sorted(machine_type.parts, key=lambda part: part.part_number)
     machine_types = MachineType.query.all()
@@ -960,13 +1183,33 @@ def prices_by_type(machine_type_name, lang):
 @app.route('/<lang>/service')
 @login_required
 @localization
-def service(lang):
+def service(lang: str) -> Response:
+    """
+    Render the services main page.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered services page.
+    """
     return render_template('services/service.html')
 
 @app.route('/<lang>/service/add_new', methods=["GET", "POST"])
 @localization
 @login_required
-def new_service(lang):
+def new_service(lang: str) -> Response:
+    """
+    Adding a new service event for a machine.
+
+    Includes validations on service date and banknote count.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered new service form or redirect.
+    """
     form = ServiceForm()
 
     serial_from_url = request.args.get('serial_number')
@@ -1030,13 +1273,31 @@ def new_service(lang):
 @app.route('/<lang>/reports')
 @login_required
 @localization
-def reports(lang):
+def reports(lang: str) -> Response:
+    """
+    Render the main reports menu page.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered reports page.
+    """
     return render_template('reports/reports.html')
 
 @app.route('/<lang>/reports/parts.html', methods=["GET", "POST"])
 @localization
 @login_required
-def parts_report(lang):
+def parts_report(lang: str) -> Response:
+    """
+    Generate a report of replaced parts by client and date range.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered parts report or filtered results.
+    """
     form = PartsReportForm()
     results = []
 
@@ -1067,7 +1328,16 @@ def parts_report(lang):
 @app.route('/<lang>/reports/services.html', methods=["GET", "POST"])
 @localization
 @login_required
-def services_report(lang):
+def services_report(lang: str) -> Response:
+    """
+    Generate a service report for BPS C1 machines within the current quarter.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered services report page.
+    """
     current_quarter = (datetime.now().month - 1) // 3 + 1
     form = ServiceReportForm()
     results = []
@@ -1126,7 +1396,16 @@ def services_report(lang):
 @app.route('/<lang>/reports/users.html')
 @login_required
 @localization
-def users_report(lang):
+def users_report(lang: str) -> Response:
+    """
+    Generate a pie chart report of services completed by users in a selected month.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered user performance report with chart.
+    """
     now = datetime.now()
     year = int(request.args.get("year", now.year))
     month = int(request.args.get("month", now.month))
@@ -1177,7 +1456,18 @@ def users_report(lang):
 @app.route('/<lang>/clients')
 @login_required
 @localization
-def clients(lang):
+def clients(lang: str) -> Response:
+    """
+    Render the client list view.
+
+    Only accessible to admins.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered clients overview.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -1188,7 +1478,20 @@ def clients(lang):
 @app.route("/<lang>/clients/add_new", methods=["GET", "POST"])
 @localization
 @login_required
-def new_client(lang):
+def new_client(lang: str) -> Response:
+    """
+    Handle the creation of a new client.
+
+    Only accessible to admins.
+
+    Validates uniqueness of email and phone number.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered new client form or redirect.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -1250,7 +1553,19 @@ def new_client(lang):
 @app.route('/<lang>/clients/edit/<int:client_id>', methods=['GET', 'POST'])
 @localization
 @login_required
-def edit_client(client_id, lang):
+def edit_client(client_id: int, lang: str) -> Response:
+    """
+    Allow user to update a client's contact details.
+    
+    Only accessible to admins.
+
+    Args:
+        client_id (int): ID of the client to edit.
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered client edit form or redirect.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -1302,7 +1617,16 @@ def edit_client(client_id, lang):
 @app.route('/<lang>/tasks')
 @login_required
 @localization
-def tasks(lang):
+def tasks(lang: str) -> Response:
+    """
+    Render a list of all tasks ordered by completion status and creation time.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered tasks overview.
+    """
     tasks = Task.query.order_by(
         case(
             (Task.is_completed == False, 0),
@@ -1316,7 +1640,16 @@ def tasks(lang):
 @app.route('/<lang>/tasks/new_task', methods=['GET', 'POST'])
 @login_required
 @localization
-def new_task(lang):
+def new_task(lang: str) -> Response:
+    """
+    Allow users to create a new task and notify others via email.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered task form or redirect.
+    """
     form = TaskForm()
     form.task.render_kw = {"placeholder": g.tr["placeholder_task"]}
 
@@ -1356,7 +1689,17 @@ def new_task(lang):
 @app.route('/<lang>/tasks/view_tasks/<int:task_id>', methods=['GET'])
 @localization
 @login_required
-def complete_task(task_id, lang):
+def complete_task(task_id: int, lang: str) -> Response:
+    """
+    Mark a task as completed by the current user.
+
+    Args:
+        task_id (int): ID of the task to complete.
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Redirect to task list.
+    """
     task = Task.query.get(task_id)
     task.completed_at = datetime.now()
     task.is_completed = True
@@ -1371,14 +1714,34 @@ def complete_task(task_id, lang):
 @app.route('/<lang>/calendar')
 @login_required
 @localization
-def calendar(lang):
+def calendar(lang: str) -> Response:
+    """
+    Display a calendar view of all visits.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered calendar with visits.
+    """
     visits = Visit.query.all()
     return render_template('/calendar/calendar.html', visits=visits)
 
 @app.route('/<lang>/visit/new', methods=['GET', 'POST'])
 @localization
 @login_required
-def new_visit(lang):
+def new_visit(lang: str) -> Response:
+    """
+    Allow user to schedule a new client visit.
+
+    Only accessible to admins.
+
+    Args:
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered visit form or redirect.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -1436,7 +1799,17 @@ def new_visit(lang):
 @app.route('/<lang>/visit/<int:visit_id>')
 @login_required
 @localization
-def visit_detail(visit_id, lang):
+def visit_detail(visit_id: int, lang: str) -> Response:
+    """
+    Show details about a specific visit, including latest service notes.
+
+    Args:
+        visit_id (int): The visit's ID.
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered visit detail view.
+    """
     visit = Visit.query.get(visit_id)
 
     latest_service = (
@@ -1477,7 +1850,19 @@ def visit_detail(visit_id, lang):
 @app.route('/<lang>/visit/<int:visit_id>/edit', methods=['GET', 'POST'])
 @localization
 @login_required
-def edit_visit(visit_id, lang):
+def edit_visit(visit_id: int, lang: str) -> Response:
+    """
+    Allow user to edit an existing visit's date or purpose.
+
+    Only accessible to admins.
+
+    Args:
+        visit_id (int): The visit's ID.
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered edit form or redirect.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -1537,7 +1922,19 @@ def edit_visit(visit_id, lang):
 @app.route('/<lang>/visit/<int:visit_id>/delete', methods=['POST'])
 @localization
 @login_required
-def delete_visit(visit_id, lang):
+def delete_visit(visit_id: int, lang: str) -> Response:
+    """
+    Allow user to delete a visit.
+
+    Only accessible to admins.
+
+    Args:
+        visit_id (int): The visit's ID.
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Redirect to calendar.
+    """
     if not current_user.is_admin:
         abort(403)
 
@@ -1559,9 +1956,27 @@ def delete_visit(visit_id, lang):
 
 @app.errorhandler(404)
 @localization
-def page_not_found(error):
+def page_not_found(error: Exception) -> tuple[str, int]:
+    """
+    Custom 404 error handler.
+
+    Args:
+        error (Exception): The raised HTTP error.
+
+    Returns:
+        tuple[str, int]: Rendered error page and status code.
+    """
     return render_template("errors/404.html",tr=g.tr), 404
 
 @app.errorhandler(403)
-def forbidden(error):
+def forbidden(error: Exception) -> tuple[str, int]:
+    """
+    Custom 403 error handler.
+
+    Args:
+        error (Exception): The raised HTTP error.
+
+    Returns:
+        tuple[str, int]: Rendered error page and status code.
+    """
     return render_template('errors/403.html'), 403

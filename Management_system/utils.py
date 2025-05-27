@@ -1,16 +1,20 @@
 import os
 import uuid
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from calendar import monthrange
 from functools import wraps
 from flask import request, g
 from flask_mail import Message
+from typing import Callable, Union, Optional, Tuple
 from Management_system import get_translations, mail, db, models, bcrypt
 from .models import OneTimeLink
 from markupsafe import Markup
 
-def create_default_admin():
+def create_default_admin() -> None:
+    """
+    Create a default admin user if no admin exists in the database.
+    """
     if not models.User.query.filter_by(is_admin=True).first():
         admin = models.User(
             name="Admin",
@@ -23,7 +27,16 @@ def create_default_admin():
         db.session.add(admin)
         db.session.commit()
 
-def localization(func):
+def localization(func: Callable) -> Callable:
+    """
+    Decorator that injects localization data (`lang`, `tr`) into Flask's global `g`.
+
+    Args:
+        func: The route function to wrap.
+
+    Returns:
+        Callable: The wrapped function with localization context.
+    """
     @wraps(func)
     def wrapper(*args, **kwargs):
         view_args = request.view_args or {}
@@ -33,10 +46,27 @@ def localization(func):
         return func(*args, **kwargs)
     return wrapper
 
-def strip_tags(html):
+def strip_tags(html: str) -> str:
+    """
+    Remove all HTML tags from a string.
+
+    Args:
+        html: A string containing HTML content.
+
+    Returns:
+        A plain text string with tags stripped.
+    """
     return Markup(html).striptags()
 
-def send_email(subject, recipients, html):
+def send_email(subject: str, recipients: Union[str, list[str]], html: str) -> None:
+    """
+    Send an HTML email to one or more recipients.
+
+    Args:
+        subject: Email subject.
+        recipients: Single email or list of email addresses.
+        html: HTML content of the email.
+    """
     if isinstance(recipients, str):
         recipients = [recipients]
 
@@ -50,7 +80,17 @@ def send_email(subject, recipients, html):
         log_mail_sender(recipients, subject, f"Failed to send: {e}")
 
 
-def generate_link(purpose, email):
+def generate_link(purpose: str, email: str) -> str:
+    """
+    Generate a one-time token link for a given purpose and store it in the database.
+
+    Args:
+        purpose: Purpose of the token (e.g., "registration", "reset_password").
+        email: Email address the link is associated with.
+
+    Returns:
+        The generated token as a string.
+    """
     token = str(uuid.uuid4())
     created_at = datetime.now()
     link = OneTimeLink(
@@ -85,7 +125,16 @@ mail_logger.addHandler(mail_handler)
 mail_logger.setLevel(logging.INFO)
 
 
-def log_user_action(user, action, details="", level="info"):
+def log_user_action(user: str, action: str, details: str = "", level: str = "info") -> None:
+    """
+    Log a user action to the user_actions log.
+
+    Args:
+        user: The user name.
+        action: Description of the action.
+        details: Optional extra information.
+        level: Logging level ("info" or "warning").
+    """
     if details:
         details = f"({details})"
     message = f"USER: {user} | ACTION: {action} | DETAILS: {details}"
@@ -94,16 +143,34 @@ def log_user_action(user, action, details="", level="info"):
     else:
         user_logger.info(message)
 
-def log_mail_sender(email, subject, status):
+def log_mail_sender(email: Union[str, list[str]], subject: str, status: str) -> None:
+    """
+    Log the result of a mail sending attempt.
+
+    Args:
+        email: Recipient email or list of emails.
+        subject: Email subject.
+        status: Result status (e.g., "Sent", "Failed to sent").
+    """
     mail_logger.info(f"TO: {email} | SUBJECT: {subject} | STATUS: {status}")
 
-def get_month_range(year=None, month=None):
-    now = datetime.now()
+def get_month_range(year: Optional[int] = None, month: Optional[int] = None) -> Tuple[date, date]:
+    """
+    Return the start and end date of a given month.
+
+    Args:
+        year: The year to use. Defaults to current year.
+        month: The month to use. Defaults to current month.
+
+    Returns:
+        A tuple containing the first and last date of the month.
+    """
+    now = date.today()
     year = year or now.year
     month = month or now.month
 
-    start = datetime(year, month, 1)
+    start = date(year, month, 1)
     end_day = monthrange(year, month)[1]
-    end = datetime(year, month, end_day, 23, 59, 59)
+    end = date(year, month, end_day)
 
-    return start, end
+    return (start, end)
