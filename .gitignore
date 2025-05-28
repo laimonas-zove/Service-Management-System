@@ -7,3 +7,4 @@ logs/
 instance/
 *.db
 *.log
+.coverage

@@ -219,7 +219,7 @@ class OneTimeLink(db.Model):
 @login_manager.user_loader
 def load_user(user_id: str) -> Optional[User]:
     """Loads a user from the database using the user ID stored in session."""
-    return User.query.get(int(user_id))
+    return db.session.get(User, int(user_id))
 
 class AdminModelView(ModelView):
     """Base admin view that restricts access not authenticated users."""
@@ -230,7 +230,8 @@ class AdminModelView(ModelView):
         Returns:
             bool: True if user is authenticated and an admin, False otherwise.
         """
-        return (current_user.is_authenticated and current_user.is_admin)
+        user = current_user
+        return user.is_authenticated and user.is_admin
 
 class RedirectHomeView(BaseView):
     """Custom admin view that redirects to the index page."""
@@ -251,8 +252,8 @@ class RedirectHomeView(BaseView):
         Returns:
             bool: True if user is authenticated and an admin, False otherwise.
         """
-        return (current_user.is_authenticated and current_user.email == "admin@admin.lt"
-                or current_user.is_admin)
+        user = current_user
+        return user.is_authenticated and user.is_admin
     
 class UserAdminView(AdminModelView):
     """Admin view configuration of fields"""

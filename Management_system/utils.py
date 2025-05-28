@@ -1,7 +1,7 @@
 import os
 import uuid
 import logging
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta, timezone, date
 from calendar import monthrange
 from functools import wraps
 from flask import request, g
@@ -98,7 +98,7 @@ def generate_link(purpose: str, email: str) -> str:
         purpose=purpose,
         created_at=created_at,
         email=email,
-        expires_at=datetime.utcnow() + timedelta(hours=6)
+        expires_at = datetime.now(timezone.utc) + timedelta(hours=6)
     )
     db.session.add(link)
     db.session.commit()
