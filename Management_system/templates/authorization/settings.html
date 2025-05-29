@@ -30,11 +30,41 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 
   <div class="form-row">
     <label for="new_password">{{ tr['new_password'] }}:</label>
-    {{ form.new_password(class_="form-field") }}
+    <div class="password-field">
+      {{ form.new_password(class_="form-field", id="password") }}
+      <button
+        type="button"
+        class="toggle-password"
+        data-show-icon="{{ url_for('static', filename='images/show.png') }}"
+        data-hide-icon="{{ url_for('static', filename='images/hide.png') }}"
+      >
+        <img
+          src="{{ url_for('static', filename='images/show.png') }}"
+          alt="Show password"
+          width="20"
+          height="20"
+        />
+      </button>
+    </div>
   </div>
   <div class="form-row">
     <label for="confirm_password">{{ tr['confirm_password'] }}:</label>
-    {{ form.confirm_password(class_="form-field") }}
+    <div class="password-field">
+      {{ form.confirm_password(class_="form-field", id="password") }}
+      <button
+        type="button"
+        class="toggle-password"
+        data-show-icon="{{ url_for('static', filename='images/show.png') }}"
+        data-hide-icon="{{ url_for('static', filename='images/hide.png') }}"
+      >
+        <img
+          src="{{ url_for('static', filename='images/show.png') }}"
+          alt="Show password"
+          width="20"
+          height="20"
+        />
+      </button>
+    </div>
   </div>
 
   <hr />
@@ -43,7 +73,22 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
     <label for="password"
       >{{ tr['password'] }}:<span style="color: red">*</span></label
     >
-    {{ form.current_password(class_="form-field") }}
+    <div class="password-field">
+      {{ form.current_password(class_="form-field", id="password") }}
+      <button
+        type="button"
+        class="toggle-password"
+        data-show-icon="{{ url_for('static', filename='images/show.png') }}"
+        data-hide-icon="{{ url_for('static', filename='images/hide.png') }}"
+      >
+        <img
+          src="{{ url_for('static', filename='images/show.png') }}"
+          alt="Show password"
+          width="20"
+          height="20"
+        />
+      </button>
+    </div>
   </div>
 
   {{ form.submit(class_="form-button", value=tr['submit']) }}

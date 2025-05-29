@@ -24,6 +24,7 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/calendar.css') }}"
     />
+    <script src="{{ url_for('static', filename='js/toggles.js') }}"></script>
   </head>
   <body>
     <button class="user-controls-toggle" onclick="toggleUserControls()">
@@ -31,8 +32,8 @@
     </button>
     <div class="user-controls">
       <div class="lang-switcher">
-        {% set args_en = request.view_args.copy() %} {% set _ =
-        args_en.update({'lang': 'en'}) %}
+        {% set token = request.args.get('token') %} {% set args_en =
+        request.view_args.copy() %} {% set _ = args_en.update({'lang': 'en'}) %}
         <a
           href="{{ url_for(request.endpoint, **args_en) }}"
           class="{% if request.view_args.lang == 'en' %}active-lang{% else %}inactive-lang{% endif %}"
@@ -147,13 +148,5 @@
         </p>
       </footer>
     </div>
-    <script>
-      function toggleUserControls() {
-        document.querySelector(".user-controls").classList.toggle("active");
-      }
-      function toggleNavMenu() {
-        document.querySelector(".mobile-nav").classList.toggle("active");
-      }
-    </script>
   </body>
 </html>

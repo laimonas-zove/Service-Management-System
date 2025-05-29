@@ -115,3 +115,16 @@ footer a:hover {
 .flash.warning {
     background-color: #f4bb36;
 }
+
+.password-field {
+  position: relative;
+}
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
