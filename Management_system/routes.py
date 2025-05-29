@@ -28,7 +28,7 @@ from .models import (
     User, Machine, Client, Service, Part, PartsReplaced, Inventory,
     Location, MachineType, Task, Visit, OneTimeLink
 )
-from .utils import localization, send_email, generate_link, log_user_action, get_month_range
+from .utils import localization, send_email, generate_link, log_user_action, get_month_range, password_strenght
 
 
 @app.route('/<lang>/user_settings', methods=['GET', 'POST'])
@@ -62,15 +62,23 @@ def user_settings(lang: str) -> Response:
             flash(g.tr['flash_wrong_password'], 'error')
             return render_template('authorization/settings.html', form=form)
 
-        if form.new_password.data != form.confirm_password.data:
-            log_user_action(
-                current_user.name,
-                "User_Settings",
-                "Password does not match",
-                level="warning"
-            )
-            flash(g.tr['flash_password_not_match'], 'error')
-            return render_template('authorization/settings.html', form=form)
+        new_password = form.new_password.data
+        confirm_password = form.confirm_password.data
+
+        if new_password or confirm_password:
+            if not password_strenght(new_password):
+                flash(g.tr['flash_password_wrong_type'], 'error')
+                return render_template('authorization/settings.html', form=form)
+
+            if new_password != confirm_password:
+                log_user_action(
+                    current_user.name,
+                    "User_Settings",
+                    "Password does not match",
+                    level="warning"
+                )
+                flash(g.tr['flash_password_not_match'], 'error')
+                return render_template('authorization/settings.html', form=form)
 
         if current_user.phone_number != form.phone_number.data:
             changes.append(
@@ -167,6 +175,10 @@ def register(lang: str) -> Response:
         password = form.password.data
         confirm_password = form.confirm_password.data
 
+        if not password_strenght(password):
+            flash(g.tr['flash_password_wrong_type'], 'error')
+            return render_template('authorization/register.html', form=form, token=token)
+
         if password != confirm_password:
             log_user_action(
                 name,
@@ -175,7 +187,7 @@ def register(lang: str) -> Response:
                 level="warning"
             )
             flash(g.tr['flash_password_not_match'], 'error')
-            return render_template('authorization/register.html', form=form)
+            return render_template('authorization/register.html', form=form, token=token)
 
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         new_user = User(

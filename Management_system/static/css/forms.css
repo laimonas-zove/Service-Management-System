@@ -136,3 +136,21 @@ input[list="machines_list"] {
   border: none;
   cursor: pointer;
 }
+
+.password-rules {
+  padding-left: 20px;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.password-rules li.neutral {
+  color: #999;
+}
+
+.password-rules li.valid {
+  color: green;
+}
+
+.password-rules li.invalid {
+  color: red;
+}

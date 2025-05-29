@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 from datetime import date
 from Management_system import app
-from Management_system.utils import create_default_admin, strip_tags, send_email, generate_link, log_user_action, log_mail_sender, get_month_range
+from Management_system.utils import create_default_admin, strip_tags, send_email, generate_link, log_user_action, log_mail_sender, get_month_range, password_strenght
 
 
 def test_create_default_admin_creates_admin():
@@ -151,3 +151,13 @@ def test_get_month_range():
     start, end = get_month_range(2025, 5)
     assert start == date(2025, 5, 1)
     assert end == date(2025, 5, 31)
+
+@pytest.mark.parametrize("password, expected", [
+    ("CorrectPassword123", True),
+    ("Short1", False),
+    ("nouppercaseletter1", False),
+    ("NoDigitInPassword", False)
+])
+def test_password_strength(password: str, expected: bool) -> bool:
+    result = password_strenght(password)
+    assert result == expected

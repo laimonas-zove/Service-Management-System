@@ -35,6 +35,18 @@
     "en": "Password",
     "lt": "Slaptažodis"
   },
+  "password_length": {
+    "en": "At least 8 characters",
+    "lt": "Bent 8 simboliai"
+  },
+  "password_uppercase": {
+    "en": "At least one uppercase letter (A–Z)",
+    "lt": "Bent viena didžioji raidė (A–Ž)"
+  },
+  "password_digit": {
+    "en": "At least one digit (0–9)",
+    "lt": "Bent vienas skaitmuo (0–9)"
+  },
   "send_reset_link": {
     "en": "Send",
     "lt": "Siųsti"
@@ -654,6 +666,10 @@
   "flash_password_not_match": {
     "en": "Password does not match!",
     "lt": "Slaptažodžiai nesutampa!"
+  },
+  "flash_password_wrong_type": {
+    "en": "New Password does not meet requirements!",
+    "lt": "Naujas Slaptažodis neatitinka reikalavimų!"
   },
   "flash_wrong_password": {
     "en": "Wrong Password!",

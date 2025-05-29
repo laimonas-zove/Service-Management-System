@@ -16,22 +16,25 @@
 </div>
 {% endif %} {% endwith %}
 <form method="POST" action="{{ lang_url_for('login') }}">
-  {{ form.hidden_tag() }} {{ form.email(class_="form-field") }}
-  <div class="password-field">
-    {{ form.password(class_="form-field", id="password") }}
-    <button
-      type="button"
-      class="toggle-password"
-      data-show-icon="{{ url_for('static', filename='images/show.png') }}"
-      data-hide-icon="{{ url_for('static', filename='images/hide.png') }}"
-    >
-      <img
-        src="{{ url_for('static', filename='images/show.png') }}"
-        alt="Show password"
-        width="20"
-        height="20"
-      />
-    </button>
+  {{ form.hidden_tag() }}
+  <div class="form-row">{{ form.email(class_="form-field") }}</div>
+  <div class="form-row">
+    <div class="password-field">
+      {{ form.password(class_="form-field", id="password") }}
+      <button
+        type="button"
+        class="toggle-password"
+        data-show-icon="{{ url_for('static', filename='images/show.png') }}"
+        data-hide-icon="{{ url_for('static', filename='images/hide.png') }}"
+      >
+        <img
+          src="{{ url_for('static', filename='images/show.png') }}"
+          alt="Show password"
+          width="20"
+          height="20"
+        />
+      </button>
+    </div>
   </div>
   <div class="forgot-password">
     <a href="{{ lang_url_for('forgot_password') }}"

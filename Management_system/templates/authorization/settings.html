@@ -46,6 +46,13 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
         />
       </button>
     </div>
+    <ul class="password-rules">
+      <li id="rule-length" class="neutral">{{ tr['password_length'] }}</li>
+      <li id="rule-uppercase" class="neutral">
+        {{ tr['password_uppercase'] }}
+      </li>
+      <li id="rule-digit" class="neutral">{{ tr['password_digit'] }}</li>
+    </ul>
   </div>
   <div class="form-row">
     <label for="confirm_password">{{ tr['confirm_password'] }}:</label>

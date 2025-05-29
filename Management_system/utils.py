@@ -174,3 +174,13 @@ def get_month_range(year: Optional[int] = None, month: Optional[int] = None) -> 
     end = date(year, month, end_day)
 
     return (start, end)
+
+def password_strenght(password: str) -> bool:
+    if len(password) < 8:
+        return False
+    if not any(character.isupper() for character in password):
+        return False
+    if not any (character.isdigit() for character in password):
+        return False
+    return True
+    
