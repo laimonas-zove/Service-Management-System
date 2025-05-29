@@ -659,7 +659,7 @@
     "en": "Enter your Current Password to Submit changes",
     "lt": "Įveskite dabartinį Slaptažodį, kad patvirtinti pakeitimus"
   },
-  "flash_email_exists": {
+  "flash_email_exist": {
     "en": "Email already exists!",
     "lt": "Toks El. paštas jau užregistruotas!"
   },

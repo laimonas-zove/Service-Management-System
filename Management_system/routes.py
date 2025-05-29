@@ -81,12 +81,36 @@ def user_settings(lang: str) -> Response:
                 return render_template('authorization/settings.html', form=form)
 
         if current_user.phone_number != form.phone_number.data:
+            existing_phone_number = User.query.filter_by(phone_number=form.phone_number.data).first()
+            
+            if existing_phone_number:
+                log_user_action(
+                    current_user.name,
+                    "User_Settings",
+                    "Phone number exist",
+                    level="warning"
+                )
+                flash(g.tr['flash_tel_exist'], 'error')
+                return render_template('authorization/settings.html', form=form)
+            
             changes.append(
                 f"phone_number: '{current_user.phone_number}' → '{form.phone_number.data}'"
             )
             current_user.phone_number = form.phone_number.data
 
         if current_user.email != form.email.data:
+            existing_email = User.query.filter_by(email=form.email.data).first()
+
+            if existing_email:
+                log_user_action(
+                    current_user.name,
+                    "User_Settings",
+                    "Email exist",
+                    level="warning"
+                )
+                flash(g.tr['flash_email_exist'], 'error')
+                return render_template('authorization/settings.html', form=form)
+            
             changes.append(
                 f"email: '{current_user.email}' → '{form.email.data}'"
             )
@@ -187,6 +211,11 @@ def register(lang: str) -> Response:
                 level="warning"
             )
             flash(g.tr['flash_password_not_match'], 'error')
+            return render_template('authorization/register.html', form=form, token=token)
+        
+        existing_phone_number = User.query.filter_by(phone_number=form.phone_number.data).first()
+        if existing_phone_number:
+            flash(g.tr['flash_tel_exist'], 'error')
             return render_template('authorization/register.html', form=form, token=token)
 
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -464,7 +493,7 @@ def invite(lang: str) -> Response:
                 "Email exist",
                 level="warning"
             )
-            flash(g.tr['flash_email_exists'], 'error')
+            flash(g.tr['flash_email_exist'], 'error')
             return redirect(lang_url_for("invite"))
 
         token = generate_link("registration", email)
@@ -1535,7 +1564,7 @@ def new_client(lang: str) -> Response:
             if existing_client.phone_number == phone_number:
                 flash(g.tr['flash_tel_exist'], 'error')
             elif existing_client.email == email:
-                flash(g.tr['flash_email_exists'], 'error')
+                flash(g.tr['flash_email_exist'], 'error')
 
             return render_template("/clients/add_new.html", form=form)
 
