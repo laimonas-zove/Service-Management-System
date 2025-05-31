@@ -47,7 +47,7 @@
     "en": "At least one digit (0–9)",
     "lt": "Bent vienas skaitmuo (0–9)"
   },
-  "send_reset_link": {
+  "send": {
     "en": "Send",
     "lt": "Siųsti"
   },
@@ -838,6 +838,10 @@
   "flash_settings_updated": {
     "en": "User Settings Updated.",
     "lt": "Vartotojo Duomenys Atnaujinti!"
+  },
+  "flash_unexpected_error": {
+    "en": "An unexpected error occurred. Please try again later or contact support if the issue persists.",
+    "lt": "Įvyko netikėta klaida. Bandykite dar kartą vėliau arba susisiekite su pagalba, jei problema išlieka."
   },
   "access_forbidden": {
     "en": "Access Forbidden",

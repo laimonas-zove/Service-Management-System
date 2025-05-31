@@ -1,4 +1,11 @@
-{% extends 'base_index.html' %} {% block content %}
+{% extends 'base_index.html' %} {% block content %} {% with messages =
+get_flashed_messages(with_categories=true) %} {% if messages %}
+<div class="flash-container">
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
 <h3>{{ tr['machines_list'] }}</h3>
 <div class="table-container">
   <table border="1" cellpadding="8" cellspacing="0">

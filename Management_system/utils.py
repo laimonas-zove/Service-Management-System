@@ -140,6 +140,8 @@ def log_user_action(user: str, action: str, details: str = "", level: str = "inf
     message = f"USER: {user} | ACTION: {action} | DETAILS: {details}"
     if level == "warning":
         user_logger.warning(message)
+    elif level == "error":
+        user_logger.error(message)
     else:
         user_logger.info(message)
 
@@ -176,6 +178,15 @@ def get_month_range(year: Optional[int] = None, month: Optional[int] = None) -> 
     return (start, end)
 
 def password_strenght(password: str) -> bool:
+    """
+    Checks password strength if 8 or more characters long has uppercase letters and numbers
+
+    Args:
+        password: user password.
+
+    Returns:
+        Bollean value if requirements are met.
+    """
     if len(password) < 8:
         return False
     if not any(character.isupper() for character in password):

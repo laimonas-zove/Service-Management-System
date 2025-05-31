@@ -124,6 +124,12 @@ def test_log_user_action_warning_level():
 
         mock_warning.assert_called_once_with("USER: Laimonas | ACTION: Failed Login | DETAILS: (Wrong password)")
 
+def test_log_user_action_error_level():
+    with patch("Management_system.utils.user_logger.error") as mock_error:
+        log_user_action("Laimonas", "User_Settings", "Unexpected error: Invalid salt", level="error")
+
+        mock_error.assert_called_once_with("USER: Laimonas | ACTION: User_Settings | DETAILS: (Unexpected error: Invalid salt)")
+
 def test_log_user_action_without_details():
     with patch("Management_system.utils.user_logger.info") as mock_info:
         log_user_action("Laimonas", "View Dashboard")
