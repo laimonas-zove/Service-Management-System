@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import io
 import base64
 
-from datetime import datetime
+from datetime import datetime, date
 
 from flask import (
     render_template, redirect, flash, request, abort,
@@ -1362,7 +1362,7 @@ def machine_list(lang: str) -> Response:
         Response: Rendered machine list page.
     """
     try:
-        machines = Machine.query.all()
+        machines = Machine.query.order_by(Machine.serial_number).all()
         return render_template('/machines/machines_list.html', machines=machines)
     
     except Exception as error:
@@ -1463,6 +1463,42 @@ def prices_by_type(machine_type_name: str, lang: str) -> Response:
                             machine_types=machine_types,
                             selected_type=machine_type,
                             parts=parts)
+
+@app.route('/<lang>/prices/<string:machine_type_name>/print')
+@login_required
+@localization
+def print_prices(machine_type_name: str, lang: str) -> Response:
+    """
+    Render a printable price list for a machine type.
+
+    Args:
+        machine_type_name (str): The name of the machine type.
+        lang (str): The active language from the URL.
+
+    Returns:
+        Response: Rendered printable price listing for the selected type.
+    """
+    machine_type = None
+    parts = []
+    today = date.today()
+
+    try:
+        machine_type = MachineType.query.filter_by(name=machine_type_name).first()
+        parts = sorted(machine_type.parts, key=lambda part: part.part_number)
+
+    except Exception as error:
+        log_user_action(
+            current_user.name,
+            "Print_Prices",
+            f"Unexpected error: {str(error)}",
+            level = "error"
+        )
+        flash(g.tr['flash_unexpected_error'], 'error')
+
+    return render_template('prices/print.html',
+                           selected_type=machine_type,
+                           parts=parts,
+                           today=today)
 
 @app.route('/<lang>/service')
 @login_required

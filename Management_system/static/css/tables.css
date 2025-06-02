@@ -68,7 +68,8 @@ tbody tr:last-child td:last-child {
   border-bottom-right-radius: 10px;
 }
 
-.table-container-parts {
+.table-container-parts,
+.table-container-price {
   margin-top: 10px;
   border-radius: 10px;
   overflow-x: auto;

@@ -51,8 +51,8 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
     <label for="client_id">{{ tr['client'] }}:</label>
     <select name="client_id" required>
       {% for client in clients %}
-      <option
-        value="{{ client.id }}"{% if client.id=="selected_machine.client_id" %}selected{% endif %}
+      <option 
+        value="{{ client.id }}"{ % if client.id == selected_machine.client_id %}selected{% endif %}
       >
         {{ client.company }} - {{ client.city }}
       </option>

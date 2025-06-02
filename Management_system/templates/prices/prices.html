@@ -18,20 +18,28 @@
     <input type="hidden" name="lang" value="{{ lang }}">
     <select name="machine_type" required>
       {% for machine_type in machine_types %}
-        <option value="{{ machine_type.name }}"
-          {% if selected_type and selected_type.name == machine_type.name %}selected{% endif %}>
-          {{ machine_type.name }}
-        </option>
+      <option value="{{ machine_type.name }}"
+        {% if selected_type and selected_type.name == machine_type.name %}selected{% endif %}>
+        {{ machine_type.name }}
+      </option>
       {% endfor %}
-  </select>
+    </select>
   </div>
   <button type="submit" class="form-button">{{ tr['show_price_list'] }}</button>
-
 </form>
 {% if selected_type %}
-<hr>
-<h3>{{ selected_type.name }} {{ tr['price_list'] }}</h3>
-  <div class="table-container">
+<hr />
+<div class="price-container">
+  <h3>{{ selected_type.name }}</h3>
+  <div class="btn-container">
+    <a
+      href="{{ lang_url_for('print_prices', machine_type_name=selected_type.name) }}"
+      target="_blank"
+      class="btn-print"
+      >{{ tr['print'] }}</a
+    >
+  </div>
+  <div class="table-container-price">
     <table border="1" cellpadding="6" cellspacing="0">
       <thead>
         <tr>
@@ -52,13 +60,13 @@
             </tr>
           {% endfor %}
         {% else %}
-          <tr>
-            <td colspan="4" style="text-align: center">{{ tr['no_parts_found'] }}</td>
-          </tr>
+        <tr>
+          <td colspan="4" style="text-align: center">{{ tr['no_parts_found'] }}</td>
+        </tr>
         {% endif %}
       </tbody>
     </table>
   </div>
+</div>
 {% endif %}
-
 {% endblock %}

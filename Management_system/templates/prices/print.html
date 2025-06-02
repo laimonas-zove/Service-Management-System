@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ selected_type.name }} {{ tr['price_list'] }}</title>
+    <script>
+      window.onload = function () {
+        window.print();
+        window.onafterprint = () => {
+          window.close();
+        };
+      };
+    </script>
+    <style>
+      @page {
+        size: A4;
+        margin: 1.5cm;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        margin: 0;
+      }
+
+      table {
+        min-width: 600px;
+        border-collapse: collapse;
+        page-break-inside: auto;
+        margin: 20px auto;
+        font-size: 9px;
+      }
+
+      th,
+      td {
+        border: 1px solid #444;
+        padding: 3px;
+        text-align: center;
+      }
+      tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      header h3,
+      p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h3>{{ selected_type.name }} {{ tr['price_list'] }}</h3>
+      <p>{{ today }}</p>
+    </header>
+
+    <table>
+      <thead>
+        <tr>
+          <th>{{ tr['part_number'] }}</th>
+          <th>{{ tr['name'] }} En</th>
+          <th>{{ tr['name'] }} Lt</th>
+          <th>{{ tr['price'] }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for part in parts %}
+        <tr>
+          <td>{{ part.part_number }}</td>
+          <td>{{ part.name_en }}</td>
+          <td>{{ part.name_lt }}</td>
+          <td>{{ "%.2f"|format(part.price) }} €</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

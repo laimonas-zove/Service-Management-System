@@ -41,6 +41,7 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
         month: '{{ tr["calendar_month"] }}',
         list: '{{ tr["calendar_list"] }}'
       },
+      noEventsContent: '{{ tr["calendar_no_events"] }}',
       events: [
         {% for visit in visits %}
         {

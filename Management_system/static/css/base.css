@@ -313,8 +313,12 @@ footer a:hover {
   }
 }
 
+.price-container {
+  margin-top: 10px;
+}
 .service-history-container h3,
-.replaced-parts-container h3 {
+.replaced-parts-container h3,
+.price-container h3 {
   position: absolute;
   left: 0;
   right: 0;

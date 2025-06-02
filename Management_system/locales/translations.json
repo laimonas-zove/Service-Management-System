@@ -323,6 +323,10 @@
     "en": "Add",
     "lt": "Pridėti"
   },
+  "print": {
+    "en": "Print",
+    "lt": "Spausdinti"
+  },
   "type": {
     "en": "Type",
     "lt": "Tipas"
@@ -420,8 +424,8 @@
     "lt": "Atsisiųsti"
   },
   "show_price_list": {
-    "en": "Show Price List",
-    "lt": "Rodyti Kainininką"
+    "en": "Show Parts Price List",
+    "lt": "Rodyti Detalių Kainas"
   },
   "select_machine_type": {
     "en": "Select Machine Type",
@@ -429,7 +433,7 @@
   },
   "price_list": {
     "en": "Price List",
-    "lt": "Kainininkas"
+    "lt": "Kainų Sąrašas"
   },
   "no_parts_found": {
     "en": "No Parts Found",
@@ -870,6 +874,10 @@
   "calendar_list": {
     "en": "List",
     "lt": "Sąrašas"
+  },
+  "calendar_no_events": {
+    "en": "No visits to display",
+    "lt": "Nėra vizitų, kuriuos būtų galima rodyti"
   },
   "index_main_text": {
     "en": "This is your central dashboard for managing database records",

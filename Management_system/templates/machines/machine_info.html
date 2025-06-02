@@ -88,7 +88,7 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
             {% if services %} {% for service in services %}
             <tr>
               <td>{{ service.date }}</td>
-              <td>{{ service.bn_count }}</td>
+              <td>{{ '{:,}'.format(service.bn_count).replace(',', ' ') }}</td>
               <td>{{ service.user.name if service.user else "-" }}</td>
               <td>
                 {% if service.note %}
