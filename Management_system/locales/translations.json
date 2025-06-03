@@ -920,8 +920,8 @@
     "lt": "Atsisiųsti instrukcijas, schemas bei kitus failus."
   },
   "description_prices": {
-    "en": "View the pricing information for spare parts.",
-    "lt": "Peržiūrėti detalių kainų informaciją."
+    "en": "View and print the pricing information for spare parts.",
+    "lt": "Peržiūrėti ir atsispausdinti detalių kainų informaciją."
   },
   "description_replaced_parts_report": {
     "en": "Generate reports of all parts replaced over a selected period.",
@@ -930,6 +930,10 @@
   "description_quaterly_services": {
     "en": "Review Quaterly maintenance works on BPS C1 machines.",
     "lt": "Peržiūrėti BPS C1 mašinų ketvirtinius aptarnavimus."
+  },
+  "description_clients": {
+    "en": "Browse the list of clients.",
+    "lt": "Peržiūrėti klientų sąrašą."
   },
   "description_new_client": {
     "en": "Create a new client profile.",

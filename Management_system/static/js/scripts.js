@@ -47,19 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
     ruleUppercase.className = /[\p{Lu}]/u.test(value) ? "valid" : "invalid";
     ruleDigit.className = /\d/.test(value) ? "valid" : "invalid";
   });
-
-  passwordInput.addEventListener("focus", function () {
-    if (passwordInput.value === "") {
-      rules.forEach(rule => rule.className = "neutral");
-    }
-  });
-
-  passwordInput.addEventListener("blur", function () {
-    if (passwordInput.value === "") {
-      rules.forEach(rule => rule.className = "neutral");
-    }
-  });
 });
 
-
-
+document.addEventListener("DOMContentLoaded", function () {
+  const isPrintPage = document.getElementById("print-page");
+  if (isPrintPage) {
+    window.print();
+    window.onafterprint = () => {
+      window.close();
+    };
+  }
+});

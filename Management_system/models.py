@@ -315,6 +315,6 @@ admin.add_view(ClientAdminView(Client, db.session))
 admin.add_view(PartAdminView(Part, db.session))
 admin.add_view(LocationAdminView(Location, db.session))
 
-tables = [Service, PartsReplaced, MachineType, OneTimeLink, Task]
+tables = [Service, PartsReplaced, MachineType, OneTimeLink, Task, Visit]
 for table in tables:
     admin.add_view(AdminModelView(table, db.session))

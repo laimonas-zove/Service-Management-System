@@ -109,11 +109,9 @@
           <li>
             <a href="{{ lang_url_for('reports') }}">{{ tr["nav_reports"] }}</a>
           </li>
-          {% if current_user.is_admin %}
           <li>
             <a href="{{ lang_url_for('clients') }}">{{ tr["nav_clients"] }}</a>
           </li>
-          {% endif %}
           <li>
             <a href="{{ lang_url_for('tasks') }}">{{ tr["nav_tasks"] }}</a>
           </li>
@@ -130,9 +128,7 @@
           <a href="{{ lang_url_for('machines') }}">{{ tr["nav_machines"] }}</a>
           <a href="{{ lang_url_for('prices') }}">{{ tr["nav_prices"] }}</a>
           <a href="{{ lang_url_for('reports') }}">{{ tr["nav_reports"] }}</a>
-          {% if current_user.is_admin %}
           <a href="{{ lang_url_for('clients') }}">{{ tr["nav_clients"] }}</a>
-          {% endif %}
           <a href="{{ lang_url_for('tasks') }}">{{ tr["nav_tasks"] }}</a>
           <a href="{{ lang_url_for('calendar') }}">{{ tr["nav_schedule"] }}</a>
         </div>

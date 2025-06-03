@@ -23,22 +23,22 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 <h3>
   {% if lang == 'en' %} {{ tr['service_of'] }} {{ current_quarter }} {{
   tr['quarter'] }} {% else %} {{ current_quarter }} {{ tr['quarter'] }} {{
-  tr['service_of'] }} {% endif %}
+  tr['service_of'] }} {% endif %} ({{ client.company }} - {{ client.city }})
 </h3>
 <div class="table-container">
   <table border="1" cellpadding="8" cellspacing="0">
     <thead>
       <tr>
-        <th>{{ tr['serial_number'] }}</th>
         <th>{{ tr['machine_type'] }}</th>
+        <th>{{ tr['serial_number'] }}</th>
         <th>{{ tr['date'] }}</th>
       </tr>
     </thead>
     <tbody>
       {% for machine in results %}
       <tr>
-        <td>{{ machine.serial_number }}</td>
         <td>{{ machine.machine_type.name }}</td>
+        <td>{{ machine.serial_number }}</td>
         <td>
           {% if machine.services %} {% set quarter_services = [] %} {% for
           service in machine.services %} {% if service.date.year == now.year and

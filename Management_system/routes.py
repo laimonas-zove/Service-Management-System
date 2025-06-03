@@ -1641,7 +1641,7 @@ def parts_report(lang: str) -> Response:
             results = db.session.query(PartsReplaced).join(Machine).filter(
                 Machine.client_id == client_id,
                 PartsReplaced.date.between(date_from, date_to)
-            ).order_by(PartsReplaced.date).all()
+            ).order_by(PartsReplaced.part_id).all()
 
             if not results:
                 flash(g.tr['flash_no_replaced_parts'], 'warning')
@@ -1682,10 +1682,12 @@ def services_report(lang: str) -> Response:
     current_quarter = (datetime.now().month - 1) // 3 + 1
     form = ServiceReportForm()
     results = []
+    client = None
 
     if form.validate_on_submit():
         try:
             client_id = form.client.data
+            client = Client.query.filter_by(id=client_id).first()
             now = datetime.now()
             quarter_now = (now.month - 1) // 3 + 1
 
@@ -1741,6 +1743,7 @@ def services_report(lang: str) -> Response:
         form=form,
         current_quarter=current_quarter,
         results=results,
+        client=client,
         now=datetime.now()
     )
 
@@ -1768,7 +1771,7 @@ def users_report(lang: str) -> Response:
     chart_base64 = None
 
     try:
-        users = User.query.all()
+        users = User.query.filter(User.name != 'Admin').all()
         total_services = Service.query.filter(Service.date.between(start_date, end_date)).count()
 
         report = []
@@ -1823,16 +1826,12 @@ def clients(lang: str) -> Response:
     """
     Render the client list view.
 
-    Only accessible to admins.
-
     Args:
         lang (str): The active language from the URL.
 
     Returns:
         Response: Rendered clients overview.
     """
-    if not current_user.is_admin:
-        abort(403)
 
     clients = []
 

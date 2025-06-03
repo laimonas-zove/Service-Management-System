@@ -1,0 +1,43 @@
+@page {
+        size: A4;
+        margin: 1.5cm;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        margin: 0;
+      }
+
+      table {
+        min-width: 600px;
+        border-collapse: collapse;
+        page-break-inside: auto;
+        margin: 20px auto;
+        font-size: 9px;
+      }
+
+      th,
+      td {
+        border: 1px solid #444;
+        padding: 3px;
+        text-align: center;
+      }
+      tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      header h3,
+      p {
+        margin: 0;
+      }

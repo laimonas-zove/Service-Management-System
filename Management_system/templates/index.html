@@ -91,9 +91,11 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
       <span class="description">{{ tr['description_quaterly_services'] }}</span>
     </li>
   </ul>
-  {% if current_user.is_admin %}
+
   <h3>{{ tr['nav_clients'] }}</h3>
   <ul>
+    <span class="description">{{ tr['description_clients'] }}</span>
+    {% if current_user.is_admin %}
     <li>
       <strong>{{ tr['new_client'] }}</strong><br />
       <span class="description">{{ tr['description_new_client'] }}</span>
@@ -102,8 +104,9 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
       <strong>{{ tr['edit_client'] }}</strong><br />
       <span class="description">{{ tr['description_edit_client'] }}</span>
     </li>
+    {% endif %}
   </ul>
-  {% endif %}
+
   <h3>{{ tr['nav_tasks'] }}</h3>
   <ul>
     <li>

@@ -3,6 +3,12 @@
   overflow: auto;
 }
 
+.table-container-engineer {
+  border-radius: 10px;
+  overflow: auto;
+  margin-top: 56px;
+}
+
 .table-container-title {
   position: relative;
   margin-bottom: 10px;
