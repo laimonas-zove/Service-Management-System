@@ -81,13 +81,15 @@ Tests are written using `pytest`. To run them:
 
 ## Screenshots
 
+Index View
 ![Index Screenshot](./Management_system/static/images/Index_view.png)
 
+Mobile Index View
 ![Index_mobile Screenshot](./Management_system/static/images/Index_view_mobile.png)
 
-## Demo: Navigating the Flask App
+## Demo Video: Navigating the Flask App
 
-[![Watch the video](./Management_system/static/images/Index_view.png)](https://youtu.be/zQJtHI-ed6E)
+[![Watch the video](./Management_system/static/images/Main_view.png)](https://youtu.be/zQJtHI-ed6E)
 
 ## License Notice
 
