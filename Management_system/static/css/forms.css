@@ -54,6 +54,7 @@ input[type="checkbox"] {
 }
 
 form input,
+input[type="text"],
 form select,
 form textarea {
     display: flex;
@@ -153,4 +154,30 @@ input[list="machines_list"] {
 
 .password-rules li.invalid {
   color: red;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+}
+
+.dropdown-content div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-content div:hover {
+  background-color: #ddd;
 }

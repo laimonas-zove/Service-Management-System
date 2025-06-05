@@ -16,19 +16,28 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 >
   <div class="form-row">
     <label>{{ tr['part_number'] }}:<span style="color: red">*</span></label>
-    <input
-      list="parts"
-      name="part_number"
-      required
-      placeholder="{{ tr['placeholder_part_number'] }}"
-    />
-    <datalist id="parts">
-      {% for part in parts %}
-      <option value="{{ part.part_number }}">
-        {{ part.name_en if lang == 'en' else part.name_lt }}
-      </option>
-      {% endfor %}
-    </datalist>
+    <input type="hidden" name="lang" value="{{ lang }}" />
+    <div class="dropdown">
+      <input
+        type="text"
+        name="part_number"
+        required
+        placeholder="{{ tr['placeholder_part_number'] }}"
+        onkeyup="filterFunction(this)"
+        onclick="toggleDropdown(this)"
+        autocomplete="off"
+      />
+      <div id="dropdownList" class="dropdown-content">
+        {% for part in parts %}
+        <div
+          onclick="selectOption(this.parentElement.previousElementSibling, '{{ part.part_number }}')"
+        >
+          {{ part.part_number }} - {{ part.name_en if lang == 'en' else
+          part.name_lt }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
   <button type="submit" class="form-button">{{ tr['search'] }}</button>
 </form>

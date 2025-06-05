@@ -938,7 +938,8 @@ def add_replaced_part(lang: str) -> Response:
                 return render_template(
                     '/parts/add_replaced_part.html',
                     form=form,
-                    parts=parts
+                    parts=parts,
+                    machines=machines
                 )
 
             quantity = form.quantity.data
@@ -950,7 +951,8 @@ def add_replaced_part(lang: str) -> Response:
                 return render_template(
                     '/parts/add_replaced_part.html',
                     form=form,
-                    parts=parts
+                    parts=parts,
+                    machines=machines
                 )
 
             if date < machine.start_of_operation:
@@ -958,7 +960,8 @@ def add_replaced_part(lang: str) -> Response:
                 return render_template(
                     '/parts/add_replaced_part.html',
                     form=form,
-                    parts=parts
+                    parts=parts,
+                    machines=machines
                 )
 
             warranty = True
@@ -976,7 +979,8 @@ def add_replaced_part(lang: str) -> Response:
                 return render_template(
                     '/parts/add_replaced_part.html',
                     form=form,
-                    parts=parts
+                    parts=parts,
+                    machines=machines
                 )
 
             inventory.quantity -= quantity

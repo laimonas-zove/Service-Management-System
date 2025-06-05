@@ -11,7 +11,7 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
   <div class="form-container">
     {{ form.hidden_tag() }}
     <div class="form-row">
-      <label for="client">{{ tr['client'] }}:</label>
+      <label>{{ tr['client'] }}:</label>
       {{ form.client(class_="form-select") }}
     </div>
     {{ form.submit(class_="form-button", value=tr['search']) }}

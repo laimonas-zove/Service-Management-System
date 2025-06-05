@@ -58,3 +58,32 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 });
+
+function toggleDropdown(inputEl) {
+  const dropdown = inputEl.nextElementSibling;
+  dropdown.style.display = "block";
+}
+
+function selectOption(inputEl, value) {
+  inputEl.value = value;
+  inputEl.nextElementSibling.style.display = "none";
+}
+
+function filterFunction(inputEl) {
+  const filter = inputEl.value.toUpperCase();
+  const dropdown = inputEl.nextElementSibling;
+  const options = dropdown.getElementsByTagName("div");
+
+  for (let i = 0; i < options.length; i++) {
+    const txtValue = options[i].textContent || options[i].innerText;
+    options[i].style.display = txtValue.toUpperCase().includes(filter) ? "" : "none";
+  }
+}
+
+document.addEventListener("click", function (event) {
+  document.querySelectorAll(".dropdown").forEach(dropdown => {
+    if (!dropdown.contains(event.target)) {
+      dropdown.querySelector(".dropdown-content").style.display = "none";
+    }
+  });
+});

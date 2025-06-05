@@ -4,19 +4,19 @@
   {{ form.hidden_tag() }}
   <div class="form-row-static">{{ client.company }} - {{ client.city }}</div>
   <div class="form-row">
-    <label for="address">{{ tr['address'] }}:</label>
+    <label>{{ tr['address'] }}:</label>
     {{ form.address(class_="form-field") }}
   </div>
   <div class="form-row">
-    <label for="contact_person">{{ tr['contact_person'] }}:</label>
+    <label>{{ tr['contact_person'] }}:</label>
     {{ form.contact_person(class_="form-field") }}
   </div>
   <div class="form-row">
-    <label for="phone_number">{{ tr['phone_number'] }}:</label>
+    <label>{{ tr['phone_number'] }}:</label>
     {{ form.phone_number(class_="form-field") }}
   </div>
   <div class="form-row">
-    <label for="email">{{ tr['email'] }}:</label>
+    <label>{{ tr['email'] }}:</label>
     {{ form.email(class_="form-field") }}
   </div>
   {{ form.submit(class_="form-button", value=tr['update']) }}

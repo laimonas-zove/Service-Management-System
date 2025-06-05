@@ -15,7 +15,7 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 >
   {{ form.hidden_tag() }}
   <div class="form-row">
-    <label for="task">{{ tr['task'] }}:<span style="color: red">*</span></label>
+    <label>{{ tr['task'] }}:<span style="color: red">*</span></label>
     {{ form.task(class_="form-field", rows=6) }}
   </div>
   {{ form.submit(class_="form-button", value=tr['submit']) }}

@@ -16,30 +16,24 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
   {{ form.hidden_tag() }}
 
   <div class="form-row">
-    <label for="part_number"
-      >{{ tr['part_number'] }}:<span style="color: red">*</span></label
-    >
+    <label>{{ tr['part_number'] }}:<span style="color: red">*</span></label>
     {{ form.part_number(class_="form-field") }}
   </div>
 
   <div class="form-row">
-    <label for="name_en"
-      >{{ tr['name'] }} En<span style="color: red">*</span></label
+    <label>{{ tr['name'] }} En<span style="color: red">*</span></label
     >
     {{ form.name_en(class_="form-field") }}
   </div>
 
   <div class="form-row">
-    <label for="name_lt"
-      >{{ tr['name'] }} Lt:<span style="color: red">*</span></label
+    <label>{{ tr['name'] }} Lt:<span style="color: red">*</span></label
     >
     {{ form.name_lt(class_="form-field") }}
   </div>
 
   <div class="form-row">
-    <label for="price"
-      >{{ tr['price'] }}:<span style="color: red">*</span></label
-    >
+    <label>{{ tr['price'] }}:<span style="color: red">*</span></label>
     {{ form.price(class_="form-field") }}
   </div>
 

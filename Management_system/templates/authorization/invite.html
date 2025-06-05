@@ -11,9 +11,7 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 <form method="POST" class="form-container">
   {{ form.hidden_tag() }}
   <div class="form-row">
-    <label for="phone_number"
-      >{{ tr['email'] }}:<span style="color: red">*</span></label
-    >
+    <label>{{ tr['email'] }}:<span style="color: red">*</span></label>
     {{ form.email(class_="form-field") }}
   </div>
   {{ form.submit(value=tr['submit'], class_="form-button") }}

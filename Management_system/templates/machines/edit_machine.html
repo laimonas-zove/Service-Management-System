@@ -14,23 +14,29 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
   action="{{ lang_url_for('edit_machine_select') }}"
 >
   <div class="form-row">
-    <label>{{ tr['serial_number'] }}:<span style="color: red">*</span></label>
+    <label>{{ tr['serial_number'] }}:<span style="color: red">*</span>
+    </label>
     <input type="hidden" name="lang" value="{{ lang }}" />
-    <input
-      list="machines_list"
-      name="serial_number"
-      id="serial_number"
-      required
-      placeholder="{{ tr['placeholder_serial_number'] }}"
-    />
-
-    <datalist id="machines_list">
-      {% for machine in machines %}
-      <option value="{{ machine.serial_number }}">
-        {{ machine.machine_type.name }}
-      </option>
-      {% endfor %}
-    </datalist>
+    <div class="dropdown">
+      <input
+        type="text"
+        name="serial_number"
+        required
+        placeholder="{{ tr['placeholder_serial_number'] }}"
+        onkeyup="filterFunction(this)"
+        onclick="toggleDropdown(this)"
+        autocomplete="off"
+      />
+      <div id="dropdownList" class="dropdown-content">
+        {% for machine in machines %}
+        <div
+          onclick="selectOption(this.parentElement.previousElementSibling, '{{ machine.serial_number }}')"
+        >
+          {{ machine.serial_number }} - {{ machine.machine_type.name }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
   <button type="submit" class="form-button">{{ tr['search'] }}</button>
 </form>
@@ -48,7 +54,7 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
     action="{{ lang_url_for('edit_machine', serial_number=selected_machine.serial_number) }}"
   >
   <div class="form-row">
-    <label for="client_id">{{ tr['client'] }}:</label>
+    <label>{{ tr['client'] }}:</label>
     <select name="client_id" required>
       {% for client in clients %}
       <option 
@@ -61,7 +67,7 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
   </div>
 
   <div class="form-row">
-    <label for="is_active">{{ tr['is_active'] }}:</label>
+    <label>{{ tr['is_active'] }}:</label>
     <select name="is_active" required>
       <option value="true" {% if selected_machine.is_active %}selected{% endif %}>
         {{ tr['yes'] }}

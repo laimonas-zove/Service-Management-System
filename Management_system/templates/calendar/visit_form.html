@@ -13,14 +13,14 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
   <div class="form-row-static">{{ client.company }} - {{ client.city }}</div>
   {% endif %} {{ form.hidden_tag() }} {% if 'client' in form._fields %}
   <div class="form-row">
-    <label for="client">{{ tr['client'] }}:</label><br />
+    <label>{{ tr['client'] }}:</label><br />
     {{ form.client(class_="form-field") }}
   </div>
   {% endif %}
 
   <div class="form-row">
-    <label for="visit_date">{{ tr['visit_date'] }}:</label
-    ><span style="color: red">*</span><br />
+    <label>{{ tr['visit_date'] }}:</label><span style="color: red">*</span
+    ><br />
     {{ form.date(class_="form-field") }}
   </div>
 

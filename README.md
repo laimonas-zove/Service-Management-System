@@ -64,13 +64,6 @@ Start the server
 
 This starts the application at: (http://127.0.0.1:5000)
 
-Login as administrator
-
-```bash
-  email: admin@interatlas.lt
-  password: admin
-```
-
 ## Running Tests
 
 Tests are written using `pytest`. To run them:
@@ -81,15 +74,17 @@ Tests are written using `pytest`. To run them:
 
 ## Screenshots
 
-Index View
-![Index Screenshot](./Management_system/static/images/Index_view.png)
+<h4>Index View</h4>
+<img src="./Management_system/static/images/Index_view.png" alt="Index Screenshot" width="700"/>
 
-Mobile Index View
-![Index_mobile Screenshot](./Management_system/static/images/Index_view_mobile.png)
+<hr/>
+
+<h4>Mobile Index View</h4>
+<img src="./Management_system/static/images/Index_view_mobile.png" alt="Mobile Screenshot" width="300"/>
 
 ## Demo Video: Navigating the Flask App
 
-[![Watch the video](./Management_system/static/images/Main_view.png)](https://youtu.be/zQJtHI-ed6E)
+[![Watch the video](https://img.youtube.com/vi/VWphKN44ZPY/0.jpg)](https://youtu.be/VWphKN44ZPY)
 
 ## License Notice
 

@@ -15,37 +15,27 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
 >
   {{ form.hidden_tag() }}
   <div class="form-row">
-    <label for="company"
-      >{{ tr['company'] }}:<span style="color: red">*</span></label
-    >
+    <label>{{ tr['company'] }}:<span style="color: red">*</span></label>
     {{ form.company(class_="form-field") }}
   </div>
   <div class="form-row">
-    <label for="address"
-      >{{ tr['address'] }}:<span style="color: red">*</span></label
-    >
+    <label>{{ tr['address'] }}:<span style="color: red">*</span></label>
     {{ form.address(class_="form-field") }}
   </div>
   <div class="form-row">
-    <label for="city">{{ tr['city'] }}:<span style="color: red">*</span></label>
+    <label>{{ tr['city'] }}:<span style="color: red">*</span></label>
     {{ form.city(class_="form-field") }}
   </div>
   <div class="form-row">
-    <label for="contact_person"
-      >{{ tr['contact_person'] }}:<span style="color: red">*</span></label
-    >
+    <label>{{ tr['contact_person'] }}:<span style="color: red">*</span></label>
     {{ form.contact_person(class_="form-field") }}
   </div>
   <div class="form-row">
-    <label for="phone_number"
-      >{{ tr['phone_number'] }}:<span style="color: red">*</span></label
-    >
+    <label>{{ tr['phone_number'] }}:<span style="color: red">*</span></label>
     {{ form.phone_number(class_="form-field") }}
   </div>
   <div class="form-row">
-    <label for="email"
-      >{{ tr['email'] }}:<span style="color: red">*</span></label
-    >
+    <label>{{ tr['email'] }}:<span style="color: red">*</span></label>
     {{ form.email(class_="form-field") }}
   </div>
   {{ form.submit(class_="form-button", value=tr['submit']) }}
