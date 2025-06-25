@@ -19,8 +19,6 @@ Service-Management-System/
 │   ├── test_routes.py        # Routes tests
 │   ├── test_utils.py         # Utility tests
 │   ├── test_localization.py  # Localization tests
-├── instance/
-│   └── interatlas.db         # SQLite database
 ├── logs/
 │   ├── mail_sender.log       # Mail log
 │   └── user_actions.log      # User behavior log

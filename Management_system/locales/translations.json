@@ -767,6 +767,10 @@
     "en": "Not enough parts in inventory, check the quantity!",
     "lt": "Nepakankamas detalės kiekis, patikrinkite kiekį!"
   },
+  "flash_invalid_type": {
+    "en": "Part is not suitable for this machine type!",
+    "lt": "Detalė nėra tinkama šiam mašinos tipui!"
+  },
   "flash_part_replacement_successful": {
     "en": "Part replacement record added successfully!",
     "lt": "Pakeistos detalės įrašas sėkmingai pridėtas!"

@@ -24,6 +24,7 @@ get_flashed_messages(with_categories=true) %} {% if messages %}
       <input
         type="text"
         name="part_number"
+        value="{{ form.part_number.data or '' }}"
         required
         placeholder="{{ tr['placeholder_part_number'] }}"
         onkeyup="filterFunction(this)"

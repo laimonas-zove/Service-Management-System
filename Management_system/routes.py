@@ -933,6 +933,7 @@ def add_replaced_part(lang: str) -> Response:
             part_number = form.part_number.data
 
             part = Part.query.filter_by(part_number=part_number).first()
+            
             if not part:
                 flash(g.tr['flash_part_not_exist'], 'error')
                 return render_template(
@@ -976,6 +977,17 @@ def add_replaced_part(lang: str) -> Response:
 
             if not inventory or inventory.quantity < quantity:
                 flash(g.tr['flash_invalid_quantity'], 'error')
+                return render_template(
+                    '/parts/add_replaced_part.html',
+                    form=form,
+                    parts=parts,
+                    machines=machines
+                )
+            
+            machine_type_names = [mt.name for mt in part.machine_types]
+
+            if machine.machine_type.name not in machine_type_names:
+                flash(g.tr['flash_invalid_type'], "error")
                 return render_template(
                     '/parts/add_replaced_part.html',
                     form=form,
