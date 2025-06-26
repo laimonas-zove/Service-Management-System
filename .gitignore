@@ -4,8 +4,6 @@ __pycache__/
 .env
 .idea/
 logs/
-instance/
-*.db
 *.log
 .coverage
 Management_system/static/downloads/

@@ -19,6 +19,8 @@ Service-Management-System/
 │   ├── test_routes.py        # Routes tests
 │   ├── test_utils.py         # Utility tests
 │   ├── test_localization.py  # Localization tests
+├── instance/
+│   └── demo.db               # Demo SQLite database
 ├── logs/
 │   ├── mail_sender.log       # Mail log
 │   └── user_actions.log      # User behavior log
@@ -54,10 +56,28 @@ Install Required Dependencies
   pip install -r requirements.txt
 ```
 
+Modify config.py with your mail settings
+
+```bash
+  MAIL_SERVER = "smtp.example.com"
+  MAIL_PORT = 587
+  MAIL_USE_TLS = True
+  MAIL_DEFAULT_SENDER = "your_email@example.com"
+  MAIL_USERNAME = "your_email_username"
+  MAIL_PASSWORD = "your_email_password"
+```
+
 Start the server
 
 ```bash
   python run.py
+```
+
+Login as admin
+
+```bash
+  email: admin@interatlas.lt
+  password: admin
 ```
 
 This starts the application at: (http://127.0.0.1:5000)
